@@ -1,17 +1,3 @@
-% Institute of Computer Science thesis template
-% authors: Sven Laur, Liina Kamm
-% last change Tõnu Tamme 09.05.2017
-%--
-% Compilation instructions:
-% 1. Choose main language on line 55-56 (English or Estonian)
-% 2. Compile 1-3 times to get refences right
-% pdflatex bachelors-thesis-template
-% bibtex bachelors-thesis-template
-%--
-% Please use references like this:
-% <text> <non-breaking-space> <cite/ref-command> <punctuation>
-% This is an example~\cite{example}.
-
 \documentclass[12pt]{article}
 
 \usepackage{mystyle}
@@ -30,39 +16,21 @@
 %\phantom{Text to fill the page}
 % END OF EXTRA PAGE WITHOUT NUMBER
 
-
 \subfile{./tex/infoleht}
 
 \newpage
 \tableofcontents
-
 
 % Remember to remove this from the final thesis version
 \newpage
 \listoftodos[Unsolved issues]
 % END OF TODO PAGE 
 
-
 \subfile{./tex/sissejuhatus}
-
-
-
-\subfile{./tex/section2}
-
-
-
-\subfile{./tex/figures}
-
-
-
-\subfile{./tex/otherdata}
-
-
-
+\subfile{./tex/testsisu}
 \subfile{./tex/kokkuvote}
 
 \newpage
-
 % BibTeX bibliography
 \bibliographystyle{alpha} %plain=[1], alpha=[BGZ09]
 \bibliography{./bib/thesis}
@@ -105,7 +73,6 @@
 \addcontentsline{toc}{subsection}{I. Glossary}
 
 \subfile{./tex/litsents}
-
 
 \end{document}
 
