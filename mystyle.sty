@@ -17,7 +17,9 @@
 % Change Babel document elements 
 \addto\captionsestonian{%
   \renewcommand{\refname}{Viidatud kirjandus}%
-  \renewcommand{\appendixname}{Lisad}%
+  \renewcommand{\appendixname}{Lisa}%
+  \renewcommand{\appendixtocname}{Lisad}%
+  \renewcommand{\appendixpagename}{Lisad}%
 }
 
 
@@ -69,7 +71,7 @@
 % Standard package for drawing algorithms
 % Since the thesis in article format we must define \chapter for
 % the package algorithm2e (otherwise obscure errors occur) 
-\let\chapter\section
+%\let\chapter\section
 \usepackage[ruled, vlined, linesnumbered]{algorithm2e}
 % Fix a  set of keywords which you use inside algorithms
 \SetKw{True}{true}
@@ -129,3 +131,5 @@
 
 % Modular documents
 \usepackage{subfiles}
+
+\usepackage[toc,page]{appendix}

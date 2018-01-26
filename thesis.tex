@@ -59,20 +59,21 @@
 
 
 \newpage
-%\appendix
-%\section*{\appendixname}
-\iflanguage{english}%
-  {\section*{Appendix}
-  \addcontentsline{toc}{section}{Appendix}
-  }%
-  {\section*{Lisad}
-  \addcontentsline{toc}{section}{Lisad}}
+\begin{appendices}
+
+% https://tex.stackexchange.com/a/64404
+\makeatletter
+\addtocontents{toc}{\let\protect\l@section\protect\l@subsection}
+\makeatother
+
+\renewcommand\thesection{\Roman{section}}
 
 
-\section*{I. Glossary}
-\addcontentsline{toc}{subsection}{I. Glossary}
+\section{Glossary}
 
 \subfile{./tex/litsents}
+
+\end{appendices}
 
 \end{document}
 
