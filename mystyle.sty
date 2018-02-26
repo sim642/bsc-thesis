@@ -33,6 +33,11 @@
 % alpha --> \usepackage[style=alphabetic]{biblatex}
 %\DefineBibliographyStrings{estonian}{and={ja}}
 %\addbibresource{bachelor-thesis.bib}
+\usepackage[backend=biber,style=numeric,sorting=none,autolang=other]{biblatex}
+\DefineBibliographyStrings{estonian}{%
+	references = {Viidatud kirjandus},
+}
+\addbibresource{./bib/thesis.bib}
 
 
 % General packages for math in general, theorems and symbols 
