@@ -1,0 +1,36 @@
+\documentclass[../thesis.tex]{subfiles}
+
+\begin{document}
+
+\section{Abstraktsed domeenid}
+
+\cite{laan}
+
+\begin{definition}
+\emph{Osaliselt järjestatud hulk} on paar $(A, \sqleq)$, kus $A$ on hulk, millel on defineeritud binaarne seos $\sqleq$, mis iga $a, b, c \in A$ korral rahuldab järgnevaid tingimusi:
+\begin{itemize}[nosep]
+	\item $a \sqleq a$ (refleksiivsus),
+	\item kui $a \sqleq b$ ja $b \sqleq c$, siis $a \sqleq c$ (transitiivsus),
+	\item kui $a \sqleq b$ ja $b \sqleq a$, siis $a = b$ (antisümmeetrilisus).
+\end{itemize}
+\end{definition}
+
+\noindent Olgu $(A, \sqleq)$ järjestatud hulk ja $X \subseteq A$.
+
+\begin{definition}
+Elementi $c$ nimetatakse hulga $X$ \emph{ülemiseks tõkkeks}, kui iga $x \in X$ korral $x \sqleq c$. Vähimat ülemist tõket nimetatakse \emph{ülemiseks rajaks}, st $X$-i iga ülemise tõkke $d$ korral $c \sqleq d$.
+\end{definition}
+
+\begin{definition}
+Elementi $c$ nimetatakse hulga $X$ \emph{alumiseks tõkkeks}, kui iga $x \in X$ korral $c \sqleq x$. Suurimat alumist tõket nimetatakse \emph{alumiseks rajaks}, st $X$-i iga alumise tõkke $d$ korral $d \sqleq c$.
+\end{definition}
+
+Hulga $X$ ülemist ja alumist raja tähistame vastavalt $\bigsqcup X$ ja $\bigsqcap X$. Kui $X = \{a, b\}$, siis tähistame ülemise ja alumise raja vastavalt $a \sqcup b$ ja $a \sqcap b$.
+
+\begin{definition}
+\emph{Täielik võre} on osaliselt järjestatud hulk, mille igal alamhulgal leidub ülemine ja alumine raja.
+\end{definition}
+
+Täielikus võres $(A, \sqleq)$ leidub vähim element $\bot = \bigsqcap A$ ja suurim element $\top = \bigsqcup A$.
+
+\end{document}
