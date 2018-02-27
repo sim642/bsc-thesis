@@ -36,9 +36,15 @@
 % alpha --> \usepackage[style=alphabetic]{biblatex}
 %\DefineBibliographyStrings{estonian}{and={ja}}
 %\addbibresource{bachelor-thesis.bib}
-\usepackage[backend=biber,style=numeric,sorting=none,autolang=other]{biblatex}
+\usepackage[backend=biber,citestyle=numeric-comp,bibstyle=numeric-ut,sorting=none,autolang=other]{biblatex}
 \DefineBibliographyStrings{estonian}{%
 	references = {Viidatud kirjandus},
+	page = {lk},
+	pages = {lk},
+	in = {},
+}
+\DefineBibliographyExtras{estonian}{%
+%	\renewbibmacro*{in:}{} % estonian overrides this badly...
 }
 \addbibresource{./bib/thesis.bib}
 

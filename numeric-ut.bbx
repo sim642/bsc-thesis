@@ -1,0 +1,19 @@
+\ProvidesFile{numeric-ut.bbx}
+[\abx@bbxid]
+
+\RequireBibliographyStyle{numeric-comp}
+
+\ExecuteBibliographyOptions{giveninits=true,doi=false,isbn=false}
+
+\DeclareNameAlias{default}{family-given}
+\renewcommand*{\revsdnamepunct}{} % https://tex.stackexchange.com/a/17593
+
+\DeclareFieldFormat*{title}{#1}
+
+% \renewbibmacro*{in:}{} % estonian overrides this badly...
+
+\DeclareFieldFormat{url}{\url{#1}}
+\DeclareFieldFormat{urldate}{\mkbibparens{#1}}
+
+
+\endinput
