@@ -1,0 +1,26 @@
+\documentclass[thesis.tex]{subfiles}
+
+\begin{document}
+
+\section*{Valdkonna kirjeldus}
+
+\TODO{Veel rohkem taustast, alustada kaugemalt: \textit{static vs dynamic analysis}}
+
+Staatiline programmianalüüs on võimalikult automaatne protsess, mis programmi lähtekoodi põhjal järeldab midagi selle programmi käitumise kohta. Staatilist analüüsi teostatakse mitmel põhjusel. Esiteks, programmi optimeerimise eesmärgil teostatakse analüüsi kompilaatorites, leidmaks kohti programmikoodis, mida on automaatse muudatusega võimalik optimeerida, ilma et sellest muutuks programmi käitumine. Teiseks, programmist vigade leidmise eesmärgil, leidmaks vigu, ilma et oleks tarvis programm käivitada ja vigane olukord esile kutsuda. Kolmandaks, programmi korrektsuse näitamiseks, veendumaks, et programm kindlasti käitub oodatud veatul moel.
+
+\TODO{Mainida alternatiivseid staatilise analüüsi meetodeid}
+\TODO{Nimetada ja viidata olemasolevatele analüsaatoritele}
+Andmevooanalüüs (\emph{data-flow analysis}) on üks intuitiivne meetod staatilise programmianalüüsi teostamiseks. Selle keskseks ideeks on võimalike programmi seisundite, sh sageli muutujate võimalike seisundite, määramine selle programmi punktides. Andmevooanalüüs kasutab programmi juhtimisvoograafi (\emph{control-flow graph}), et järgida programmi seisundi muutumist selle võimalike töövoogude jooksul.
+
+Üldiselt pole võimalik staatilise analüüsiga alati täpselt määrata programmi seisundit, sest see oleks samaväärne programmi käivitamisega. Seetõttu vaadeldakse ligikaudseid seisundeid, mis vastavad konkreetsetele seisunditele. Sellist ligikaudsete seisundite uurimist nimetatakse abstraktseks interpretatsiooniks ja see põhineb rangel teoreetilisel alusel, millel on ligikaudsusele vaatamata head omadused. Nimelt, abstraktse interpretatsiooni teooria lubab, et analüüs on korrektne, st kui uuritavast programmist otsitavat tüüpi viga ei leita, siis võib olla kindel, et seda seal päriselt ka ei ole.
+
+Abstraktse interpretatsiooni korrektsuseks on vajalik, et vaadeldavad ligikaudsed programmi seisundid, mis moodustavadki abstraktse domeeni, rahuldaks teatud algebralisi omadusi, mis võimaldavad andmevooanalüüsi teostada sobiva võrrandisüsteemi lahendamise teel. Seetõttu on hädavajalik, et staatilist analüüsi teostav programm, analüsaator, ise oleks implementeeritud korrektselt, sest vastasel juhul pole teostatavate analüüside tulemused usaldusväärsed ja korrektsed.
+
+Omaduspõhine testimine on testimismeetod, mis on sobib hästi programmi loogika matemaatiliste omaduse kontrollimiseks. Selleks kirjeldatakse kontrollitavad omadused predikaatidena ja neile juhuslike argumentide genereerimise metoodika. Nende kombineerimisel genereeritakse soovitud kogus juhuslike argumentide komplekte, millel leitakse predikaatide väärtused, kinnitades omaduse kehtimist või kummutades selle. Lisaks toetab omaduspõhise testimise raamistik leitud vääravate testjuhtude lihtsustamist.
+
+\TODO{Siduda analüsaatori korrektsus omaduspõhise testimise kasutamisega}
+\TODO{Konkreetselt Goblint-ist}
+
+
+
+\end{document}
