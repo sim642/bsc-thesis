@@ -48,6 +48,15 @@
 \usepackage{amsmath} 
 \usepackage{amsthm}
 \usepackage{amssymb}
+\usepackage{stmaryrd} % \bigsqcap
+% widen, narrow - https://tex.stackexchange.com/a/203931
+\usepackage{scalerel}
+\def\widen{\mathrel{\ThisStyle{\stretchrel*{\ooalign{%
+  \raise0.2\LMex\hbox{$\SavedStyle\sqcup$}\cr%
+  \raise-0.2\LMex\hbox{$\SavedStyle\sqcup$}}}{\sqcup}}}}
+\def\narrow{\mathrel{\ThisStyle{\stretchrel*{\ooalign{%
+  \raise0.2\LMex\hbox{$\SavedStyle\sqcap$}\cr%
+  \raise-0.2\LMex\hbox{$\SavedStyle\sqcap$}}}{\sqcap}}}}
 
 % Optional calligraphic fonts    
 % \usepackage[mathscr]{eucal}
