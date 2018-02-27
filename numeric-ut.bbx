@@ -10,7 +10,7 @@
 
 \DeclareFieldFormat*{title}{#1} % no quotes around title
 
-% \renewbibmacro*{in:}{} % estonian overrides this badly...
+\renewbibmacro*{in:}{} % no In: prefix, estonian overrides this badly... requires workaround
 
 \DeclareFieldFormat{url}{\url{#1}} % no URL: prefix
 \DeclareFieldFormat{urldate}{\mkbibparens{#1}} % no urldate prefix word
