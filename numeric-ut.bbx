@@ -3,17 +3,17 @@
 
 \RequireBibliographyStyle{numeric-comp}
 
-\ExecuteBibliographyOptions{giveninits=true,doi=false,isbn=false}
+\ExecuteBibliographyOptions{giveninits=true,doi=false,isbn=false} % given name initials only
 
-\DeclareNameAlias{default}{family-given}
-\renewcommand*{\revsdnamepunct}{} % https://tex.stackexchange.com/a/17593
+\DeclareNameAlias{default}{family-given} % family name before given name
+\renewcommand*{\revsdnamepunct}{} % no comma after family name - https://tex.stackexchange.com/a/17593
 
-\DeclareFieldFormat*{title}{#1}
+\DeclareFieldFormat*{title}{#1} % no quotes around title
 
 % \renewbibmacro*{in:}{} % estonian overrides this badly...
 
-\DeclareFieldFormat{url}{\url{#1}}
-\DeclareFieldFormat{urldate}{\mkbibparens{#1}}
+\DeclareFieldFormat{url}{\url{#1}} % no URL: prefix
+\DeclareFieldFormat{urldate}{\mkbibparens{#1}} % no urldate prefix word
 
 
 \endinput
