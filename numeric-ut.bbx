@@ -3,7 +3,9 @@
 
 \RequireBibliographyStyle{numeric-comp}
 
-\ExecuteBibliographyOptions{giveninits=true,doi=false,isbn=false} % given name initials only
+\ExecuteBibliographyOptions{giveninits=true} % given name initials only
+\ExecuteBibliographyOptions{doi=false,isbn=false} % no DOI, ISBN
+\ExecuteBibliographyOptions{maxbibnames=5,maxcitenames=2}
 
 \DeclareNameAlias{default}{family-given} % family name before given name
 \renewcommand*{\revsdnamepunct}{} % no comma after family name - https://tex.stackexchange.com/a/17593
