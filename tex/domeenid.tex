@@ -4,10 +4,18 @@
 
 \section{Abstraktsed domeenid}
 
+Andmevooanalüüsiga püütakse võimalikult täpselt määrata programmi seisundit igas programmi punktis.
+
+\begin{definition}
+\emph{Domeeniks} nimetatakse programmi kõikvõimalike seisundite hulka~\cite{vojdani_magister}.
+\end{definition}
+
+Selline informaalne definitsioon on ebapiisav mingisuguse teooria arendamiseks, mistõttu tegelikult vaadetakse domeene, mis moodustavad täieliku võre.
 
 \subsection{Võred}
 
-Järgnevad eestikeelsed definitsioonid on refereeritud V. Laane loengukonspektist~\cite{laan_voreteooria}, kuid tähistused on kohandatud programmianalüüsi kirjandusele omaseks \cite[17]{seidl_foundations}:
+Kuigi võreteooria on arvestatav matemaatika haru, siis sügavamale laskumata on siin toodud põhilised mõisted võrede mõistmiseks.
+Järgnevad eestikeelsed definitsioonid on refereeritud V. Laane loengukonspektist~\cite{laan_voreteooria}, kuid tähistused on kohandatud programmianalüüsi kirjandusele omaseks~\cite[17]{seidl_foundations}:
 
 \begin{definition}
 \emph{Osaliselt järjestatud hulk} on paar $(A, \sqleq)$, kus $A$ on hulk, millel on defineeritud binaarne seos $\sqleq$, mis iga $a, b, c \in A$ korral rahuldab järgnevaid tingimusi:
@@ -18,7 +26,7 @@ Järgnevad eestikeelsed definitsioonid on refereeritud V. Laane loengukonspektis
 \end{itemize}
 \end{definition}
 
-\noindent Olgu $(A, \sqleq)$ osaliselt järjestatud hulk ja $X \subseteq A$.
+Olgu $(A, \sqleq)$ osaliselt järjestatud hulk ja $X \subseteq A$.
 
 \begin{definition}
 Elementi $c$ nimetatakse hulga $X$ \emph{ülemiseks tõkkeks}, kui iga $x \in X$ korral $x \sqleq c$. Vähimat ülemist tõket nimetatakse \emph{ülemiseks rajaks}, st $X$-i iga ülemise tõkke $d$ korral $c \sqleq d$.
@@ -35,5 +43,14 @@ Hulga $X$ ülemist ja alumist raja tähistame vastavalt $\bigsqcup X$ ja $\bigsq
 \end{definition}
 
 Täielikus võres $(A, \sqleq)$ leidub vähim element $\bot = \bigsqcap A$ ja suurim element $\top = \bigsqcup A$, mida nimetatakse vastavalt \textit{bottom}iks ja \textit{top}iks.
+
+\subsubsection{Motivatsioon}
+Kui nõuda, et domeen oleks täielik võre, siis pole ilmselge, mis rolli täidab sellel vaadeldav järjestus ja rajad.
+
+Seisundite hulga vaatlemiseks võrena on vaja defineerida seisundite osaline järjestus. Kokkuleppeliselt järjestatakse seisundid täpsemast ebatäpsema suunas --- kirjutis $a \sqleq b$ tähendab, et seisund $a$ on vähemalt sama täpne kui seisund $b$ ning $b$ on vähemalt sama üldine kui $a$. Seega $\top$ tähistab kõige ebatäpsemat seisundit.
+
+Sellise järjestuse korral seisundite ülemine raja kujutab endast nende seisundite ühendamist.
+\TODO{\textit{join}i intuitsioon}
+
 
 \end{document}
