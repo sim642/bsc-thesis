@@ -53,4 +53,21 @@ Sellise järjestuse korral seisundite ülemine raja kujutab endast nende seisund
 \TODO{\textit{join}i intuitsioon}
 
 
+\subsection{Intervalldomeen}
+Intervalldomeen on domeen, milles täisarvude väärtuste abstraheerimiseks kasutatakse arvtelje lõike.
+
+\begin{definition}
+\emph{Intervalldomeeniks}~\cite[55]{seidl_foundations} nimetatakse hulka
+\[
+	\mathbb{I} = \{ [l, u] \mid l \in \mathbb{Z} \cup \{-\infty\}, u \in \mathbb{Z} \cup \{+\infty\}, l \leq u \},
+\]
+millel on osaline järjestus
+\[
+	[l_1, u_1] \sqleq [l_2, u_2] \quad\Longleftrightarrow\quad l_2 \leq l_1 \land u_1 \leq u_2.
+\]
+\end{definition}
+
+\TODO{$\mathbb{I}$ pole täielik võre! vaja eraldi võre definitsiooni?}
+
+
 \end{document}
