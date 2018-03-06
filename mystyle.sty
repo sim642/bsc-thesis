@@ -52,6 +52,7 @@
 
 % Print a dot instead of colon in table or figure captions
 \usepackage[labelsep=period]{caption}
+\usepackage{subcaption}
 
 % Packages for building tables and tabulars 
 \usepackage{array}
@@ -129,8 +130,16 @@
   morekeywords={*,game, fun}       % if you want to add more keywords to the set
 }
 
+\usepackage[cache=false,outputdir=build]{minted}
+\setminted{
+	autogobble=true,
+	tabsize=4
+}
+
 % If you really want to draw figures in LaTeX use packages tikz or pstricks
 % However, getting a corresponding illustrations is really painful  
+\usepackage{tikz}
+\usetikzlibrary{positioning}
 
 % Nice Todo box
 \newcommand{\TODO}{\todo[inline]}
