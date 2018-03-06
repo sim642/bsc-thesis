@@ -124,8 +124,31 @@ Olgu vaatluse all programm jooniselt~\ref{lst:if}, kus on kõrvuti C-keelse läh
 	\item Punktis 6 on olukord huvitavam, sest seda seisundit pole programmis oleva hargnemise (täpsemalt selle ühendumise) tõttu kirjeldada ühe täisarvuga, vaid elemendiga $\{3, 5\}$. Selle tulemuseni jõudmiseks peab intuitiivselt ühendama eelneva kahe punkti seisundid --- leidma seisundi, mis hõlmaks eelnevaid, olles seejuures võimalikult täpne. Just selleks nõutaksegi ülemise raja leidmise tehet, millega seda teha. Antud juhul $\{3\} \sqcup \{5\} = \{3, 5\}$.
 \end{itemize}
 
-Näitest peaks olema selge, miks üldse nõuda, et domeen oleks võre, ja millised võimalused see annab domeeni kasutamiseks programmide analüüsimisel.
+Näitest peaks olema selge, miks üldse nõuda, et domeen oleks võre, ja millised võimalused see annab domeeni kasutamiseks programmide analüüsimisel. Kirjeldatud näide analüüsis ainult muutujat \texttt{x} ja jättis täielikult kõrvale muutuja \texttt{y}. Loomulikult võiks analüüs midagi öelda ka selle kohta.
 
+\TODO{Näide tervest analüüsist: +üleminekufunktsioonid +võrratuste süsteem +süsteemi lahendamine. Sama näite peal?}
+
+\subsection{Kujutusdomeen}
+\TODO{\textit{mapdomain} --- funktsioondomeen? kujutusdomeen?}
+Olgu $\Var$ programmi muutujate hulk ja $\Val$ domeen, milles vaadeldakse ühe muutuja seisundit. Sel juhul saab vaadelda abstraktsete muutujate väärtustuste domeeni~\cite[45]{seidl_foundations}
+\[
+	\mathbb{D} = (\Var \to \Val)_\bot = (\Var \to \Val) \cup \{\bot\}.
+\]
+Domeeni elementideks on kujutused muutujate hulgast abstraktsete väärtuste hulka, mis on väga analoogilised konkreetsete muutujate väärtustustega funktsionaalselt kirjeldatuna. Element $\bot$ on tehislikult lisatud, et domeen moodustaks täieliku võre, ja tähendab hetkel teadaolevalt saavutamatut programmi punkti. Osaline järjestus selles domeenis on defineeritud järgnevaga:
+\[
+	D_1 \sqleq D_2 \quad\Longleftrightarrow\quad D_1 = \bot \quad\lor\quad \forall x \in \Var\; D_1(x) \sqleq D_2(x).
+\]
+
+Eelnevas näites $\Var = \{\texttt{x}, \texttt{y}\}$ ja jätkamiseks sobib juba nähtud $\Val = \powerset{\mathbb{Z}}$. Analüüsides programmi jooniselt~\ref{lst:if} nüüd selles domeenis, saame seisundid:
+\begin{itemize}
+	\item Punktides 1, 2 ja 3: $\{ \texttt{x} \mapsto \top, \texttt{y} \mapsto \top \}$.
+	\item Punktis 4: $\{ \texttt{x} \mapsto \{5\}, \texttt{y} \mapsto \top \}$.
+	\item Punktis 5: $\{ \texttt{x} \mapsto \{3\}, \texttt{y} \mapsto \top \}$.
+	\item Punktis 6: $\{ \texttt{x} \mapsto \{3, 5\}, \texttt{y} \mapsto \top \}$.
+	\item Punktis 7: $\{ \texttt{x} \mapsto \{3, 5\}, \texttt{y} \mapsto \{4, 6\} \}$, sest muutuja \texttt{y} on avaldatud \texttt{x}-i kaudu, mis on juba analüüsitud.
+\end{itemize}
+
+Siit selgubki, et väikese vaevaga on võimalik lihtsam ühte muutujat korraga kirjeldav domeen laiendada kõigile muutujatele korraga. Seejuures muutub võimalikuks järgida andmete liikumist muutujate vahel, mis vastab juba paremini andmevooanalüüsi nimele.
 
 \subsection{Intervalldomeen}
 Intervalldomeen on domeen, milles täisarvude väärtuste abstraheerimiseks kasutatakse arvtelje lõike.
