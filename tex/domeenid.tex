@@ -110,12 +110,21 @@ Osutub, et see on ka täielik võre, kus
 		\caption{Juhtimisvoograaf}
 	\end{subfigure}
 
-	\caption{Tsüklita programmi näidis}
+	\caption{Tsüklita programmi näidis.}
 	\label{lst:if}
 \end{figure}
 
-Olgu vaatluse all programm jooniselt~\ref{lst:if}.
-\TODO{CFG valmis teha enne kui sellest saab rääkida}
+Olgu vaatluse all programm jooniselt~\ref{lst:if}, kus on kõrvuti C-keelse lähtekoodi jupp ja selle juhtimisvoograaf, mille tippudes on programmi punktid, kus seisundeid vaadeldakse, ja servadel vastavad laused, mida täidetakse. Muutuja \texttt{x} võimalikke väärtusi ehk selle seisundeid saab analüüsida domeenis $(\powerset{\mathbb{Z}}, \subseteq)$:
+\begin{itemize}
+	\item Punktides 1, 2 ja 3 on muutuja veel väärtustamata. Kuna C keele semantika sellisel juhul mingit vaikeväärtust ei anna, siis võimalikke väärtusi kirjeldab kõige ebatäpsem domeeni element $\top = \mathbb{Z}$.
+	\item Punktis 4 on muutujale just antud konstantne väärtus, mistõttu seda kirjeldab kõige paremini element $\{5\}$.
+
+		Iseenesest poleks vale seostada selle programmi punktiga mõnda (osalise järjestuse järgi) üldisemat seisundit, nt $\{5, 6, 7\}$ või lausa $\top$, kuid see poleks nii kasulik, sest analüüsi mõte on siiski leida võimalikult täpne kirjeldus. Just selle täpsuse matemaatiliseks kirjeldamiseks nõutaksegi osalist järjestust.
+	\item Punktiga 5 sobib samal põhjusel seostada element $\{3\}$.
+	\item Punktis 6 on olukord huvitavam, sest seda seisundit pole programmis oleva hargnemise (täpsemalt selle ühendumise) tõttu kirjeldada ühe täisarvuga, vaid elemendiga $\{3, 5\}$. Selle tulemuseni jõudmiseks peab intuitiivselt ühendama eelneva kahe punkti seisundid --- leidma seisundi, mis hõlmaks eelnevaid, olles seejuures võimalikult täpne. Just selleks nõutaksegi ülemise raja leidmise tehet, millega seda teha. Antud juhul $\{3\} \sqcup \{5\} = \{3, 5\}$.
+\end{itemize}
+
+Näitest peaks olema selge, miks üldse nõuda, et domeen oleks võre, ja millised võimalused see annab domeeni kasutamiseks programmide analüüsimisel.
 
 
 \subsection{Intervalldomeen}
