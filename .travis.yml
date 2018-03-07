@@ -6,4 +6,4 @@ before_install:
   - sudo apt-get install -y --no-install-recommends texlive-latex-base texlive-latex-extra texlive-latex-recommended texlive-fonts-recommended texlive-fonts-extra latexmk
 
 script:
-  - latexmk -pdf thesis.tex
+  - latexmk -pdf -halt-on-error thesis.tex
