@@ -114,6 +114,8 @@ Osutub, et see on ka täielik võre, kus
 	\label{lst:if}
 \end{figure}
 
+Hulk $X$ kirjeldab täisarvu $z$ parajasti siis, kui $z \in X$. Sellega on defineeritud, kuidas peaks seostama domeeni elemente konkreetsete võimalike väärtustega.
+
 Olgu vaatluse all programm jooniselt~\ref{lst:if}, kus on kõrvuti C-keelse lähtekoodi jupp ja selle juhtimisvoograaf, mille tippudes on programmi punktid, kus seisundeid vaadeldakse, ja servadel vastavad laused, mida täidetakse. Muutuja \texttt{x} võimalikke väärtusi ehk selle seisundeid saab analüüsida domeenis $(\powerset{\mathbb{Z}}, \subseteq)$:
 \begin{itemize}
 	\item Punktides 1, 2 ja 3 on muutuja veel väärtustamata. Kuna C keele semantika sellisel juhul mingit vaikeväärtust ei anna, siis võimalikke väärtusi kirjeldab kõige ebatäpsem domeeni element $\top = \mathbb{Z}$.
@@ -138,6 +140,7 @@ Domeeni elementideks on kujutused muutujate hulgast abstraktsete väärtuste hul
 \[
 	D_1 \sqleq D_2 \quad\Longleftrightarrow\quad D_1 = \bot \quad\lor\quad \forall x \in \Var\; D_1(x) \sqleq D_2(x).
 \]
+\TODO{Tehted kujutustel, $\top$?}
 
 Eelnevas näites $\Var = \{\texttt{x}, \texttt{y}\}$ ja jätkamiseks sobib juba nähtud $\Val = \powerset{\mathbb{Z}}$. Analüüsides programmi jooniselt~\ref{lst:if} nüüd selles domeenis, saame seisundid:
 \begin{itemize}
@@ -146,6 +149,7 @@ Eelnevas näites $\Var = \{\texttt{x}, \texttt{y}\}$ ja jätkamiseks sobib juba 
 	\item Punktis 5: $\{ \texttt{x} \mapsto \{3\}, \texttt{y} \mapsto \top \}$.
 	\item Punktis 6: $\{ \texttt{x} \mapsto \{3, 5\}, \texttt{y} \mapsto \top \}$.
 	\item Punktis 7: $\{ \texttt{x} \mapsto \{3, 5\}, \texttt{y} \mapsto \{4, 6\} \}$, sest muutuja \texttt{y} on avaldatud \texttt{x}-i kaudu, mis on juba analüüsitud.
+	\TODO{Abstraktne liitmistehe}
 \end{itemize}
 
 Siit selgubki, et väikese vaevaga on võimalik lihtsam ühte muutujat korraga kirjeldav domeen laiendada kõigile muutujatele korraga. Seejuures muutub võimalikuks järgida andmete liikumist muutujate vahel, mis vastab juba paremini andmevooanalüüsi nimele.
@@ -166,15 +170,22 @@ millel on osaline järjestus
 \]
 \end{definition}
 
+Sellises domeenis
+\[
+	[l_1, u_1] \sqcup [l_2, u_2] = [\min\{l_1, l_2\}, \max\{u_1, u_2\}].
+\]
+
 \TODO{$\mathbb{I}$ pole täielik võre! vaja eraldi võre definitsiooni?}
 Lõigu otspunktides on lubatud vastavad lõpmatust kirjeldavad väärtused, mis võimaldavad rääkida selles domeenis suurimast elemendist $\top = [-\infty, +\infty]$.
 
-Valides eelnevas näites jooniselt~\ref{lst:if} $\Var = \mathbb{I}$, saame seisundid analoogiliselt:
+Lõik $[l, u]$ kirjeldab täisarvu $z$ parajasti siis, kui $l \leq z \leq u$.
+
+Valides eelnevas joonisel~\ref{lst:if} tehtud näites $\Var = \mathbb{I}$, saame seisundid analoogiliselt:
 \begin{itemize}
 	\item Punktides 1, 2 ja 3: $\{ \texttt{x} \mapsto \top, \texttt{y} \mapsto \top \}$.
 	\item Punktis 4: $\{ \texttt{x} \mapsto [5, 5], \texttt{y} \mapsto \top \}$.
 	\item Punktis 5: $\{ \texttt{x} \mapsto [3, 3], \texttt{y} \mapsto \top \}$.
-	\item Punktis 6: $\{ \texttt{x} \mapsto [3, 5], \texttt{y} \mapsto \top \}$.
+	\item Punktis 6: $\{ \texttt{x} \mapsto [3, 5], \texttt{y} \mapsto \top \}$, kus \texttt{x}-i seisundi saab avaldada harudes olevatest: $[3, 3] \sqcup [5, 5] = [3, 5]$.
 	\item Punktis 7: $\{ \texttt{x} \mapsto [3, 5], \texttt{y} \mapsto [4, 6] \}$.
 \end{itemize}
 
