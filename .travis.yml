@@ -1,0 +1,7 @@
+before_install:
+  - sudo add-apt-repository ppa:jonathonf/texlive
+  - sudo apt-get -qq update
+  - sudo apt-get install -y texlive-latex-base latexmk
+
+script:
+  - latexmk -pdf thesis.tex
