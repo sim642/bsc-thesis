@@ -6,6 +6,7 @@ before_install:
 #   - sudo add-apt-repository -y ppa:jonathonf/texlive
 #   - sudo apt-get -qq update
 #   - sudo apt-get install -y --no-install-recommends texlive-latex-base texlive-latex-extra texlive-latex-recommended texlive-fonts-recommended texlive-fonts-extra texlive-lang-european texlive-bibtex-extra biber texlive-science latexmk
+  - tlmgr init-usertree
   - tlmgr install inconsolata
   - pip3 install Pygments
 
@@ -24,6 +25,7 @@ addons:
       - biber
       - texlive-science
       - latexmk
+      - xzdec # maybe not needed for tlmgr?
 
 script:
   - latexmk -pdf -halt-on-error thesis.tex
