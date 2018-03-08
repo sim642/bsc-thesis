@@ -1,9 +1,25 @@
 language: generic
 
-before_install:
-  - sudo add-apt-repository -y ppa:jonathonf/texlive
-  - sudo apt-get -qq update
-  - sudo apt-get install -y --no-install-recommends texlive-latex-base texlive-latex-extra texlive-latex-recommended texlive-fonts-recommended texlive-fonts-extra texlive-lang-european texlive-bibtex-extra biber texlive-science latexmk
+# before_install:
+#   - sudo add-apt-repository -y ppa:jonathonf/texlive
+#   - sudo apt-get -qq update
+#   - sudo apt-get install -y --no-install-recommends texlive-latex-base texlive-latex-extra texlive-latex-recommended texlive-fonts-recommended texlive-fonts-extra texlive-lang-european texlive-bibtex-extra biber texlive-science latexmk
+
+addons:
+  apt:
+    sources:
+      - sourceline: 'ppa:jonathonf/texlive'
+    packages:
+      - texlive-latex-base
+      - texlive-latex-extra
+      - texlive-latex-recommended
+      - texlive-fonts-recommended
+      - texlive-fonts-extra
+      - texlive-lang-european
+      - texlive-bibtex-extra
+      - biber
+      - texlive-science
+      - latexmk
 
 script:
   - latexmk -pdf -halt-on-error thesis.tex
