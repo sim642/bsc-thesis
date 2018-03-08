@@ -31,3 +31,13 @@ addons:
 script:
   - latexmk -pdf -halt-on-error thesis.tex
   # - latexmk -output-directory=build -aux-directory=build -pdf -halt-on-error thesis.tex
+
+deploy:
+  provider: pages
+  skip-cleanup: true
+  github-token: $GITHUB_TOKEN
+  keep-history: true
+  local-dir: build
+  on:
+    # branch: master
+    all_branches: true # TODO remove
