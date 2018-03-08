@@ -8,7 +8,7 @@ before_install:
 #   - sudo apt-get install -y --no-install-recommends texlive-latex-base texlive-latex-extra texlive-latex-recommended texlive-fonts-recommended texlive-fonts-extra texlive-lang-european texlive-bibtex-extra biber texlive-science latexmk
   - tlmgr init-usertree
   - tlmgr install inconsolata
-  - pip3 install Pygments
+  # - pip3 install Pygments
 
 addons:
   apt:
@@ -26,6 +26,7 @@ addons:
       - texlive-science
       - latexmk
       - xzdec # maybe not needed for tlmgr?
+      - python-pygments
 
 script:
   - latexmk -pdf -halt-on-error thesis.tex
