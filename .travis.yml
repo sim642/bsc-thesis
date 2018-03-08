@@ -30,3 +30,4 @@ addons:
 
 script:
   - latexmk -pdf -halt-on-error thesis.tex
+  # - latexmk -output-directory=build -aux-directory=build -pdf -halt-on-error thesis.tex
