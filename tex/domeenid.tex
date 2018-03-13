@@ -3,6 +3,7 @@
 \begin{document}
 
 \section{Abstraktsed domeenid}
+\TODO{Pikem üleminek sissejuhatusest domeenide juurde}
 
 Andmevooanalüüsiga püütakse võimalikult täpselt määrata programmi seisundit igas programmi punktis.
 
@@ -13,6 +14,7 @@ Andmevooanalüüsiga püütakse võimalikult täpselt määrata programmi seisun
 Selline informaalne definitsioon on ebapiisav mingisuguse teooria arendamiseks, mistõttu tegelikult vaadetakse domeene, mis moodustavad täieliku võre.
 
 \subsection{Võred}
+\TODO{Hunnik definitsioone ehmatab ära, näide on palju lihtsamini mõistetav. Muuta järjekorda?}
 
 Kuigi võreteooria on arvestatav matemaatika haru, siis sügavamale laskumata on siin toodud põhilised mõisted võrede mõistmiseks.
 Järgnevad eestikeelsed definitsioonid on refereeritud V. Laane loengukonspektist~\cite{laan_voreteooria}, kuid tähistused on kohandatud programmianalüüsi kirjandusele omaseks~\cite[17]{seidl_foundations}:
@@ -45,6 +47,7 @@ Hulga $X$ ülemist ja alumist raja tähistame vastavalt $\bigsqcup X$ ja $\bigsq
 Täielikus võres $(A, \sqleq)$ leidub vähim element $\bot = \bigsqcap A$ ja suurim element $\top = \bigsqcup A$, mida nimetatakse vastavalt \textit{bottom}iks ja \textit{top}iks.
 
 \subsubsection{Motivatsioon}
+\TODO{Jätta ära. Samad selgitused näite juures on palju selgemad.}
 Kui nõuda, et domeen oleks täielik võre, siis pole ilmselge, mis rolli täidab sellel vaadeldav järjestus ja rajad.
 
 Seisundite hulga vaatlemiseks võrena on vaja defineerida seisundite osaline järjestus. Kokkuleppeliselt järjestatakse seisundid täpsemast ebatäpsema suunas --- kirjutis $a \sqleq b$ tähendab, et seisund $a$ on vähemalt sama täpne kui seisund $b$ ning $b$ on vähemalt sama üldine kui $a$. Seega $\top$ tähistab kõige ebatäpsemat seisundit.
@@ -76,6 +79,7 @@ Osutub, et see on ka täielik võre, kus
 			x = 3;
 		int y = x + 1;
 		\end{minted}
+		\TODO{kood eraldi faili?}
 		\caption{C-keelne lähtekood}
 	\end{subfigure}
 	~
@@ -107,6 +111,7 @@ Osutub, et see on ka täielik võre, kus
 				(6) edge node[stmt,right] {y = x + 1} (7);
 		\end{tikzpicture}
 		\TODO{programmi laused tippudes või servades?}
+		\TODO{tikz eraldi .tex faili?}
 		\caption{Juhtimisvoograaf}
 	\end{subfigure}
 
@@ -114,7 +119,7 @@ Osutub, et see on ka täielik võre, kus
 	\label{lst:if}
 \end{figure}
 
-Hulk $X$ kirjeldab täisarvu $z$ parajasti siis, kui $z \in X$. Sellega on defineeritud, kuidas peaks seostama domeeni elemente konkreetsete võimalike väärtustega.
+Hulk $X$ kirjeldab väärtust $z$ parajasti siis, kui $z \in X$. Sellega on defineeritud, kuidas peaks seostama domeeni elemente konkreetsete võimalike väärtustega.
 
 Olgu vaatluse all programm jooniselt~\ref{lst:if}, kus on kõrvuti C-keelse lähtekoodi jupp ja selle juhtimisvoograaf, mille tippudes on programmi punktid, kus seisundeid vaadeldakse, ja servadel vastavad laused, mida täidetakse. Muutuja \texttt{x} võimalikke väärtusi ehk selle seisundeid saab analüüsida domeenis $(\powerset{\mathbb{Z}}, \subseteq)$:
 \begin{itemize}
