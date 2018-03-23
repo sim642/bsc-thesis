@@ -1,0 +1,48 @@
+\documentclass[../thesis.tex]{subfiles}
+
+\begin{document}
+
+\section{Domeeni omadused}
+
+\subsection{Võre omadused}
+Olgu $\mathbb{D}$ täielik võre, siis iga $a, b, c \in \mathbb{D}$ korral peavad kehtima järgnevad tingimused:
+
+\paragraph{Osalise järjestuse omadused} (definitsioonist~\ref{def:järjestatud_hulk})
+\begin{itemize}[nosep]
+	\item $a \sqleq a$ (refleksiivsus);
+	\item kui $a \sqleq b$ ja $b \sqleq c$, siis $a \sqleq c$ (transitiivsus);
+	\item kui $a \sqleq b$ ja $b \sqleq a$, siis $a = b$ (antisümmeetrilisus);
+\end{itemize}
+
+\paragraph{Rajade omadused}
+\begin{itemize}[nosep]
+	\item $a \sqleq a \sqcup b$ ja $b \sqleq a \sqcup b$ (definitsioonist~\ref{def:join});
+	\item $a \sqcap b \sqleq a$ ja $a \sqcap b \sqleq b$ (definitsioonist~\ref{def:meet});
+\end{itemize}
+
+\paragraph{Rajade tehete omadused}~\cites[6]{laan_voreteooria}[39]{davey_lattices}
+\begin{itemize}[nosep]
+	\item $(a \sqcup b) \sqcup c = a \sqcup (b \sqcup c)$ ja $(a \sqcap b) \sqcap c = a \sqcap (b \sqcap c)$ (assotsiatiivsus);
+	\item $a \sqcup b = b \sqcup a$ ja $a \sqcap b = b \sqcap a$ (kommutatiivsus);
+	\item $a \sqcup a = a$ ja $a \sqcap a = a$ (idempotentsus);
+	\item $a \sqcup (a \sqcap b) = a$ ja $a \sqcap (a \sqcup b) = a$ (neelduvus);
+\end{itemize}
+
+\paragraph{Vähima ja suurima elemendi omadused}
+\begin{itemize}[nosep]
+	\item $\bot \sqleq a$;
+	\item $a \sqleq \top$;
+	\item $a \sqcup \bot = a$;
+	\item $a \sqcap \top = a$;
+\end{itemize}
+
+\paragraph{Järjestuse ja rajade tehete seosed}
+Järgnevad on ekvivalentsed~\cite[39]{davey_lattices}:
+\begin{enumerate}[nosep]
+	\item $a \sqleq b$,
+	\item $a \sqcup b = b$,
+	\item $a \sqcap b = a$.
+\end{enumerate}
+
+
+\end{document}

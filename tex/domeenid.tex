@@ -20,6 +20,7 @@ Kuigi võreteooria on arvestatav matemaatika haru, siis sügavamale laskumata on
 Järgnevad eestikeelsed definitsioonid on refereeritud V. Laane loengukonspektist~\cite{laan_voreteooria}, kuid tähistused on kohandatud programmianalüüsi kirjandusele omaseks~\cite[17]{seidl_foundations}:
 
 \begin{definition}
+\label{def:järjestatud_hulk}
 \emph{Osaliselt järjestatud hulk} on paar $(A, \sqleq)$, kus $A$ on hulk, millel on defineeritud binaarne seos $\sqleq$, mis iga $a, b, c \in A$ korral rahuldab järgnevaid tingimusi:
 \begin{itemize}[nosep]
 	\item $a \sqleq a$ (refleksiivsus),
@@ -31,10 +32,12 @@ Järgnevad eestikeelsed definitsioonid on refereeritud V. Laane loengukonspektis
 Olgu $(A, \sqleq)$ osaliselt järjestatud hulk ja $X \subseteq A$.
 
 \begin{definition}
+\label{def:join}
 Elementi $c$ nimetatakse hulga $X$ \emph{ülemiseks tõkkeks}, kui iga $x \in X$ korral $x \sqleq c$. Vähimat ülemist tõket nimetatakse \emph{ülemiseks rajaks}, st $X$-i iga ülemise tõkke $d$ korral $c \sqleq d$.
 \end{definition}
 
 \begin{definition}
+\label{def:meet}
 Elementi $c$ nimetatakse hulga $X$ \emph{alumiseks tõkkeks}, kui iga $x \in X$ korral $c \sqleq x$. Suurimat alumist tõket nimetatakse \emph{alumiseks rajaks}, st $X$-i iga alumise tõkke $d$ korral $d \sqleq c$.
 \end{definition}
 
