@@ -156,12 +156,11 @@ Viiendaks saab moodustada kõigist võrratustest süsteemi, kus iga muutuja on v
 		x_n \sqgeq f_n(x_1, \ldots, x_n).
 	\end{cases}
 \]
-Sama saab lühemalt kirja panna, kui vaadelda hoopis täielikku võre $\mathbb{D}^n$, mille elementide positsioonil $i$ on programmi punkti $i$ seisund. Selle võre tehted on defineeritud punktiviisiliselt. Sellises võres on muutujaks $x = (x_1, \ldots, x_n)$ ning üleminekufunktsioonid ühendatud kokku ühte funktsiooni $f(x_1, \ldots, x_n) = (y_1, \ldots, y_n)$, kus $y_i = f_i(x_1, \ldots, x_n)$. Sellega on kogu eelnev võrratuste süsteem ühendatud üheks ainsaks võrratuseks $x \sqgeq f(x)$.
+Sama saab lühemalt kirja panna, kui vaadelda hoopis täielikku võre $\mathbb{D}^n$, mille elementide positsioonil $i$ on programmi punkti $i$ seisund. Selle võre tehted on defineeritud punktiviisiliselt. Sellises võres on muutujaks $\bar{x} = (x_1, \ldots, x_n)$ ning üleminekufunktsioonid ühendatud kokku ühte funktsiooni $\bar{f}(\bar{x}) = (f_1(\bar{x}), \ldots, f_n(\bar{x}))$. Sellega on kogu eelnev võrratuste süsteem ühendatud üheks ainsaks võrratuseks $\bar{x} \sqgeq \bar{f}(\bar{x})$.
 
 Kuuendaks tuleb saadud võrratusele (ehk kaudselt algsele võrratuste süsteemile) leida vähim lahend. Selle iga lahend on üks korrektne analüüs, mis iga programmi punkti kohta sisaldab selle abstraktset seisundit. Vähim sobiv lahend on ühtlasi täpseim võimalik analüüs, ehk see, millest enim kasu oleks.
 
-See on samaväärne võrrandi $x = x \sqcup f(x)$ vähima lahendi leidmisega. Selleks on kõige lihtsam iteratiivne algoritm, mis alustab väärtusega $x_0' = \bot = (\bot, \ldots, \bot)$ ja järjest iga $x_i'$ korral arvutab $x_{i+1}' = x_i' \sqcup f(x_i')$ kuni lõpuks jõutakse nii kaugele, et mingi $i$ korral $x_i' = x_{i+1}'$, st funktsiooni väärtused stabiliseeruvad ja funktsiooni edasi rakendamine tulemust ei muuda. Leitud lahendist ongi võimalik välja lugeda analüüsi tulemused iga programmi punkti jaoks.
-\TODO{Parem tähistus kui $x$-i kasutamine kõigeks.}
+Saab näidata, et see on samaväärne võrrandi $\bar{x} = \bar{f}(\bar{x})$ vähima lahendi leidmisega~\cite[21]{seidl_foundations}, mida nimetatakse ka vähima püsipunkti leidmiseks. Selleks on kõige lihtsam iteratiivne algoritm, mis alustab väärtusega $\bar{x}_0 = \overline{\bot} = (\bot, \ldots, \bot)$ ja järjest iga $\bar{x}_i$ korral arvutab $\bar{x}_{i+1} = \bar{f}(\bar{x}_i)$ kuni lõpuks jõutakse nii kaugele, et mingi $i$ korral $\bar{x}_i = \bar{x}_{i+1}$, st funktsiooni väärtused stabiliseeruvad ja funktsiooni edasi rakendamine tulemust ei muuda. Leitud lahendist ongi võimalik välja lugeda analüüsi tulemused iga programmi punkti jaoks.
 \TODO{Mainida paremaid algoritme}
 \TODO{Viidata korrektsusele}
 
@@ -181,14 +180,14 @@ Eelnevas näites oleks võrratuste ja võrrandite süsteemid järgnevad:
 	\end{cases}
 	\qquad \text{ja} \qquad
 	\begin{cases}
-		x_1 = x_1 \sqcup \top \\
-		x_2 = x_2 \sqcup x_1 \\
-		x_3 = x_3 \sqcup x_1 \\
-		x_4 = x_4 \sqcup \{5\} \\
-		x_5 = x_5 \sqcup \{3\} \\
-		x_6 = x_6 \sqcup x_4 \sqcup x_5 \\
-		x_7 = x_7 \sqcup x_6
-	\end{cases}
+		x_1 = \top \\
+		x_2 = x_1 \\
+		x_3 = x_1 \\
+		x_4 = \{5\} \\
+		x_5 = \{3\} \\
+		x_6 = x_4 \sqcup x_5 \\
+		x_7 = x_6
+	\end{cases}.
 \]
 Viimase iteratiivne lahendamine on näidatud tabelis~\ref{tab:itersolve}. On näha, et algoritmiline analüüs jõudis oodatud tulemuseni.
 
