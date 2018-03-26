@@ -179,11 +179,12 @@ millel on osaline järjestus
 \end{definition}
 
 Sellises domeenis
-\[
-	[l_1, u_1] \sqcup [l_2, u_2] = [\min\{l_1, l_2\}, \max\{u_1, u_2\}].
-\]
-
-\TODO{$\mathbb{I}$ pole täielik võre! vaja eraldi võre definitsiooni?}
+\begin{align*}
+	[l_1, u_1] \sqcup [l_2, u_2] &= [\min\{l_1, l_2\}, \max\{u_1, u_2\}], \\
+	[l_1, u_1] \sqcap [l_2, u_2] &= [\max\{l_1, l_2\}, \min\{u_1, u_2\}],\quad \text{kui } \max\{l_1, l_2\} \leq \min\{u_1, u_2\}.
+\end{align*}
+\TODO{Joonis intervallide $\sqcup, \sqcap$ kohta \textit{a la} Seidl}
+Kuna alumine raja on ainult tinglikult defineeritud, siis see pole täielik võre. See pole probleem, kuna pisut täiendatud domeen $\mathbb{I}_\bot = \mathbb{I} \cup \{\bot\}$ osutub täielikuks võreks.
 Lõigu otspunktides on lubatud vastavad lõpmatust kirjeldavad väärtused, mis võimaldavad rääkida selles domeenis suurimast elemendist $\top = [-\infty, +\infty]$.
 
 Lõik $[l, u]$ kirjeldab täisarvu $z$ parajasti siis, kui $l \leq z \leq u$.
