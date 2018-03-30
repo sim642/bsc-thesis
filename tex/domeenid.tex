@@ -37,6 +37,7 @@ Järgnevalt on käsitsi analüüsitud selle programmi täisarvuliste muutujate v
 \end{itemize}
 
 Tehtud analüüs on võimalikult täpne, mis oleks ka automatiseeritud analüüsi eesmärgiks. Iseenesest poleks vale mõnes programmi punktis mõne muutujaga seostada suuremat võimalike väärtuste hulka, kuid sellisest analüüsist oleks vähem kasu, sest see tooks sisse ebavajalikku ebatäpsust.
+Järgnevalt ongi eesmärk matemaatiliselt formaliseerida sellise hea analüüsi teostamine, mis omakorda oleks aluseks analüüsi teoreetiliseks uurimiseks ja automatiseerimiseks.
 
 \begin{figure}
 	\centering
@@ -94,10 +95,8 @@ Tehtud analüüs on võimalikult täpne, mis oleks ka automatiseeritud analüüs
 
 
 \subsection{Võred}
-\TODO{Hunnik definitsioone ehmatab ära, näide on palju lihtsamini mõistetav. Muuta järjekorda?}
-
-Kuigi võreteooria on arvestatav matemaatika haru, siis sügavamale laskumata on siin toodud põhilised mõisted võrede mõistmiseks.
-Järgnevad eestikeelsed definitsioonid on refereeritud V. Laane loengukonspektist~\cite{laan_voreteooria}, kuid tähistused on kohandatud programmianalüüsi kirjandusele omaseks~\cite[17]{seidl_foundations}:
+Domeenide kirjeldamiseks kasutatakse matemaatilisi struktuure, mida nimetatakse võredeks. Kuigi võreteooria on arvestatav matemaatika haru, siis sügavamale laskumata on siin toodud vajalikud mõisted võredest aru saamiseks.
+Järgnevad eestikeelsed definitsioonid on refereeritud V. Laane loengukonspektist aines \enquote{Võreteooria}~\cite{laan_voreteooria}, kuid tähistused on kohandatud programmianalüüsi kirjandusele omaseks~\cite[17]{seidl_foundations}:
 
 \begin{definition}
 \label{def:järjestatud_hulk}
@@ -109,7 +108,10 @@ Järgnevad eestikeelsed definitsioonid on refereeritud V. Laane loengukonspektis
 \end{itemize}
 \end{definition}
 
-Olgu $(A, \sqleq)$ osaliselt järjestatud hulk ja $X \subseteq A$.
+Domeenide puhul kasutatakse osalist järjestust seisundite täpsuse võrdlemiseks. Kokkuleppeliselt järjestatakse seisundid täpsemast ebatäpsema suunas --- kirjutis $a \sqleq b$ tähendab, et seisund $a$ kirjeldab programmi olekut täpsemalt või sama täpselt kui seisund $b$. Teiste sõnadega, alati kui programmi olekut kirjeldab $a$, siis saab seda kirjeldada ka $b$-ga.
+
+\noindent
+Järgnevalt olgu $(A, \sqleq)$ osaliselt järjestatud hulk ja $X \subseteq A$.
 
 \begin{definition}
 \label{def:join}
@@ -121,7 +123,10 @@ Elementi $c$ nimetatakse hulga $X$ \emph{ülemiseks tõkkeks}, kui iga $x \in X$
 Elementi $c$ nimetatakse hulga $X$ \emph{alumiseks tõkkeks}, kui iga $x \in X$ korral $c \sqleq x$. Suurimat alumist tõket nimetatakse \emph{alumiseks rajaks}, st $X$-i iga alumise tõkke $d$ korral $d \sqleq c$.
 \end{definition}
 
-Hulga $X$ ülemist ja alumist raja tähistame vastavalt $\bigsqcup X$ ja $\bigsqcap X$. Kui $X = \{a, b\}$, siis tähistame ülemise ja alumise raja vastavalt $a \sqcup b$ ja $a \sqcap b$.
+Hulga $X$ ülemist ja alumist raja tähistatakse vastavalt $\bigsqcup X$ ja $\bigsqcap X$. Kui $X = \{a, b\}$, siis tähistatakse ülemine ja alumine raja vastavalt $a \sqcup b$ ja $a \sqcap b$.
+
+Domeenide puhul kasutatakse ülemisi tõkkeid mitme seisundi ühendamiseks, nii nagu seda oli vaja teha joonise~\ref{fig:prog-if} programmi punktis 7. Seejuures tahetakse loomulikult täpseimat ühendatud seisundit, mis ongi ühendatavate seisundite ülemine raja.
+\TODO{Milleks vaja alumist raja?}
 
 \begin{definition}
 \emph{Täielik võre} on osaliselt järjestatud hulk, mille igal alamhulgal leidub ülemine ja alumine raja.
@@ -129,14 +134,7 @@ Hulga $X$ ülemist ja alumist raja tähistame vastavalt $\bigsqcup X$ ja $\bigsq
 
 Täielikus võres $(A, \sqleq)$ leidub vähim element $\bot = \bigsqcap A$ ja suurim element $\top = \bigsqcup A$, mida nimetatakse vastavalt \textit{bottom}iks ja \textit{top}iks.
 
-\subsubsection{Motivatsioon}
-\TODO{Jätta ära. Samad selgitused näite juures on palju selgemad.}
-Kui nõuda, et domeen oleks täielik võre, siis pole ilmselge, mis rolli täidab sellel vaadeldav järjestus ja rajad.
-
-Seisundite hulga vaatlemiseks võrena on vaja defineerida seisundite osaline järjestus. Kokkuleppeliselt järjestatakse seisundid täpsemast ebatäpsema suunas --- kirjutis $a \sqleq b$ tähendab, et seisund $a$ on vähemalt sama täpne kui seisund $b$ ning $b$ on vähemalt sama üldine kui $a$. Seega $\top$ tähistab kõige ebatäpsemat seisundit.
-
-Sellise järjestuse korral seisundite ülemine raja kujutab endast nende seisundite ühendamist.
-\TODO{\textit{join}i intuitsioon}
+Domeenidelt nõutaksegi, et need oleks täielikud võred, sest sellega kaasnevad ülal kirjeldatud võimalused seisunditega töötamiseks. Domeeni element $\top$ kirjeldab kõige üldisemat seisundit ehk seisundit, kus pole programmi oleku kohta mitte midagi teada. Element $\bot$ kirjeldab võimatut seisundit ehk tüüpiliselt seda, et programmi täitmisel mitte kunagi uuritavasse punkti ei jõutagi.
 
 
 \subsection{Potentshulga domeen}
