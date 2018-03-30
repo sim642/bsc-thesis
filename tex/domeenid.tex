@@ -137,9 +137,7 @@ Täielikus võres $(A, \sqleq)$ leidub vähim element $\bot = \bigsqcap A$ ja su
 Domeenidelt nõutaksegi, et need oleks täielikud võred, sest sellega kaasnevad ülal kirjeldatud võimalused seisunditega töötamiseks. Domeeni element $\top$ kirjeldab kõige üldisemat seisundit ehk seisundit, kus pole programmi oleku kohta mitte midagi teada. Element $\bot$ kirjeldab võimatut seisundit ehk tüüpiliselt seda, et programmi täitmisel mitte kunagi uuritavasse punkti ei jõutagi.
 
 
-\subsection{Potentshulga domeen}
-\TODO{\textit{powerset} = potentshulk?}
-
+\subsection{Alamhulkade domeen}
 Iga hulga $S$ korral saab vaadelda selle kõigi alamhulkade hulka $\powerset{S}$, millel on loomulik osaline järjestus $\subseteq$.
 Osutub, et see on ka täielik võre, kus
 \begin{itemize}[nosep]
@@ -149,10 +147,24 @@ Osutub, et see on ka täielik võre, kus
 \end{itemize}
 
 Hulk $X$ kirjeldab väärtust $z$ parajasti siis, kui $z \in X$. Sellega on defineeritud, kuidas peaks seostama domeeni elemente konkreetsete võimalike väärtustega.
+\TODO{\textit{Description relation} --- kas üldse mõtet mainida? Vb jätta Galois ühenduste juurde.}
 
-Muutuja \texttt{x} võimalikke väärtusi ehk selle seisundeid saab analüüsida domeenis $(\powerset{\mathbb{Z}}, \subseteq)$:
+Ülal käsitsi tehtud joonise~\ref{fig:prog-if} programmi analüüsis oligi iga muutuja väärtusi analüüsitud alamhulkade domeeni $\mathbb{D} = (\powerset{\mathbb{Z}}, \subseteq)$ abil. Programmi punktis 7 toimunud muutuja \texttt{y} seisundite ühendamine on võrede terminites $\{5\} \sqcup \{2, 3\}$. Antud programmi analüüsimiseks on selle domeeniga vaja seostada kahte tüüpi tehted:
+\begin{description}
+	\item[Konstantide abstraheerimine] Lause \texttt{y = 5} abstraktseks teostamiseks, st muutujaga~\texttt{y} domeeni elemendi seostamiseks, on esinev konstant vaja sobivalt abstraheerida. Täisarvude alamhulkade domeenis sobib konstantse väärtuse $a$ jaoks ilmselt element $\{a\}$.
 
-Näitest peaks olema selge, miks üldse nõuda, et domeen oleks võre, ja millised võimalused see annab domeeni kasutamiseks programmide analüüsimisel. Kirjeldatud näide analüüsis ainult muutujat \texttt{x} ja jättis täielikult kõrvale muutuja \texttt{y}. Loomulikult võiks analüüs midagi öelda ka selle kohta.
+	\item[Abstraktne aritmeetika] Lause \texttt{y = x + 1} abstraktseks teostamisks on vaja teostada liitmine muutuja \texttt{x} seisundi $\{1, 2\}$ ja konstandi seisundi $\{1\}$ vahel. Täisarvude alamhulkade domeenis saab elementide $A, B \in \powerset{\mathbb{Z}}$ liitmise defineerida kui
+	\[
+		A + B = \{a + b \mid a \in A, b \in B\}
+	\]
+	ning sarnaselt võib defineerida ülejäänud tehted.
+\end{description}
+
+Nende matemaatiliste vahenditega ongi võimalik näites tehtu süstematiseerida. Siiski kirjeldab kasutatud domeen korraga ainult ühe muutuja väärtuseid, kuid muutujatevahelisi toiminguid otseselt mitte --- seda peab ikkagi domeeniväliselt teostama. Oleks veelgi parem, kui tervet programmi olekut, st kõigi muutujate seisundeid korraga, saaks vaadelda ühe keerukama domeeni elementidena. Selleks võetaksegi kasutusele kujutused.
+
+
+\TODO{Kujutusdomeen liigutada siia.}
+\TODO{Algoritmilise analüüsi näide kujutusdomeeni peal.}
 
 
 \subsection{Algoritmiline analüüs}
@@ -165,6 +177,7 @@ Teiseks peab defineerima funktsioonid, mis teostavad kõikvõimalikke programmee
 Kolmandaks tuleb iga programmi punkti jaoks võtta üks muutuja $x_i$, mis vastab otsitavale programmi abstraktsele seisundile selles punktis.
 
 Neljandaks tuleb iga konkreetse juhtimisvoograafi serva järgi kirjeldada \emph{üleminekufunktsioon} $f_i: \mathbb{D}^n \to \mathbb{D}$, mis lausele eelneva punkti seisundi järgi leiab lausele järgneva punkti seisundi. Nõnda saab iga serva jaoks moodustada võrratuse $x_i \sqgeq f_i(x_1, \ldots, x_n)$.
+\TODO{Eriline võrratus algtipu jaoks!}
 
 Viiendaks saab moodustada kõigist võrratustest süsteemi, kus iga muutuja on vasakul täpselt ühel korral, selleks vajadusel võrratusi parema poole ülemraja järgi ühendades:
 \[
