@@ -13,6 +13,86 @@ Andmevooanalüüsiga püütakse võimalikult täpselt määrata programmi seisun
 
 Selline informaalne definitsioon on ebapiisav mingisuguse teooria arendamiseks, mistõttu tegelikult vaadetakse domeene, mis moodustavad täieliku võre.
 
+\subsection{Andmevooanalüüs}
+Andmevooanalüüsi ja abstraktse interpretatsiooni põhimõtete selgitamiseks parim viis on näite läbitegemine. Selleks olgu edaspidi vaatluse all programm jooniselt~\ref{fig:prog-if}, kus on kõrvuti C-keelse lähtekoodi jupp ja selle juhtimisvoograaf, mille tippudes on programmi punktid, milles seisundeid uuritakse, ja servadel vastavad laused, mida täidetakse.
+Järgnevalt on käsitsi analüüsitud selle programmi täisarvuliste muutujate võimalike väärtusi igas programmi punktis:
+\begin{itemize}
+	\item Punktis 1 pole muutujaid deklareeritud, seega nende väärtustest ei saa rääkida.
+	\item Punktis 2 muutuja \texttt{x} väärtust üheselt määrata pole võimalik, sest see tuleb juhuarvu funktsioonist \texttt{rand()}, kuid jäägiga jagamise tulemusena kuulub see kindlasti hulka $\{0, 1, 2\}$\footnote{C keele semantika on siinkohal keerukas, kuid (üldiselt võimalikud) negatiivsed jäägid on antud juhul välistatud, sest \texttt{rand()} funktsioon ei tagasta negatiivseid arve.}.
+	Lisaks on vahepeal deklareeritud väärtustamata muutuja \texttt{y}, millel C keele semantikas vaikeväärtust pole ja seetõttu võib selle väärtus olla suvaline täisarv, st suvaline hulgast $\mathbb{Z}$ \cite{C11_draft}.
+	\item Punktis 3, kus tingimus oli tõene, on \texttt{x} kindlasti ainult 0.
+	\item Punktis 4, kus tingimus oli väär, saab eelnevast hulgast välistatud nulli eemaldamisel öelda, et muutuja \texttt{x} väärtus on hulgas $\{1, 2\}$.
+	\item Punktis 5 on täpselt teada, et \texttt{y} on 5.
+	\item Punktis 6, teades võimalikke muutuja \texttt{x} väärtusi, saab öelda, et muutuja \texttt{y} väärtus tehte tulemusena on hulgas $\{2, 3\}$.
+	\item Punktis 7, kus kaks võimalikku tingimuslause haru uuesti kokku saavad, tuleb arvestada mõlema haru võimalike väärtustega, seega muutuja \texttt{y} väärtus kuulub hulka $\{2, 3, 5\}$.
+	\item Punktis 8, teades võimalikke \texttt{y} väärtusi, saab öelda, et muutuja \texttt{z} väärtus tehte tulemusena on hulgas $\{4, 6, 10\}$.
+\begin{comment}
+	\item Punktides 1, 2 ja 3 on muutuja veel väärtustamata. Kuna C keele semantika sellisel juhul mingit vaikeväärtust ei anna, siis võimalikke väärtusi kirjeldab kõige ebatäpsem domeeni element $\top = \mathbb{Z}$.
+	\item Punktis 4 on muutujale just antud konstantne väärtus, mistõttu seda kirjeldab kõige paremini element $\{5\}$.
+
+		Iseenesest poleks vale seostada selle programmi punktiga mõnda (osalise järjestuse järgi) üldisemat seisundit, nt $\{5, 6, 7\}$ või lausa $\top$, kuid see poleks nii kasulik, sest analüüsi mõte on siiski leida võimalikult täpne kirjeldus. Just selle täpsuse matemaatiliseks kirjeldamiseks nõutaksegi osalist järjestust.
+	\item Punktiga 5 sobib samal põhjusel seostada element $\{3\}$.
+	\item Punktis 6 on olukord huvitavam, sest seda seisundit pole programmis oleva hargnemise (täpsemalt selle ühendumise) tõttu kirjeldada ühe täisarvuga, vaid elemendiga $\{3, 5\}$. Selle tulemuseni jõudmiseks peab intuitiivselt ühendama eelneva kahe punkti seisundid --- leidma seisundi, mis hõlmaks eelnevaid, olles seejuures võimalikult täpne. Just selleks nõutaksegi ülemise raja leidmise tehet, millega seda teha. Antud juhul $\{3\} \sqcup \{5\} = \{3, 5\}$.
+\end{comment}
+\end{itemize}
+
+Tehtud analüüs on võimalikult täpne, mis oleks ka automatiseeritud analüüsi eesmärgiks. Iseenesest poleks vale mõnes programmi punktis mõne muutujaga seostada suuremat võimalike väärtuste hulka, kuid sellisest analüüsist oleks vähem kasu, sest see tooks sisse ebavajalikku ebatäpsust.
+
+\begin{figure}
+	\centering
+	\begin{subfigure}[b]{0.4\textwidth}
+		\centering
+		\begin{minted}{c}
+			int x = rand() % 3;
+			int y;
+			if (x == 0)
+				y = 5;
+			else
+				y = x + 1;
+			int z = 2 * y;
+		\end{minted}
+		\TODO{kood eraldi faili?}
+		\caption{C-keelne lähtekood}
+	\end{subfigure}
+	~
+	\begin{subfigure}[b]{0.4\textwidth}
+		\centering
+		\begin{tikzpicture}[
+			->,>=stealth,
+			node distance=0.5cm,
+			every state/.style={inner sep=3pt, minimum size=0pt},
+			stmt/.style={font=\ttfamily},
+			initial text={},
+			initial where=above
+		]
+			\node[initial,state] (1) {1};
+			\node[state] (2) [below=of 1] {2};
+			\node[state] (3) [below left=of 2] {3};
+			\node[state] (4) [below right=of 2] {4};
+			\node[state] (5) [below=of 3] {5};
+			\node[state] (6) [below=of 4] {6};
+			\node[state] (7) [below right=of 5] {7};
+			\node[accepting,state] (8) [below=of 7] {8};
+
+			\path
+				(1) edge node[stmt,right] {x = rand() \% 3} (2)
+				(2) edge node[stmt,above left] {x == 0} (3)
+				    edge node[stmt,above right] {x != 0} (4)
+				(3) edge node[stmt,left] {y = 5} (5)
+				(4) edge node[stmt,right] {y = x + 1} (6)
+				(5) edge node {} (7)
+				(6) edge node {} (7)
+				(7) edge node[stmt,right] {z = 2 * y} (8);
+		\end{tikzpicture}
+		\TODO{tikz eraldi .tex faili?}
+		\caption{Juhtimisvoograaf}
+	\end{subfigure}
+
+	\caption{Tsüklita programmi näidis.}
+	\label{fig:prog-if}
+\end{figure}
+
+
 \subsection{Võred}
 \TODO{Hunnik definitsioone ehmatab ära, näide on palju lihtsamini mõistetav. Muuta järjekorda?}
 
@@ -70,71 +150,9 @@ Osutub, et see on ka täielik võre, kus
 	\item $\bot = \emptyset$ ja $\top = S$.
 \end{itemize}
 
-\begin{figure}
-	\centering
-	\begin{subfigure}[b]{0.4\textwidth}
-		\centering
-		\begin{minted}{c}
-			int x = rand() % 3;
-			int y;
-			if (x == 0)
-				y = 5;
-			else
-				y = x + 1;
-			int z = 2 * y;
-		\end{minted}
-		\TODO{kood eraldi faili?}
-		\caption{C-keelne lähtekood}
-	\end{subfigure}
-	~
-	\begin{subfigure}[b]{0.4\textwidth}
-		\centering
-		\begin{tikzpicture}[
-			->,>=stealth,
-			node distance=0.5cm,
-			every state/.style={inner sep=3pt, minimum size=0pt},
-			stmt/.style={font=\ttfamily},
-			initial text={},
-			initial where=above
-		]
-			\node[initial,state] (1) {1};
-			\node[state] (2) [below=of 1] {2};
-			\node[state] (3) [below left=of 2] {3};
-			\node[state] (4) [below right=of 2] {4};
-			\node[state] (5) [below=of 3] {5};
-			\node[state] (6) [below=of 4] {6};
-			\node[state] (7) [below right=of 5] {7};
-			\node[accepting,state] (8) [below=of 7] {8};
-
-			\path
-				(1) edge node[stmt,right] {x = rand() \% 3} (2)
-				(2) edge node[stmt,above left] {x == 0} (3)
-				    edge node[stmt,above right] {x != 0} (4)
-				(3) edge node[stmt,left] {y = 5} (5)
-				(4) edge node[stmt,right] {y = x + 1} (6)
-				(5) edge node {} (7)
-				(6) edge node {} (7)
-				(7) edge node[stmt,right] {z = 2 * y} (8);
-		\end{tikzpicture}
-		\TODO{tikz eraldi .tex faili?}
-		\caption{Juhtimisvoograaf}
-	\end{subfigure}
-
-	\caption{Tsüklita programmi näidis.}
-	\label{lst:if}
-\end{figure}
-
 Hulk $X$ kirjeldab väärtust $z$ parajasti siis, kui $z \in X$. Sellega on defineeritud, kuidas peaks seostama domeeni elemente konkreetsete võimalike väärtustega.
 
-Olgu vaatluse all programm jooniselt~\ref{lst:if}, kus on kõrvuti C-keelse lähtekoodi jupp ja selle juhtimisvoograaf, mille tippudes on programmi punktid, kus seisundeid vaadeldakse, ja servadel vastavad laused, mida täidetakse. Muutuja \texttt{x} võimalikke väärtusi ehk selle seisundeid saab analüüsida domeenis $(\powerset{\mathbb{Z}}, \subseteq)$:
-\begin{itemize}
-	\item Punktides 1, 2 ja 3 on muutuja veel väärtustamata. Kuna C keele semantika sellisel juhul mingit vaikeväärtust ei anna, siis võimalikke väärtusi kirjeldab kõige ebatäpsem domeeni element $\top = \mathbb{Z}$.
-	\item Punktis 4 on muutujale just antud konstantne väärtus, mistõttu seda kirjeldab kõige paremini element $\{5\}$.
-
-		Iseenesest poleks vale seostada selle programmi punktiga mõnda (osalise järjestuse järgi) üldisemat seisundit, nt $\{5, 6, 7\}$ või lausa $\top$, kuid see poleks nii kasulik, sest analüüsi mõte on siiski leida võimalikult täpne kirjeldus. Just selle täpsuse matemaatiliseks kirjeldamiseks nõutaksegi osalist järjestust.
-	\item Punktiga 5 sobib samal põhjusel seostada element $\{3\}$.
-	\item Punktis 6 on olukord huvitavam, sest seda seisundit pole programmis oleva hargnemise (täpsemalt selle ühendumise) tõttu kirjeldada ühe täisarvuga, vaid elemendiga $\{3, 5\}$. Selle tulemuseni jõudmiseks peab intuitiivselt ühendama eelneva kahe punkti seisundid --- leidma seisundi, mis hõlmaks eelnevaid, olles seejuures võimalikult täpne. Just selleks nõutaksegi ülemise raja leidmise tehet, millega seda teha. Antud juhul $\{3\} \sqcup \{5\} = \{3, 5\}$.
-\end{itemize}
+Muutuja \texttt{x} võimalikke väärtusi ehk selle seisundeid saab analüüsida domeenis $(\powerset{\mathbb{Z}}, \subseteq)$:
 
 Näitest peaks olema selge, miks üldse nõuda, et domeen oleks võre, ja millised võimalused see annab domeeni kasutamiseks programmide analüüsimisel. Kirjeldatud näide analüüsis ainult muutujat \texttt{x} ja jättis täielikult kõrvale muutuja \texttt{y}. Loomulikult võiks analüüs midagi öelda ka selle kohta.
 
