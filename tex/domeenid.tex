@@ -75,12 +75,13 @@ Osutub, et see on ka täielik võre, kus
 	\begin{subfigure}[b]{0.4\textwidth}
 		\centering
 		\begin{minted}{c}
-		int x;
-		if (rand() % 2 == 0)
-			x = 5;
-		else
-			x = 3;
-		int y = x + 1;
+			int x = rand() % 3;
+			int y;
+			if (x == 0)
+				y = 5;
+			else
+				y = x + 1;
+			int z = 2 * y;
 		\end{minted}
 		\TODO{kood eraldi faili?}
 		\caption{C-keelne lähtekood}
@@ -97,23 +98,24 @@ Osutub, et see on ka täielik võre, kus
 			initial where=above
 		]
 			\node[initial,state] (1) {1};
-			\node[state] (2) [below left=of 1] {2};
-			\node[state] (3) [below right=of 1] {3};
-			\node[state] (4) [below=of 2] {4};
+			\node[state] (2) [below=of 1] {2};
+			\node[state] (3) [below left=of 2] {3};
+			\node[state] (4) [below right=of 2] {4};
 			\node[state] (5) [below=of 3] {5};
-			\node[state] (6) [below right=of 4] {6};
-			\node[accepting,state] (7) [below=of 6] {7};
+			\node[state] (6) [below=of 4] {6};
+			\node[state] (7) [below right=of 5] {7};
+			\node[accepting,state] (8) [below=of 7] {8};
 
 			\path
-				(1) edge node[stmt,above left] {rand() \% 2 == 0} (2)
-				    edge node[stmt,above right] {rand() \% 2 != 0} (3)
-				(2) edge node[stmt,left] {x = 5} (4)
-				(3) edge node[stmt,right] {x = 3} (5)
-				(4) edge node {} (6)
-				(5) edge node {} (6)
-				(6) edge node[stmt,right] {y = x + 1} (7);
+				(1) edge node[stmt,right] {x = rand() \% 3} (2)
+				(2) edge node[stmt,above left] {x == 0} (3)
+				    edge node[stmt,above right] {x != 0} (4)
+				(3) edge node[stmt,left] {y = 5} (5)
+				(4) edge node[stmt,right] {y = x + 1} (6)
+				(5) edge node {} (7)
+				(6) edge node {} (7)
+				(7) edge node[stmt,right] {z = 2 * y} (8);
 		\end{tikzpicture}
-		\TODO{programmi laused tippudes või servades?}
 		\TODO{tikz eraldi .tex faili?}
 		\caption{Juhtimisvoograaf}
 	\end{subfigure}
