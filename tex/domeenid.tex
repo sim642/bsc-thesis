@@ -163,8 +163,47 @@ Hulk $X$ kirjeldab väärtust $z$ parajasti siis, kui $z \in X$. Sellega on defi
 Nende matemaatiliste vahenditega ongi võimalik näites tehtu süstematiseerida. Siiski kirjeldab kasutatud domeen korraga ainult ühe muutuja väärtuseid, kuid muutujatevahelisi toiminguid otseselt mitte --- seda peab ikkagi domeeniväliselt teostama. Oleks veelgi parem, kui tervet programmi olekut, st kõigi muutujate seisundeid korraga, saaks vaadelda ühe keerukama domeeni elementidena. Selleks võetaksegi kasutusele kujutused.
 
 
-\TODO{Kujutusdomeen liigutada siia.}
-\TODO{Algoritmilise analüüsi näide kujutusdomeeni peal.}
+\subsection{Kujutusdomeen}
+Olgu $\Var$ programmi muutujate hulk ja $\Val$ domeen, milles vaadeldakse üksiku muutuja seisundit. Sel juhul saab vaadelda abstraktsete muutujate väärtustuste domeeni~\cite[45]{seidl_foundations}
+\[
+	\mathbb{D} = (\Var \to \Val)_\bot = (\Var \to \Val) \cup \{\bot\}.
+\]
+Domeeni elementideks on kujutused muutujate hulgast nende abstraktsete väärtuste hulka, mis on väga analoogilised konkreetsete muutujate väärtustustega funktsionaalselt kirjeldatuna. Element $\bot$ on tehislikult lisatud, et domeen moodustaks täieliku võre, ja tähendab saavutamatut (ingl. \textit{unreachable}) programmi punkti. Osaline järjestus selles domeenis on defineeritud järgnevaga:
+\[
+	D_1 \sqleq D_2 \quad\Longleftrightarrow\quad D_1 = \bot \quad\lor\quad \forall x \in \Var\; D_1(x) \sqleq D_2(x).
+\]
+\TODO{$\sqcup, \sqcap, \top$?}
+
+Joonisel~\ref{fig:prog-if} tehtud näites olid muutujad $\Var = \{\texttt{x}, \texttt{y}, \texttt{z}\}$ ja väärtused domeenis $\Val = \powerset{\mathbb{Z}}$. Sellises kujutuste domeenis saabki kirjeldada tervet seisundit korraga ning sama analüüsi lõpptulemus oleks järgmine:
+\begin{itemize}
+	\item Punktis 1: $\{ \texttt{x} \mapsto \top, \texttt{y} \mapsto \top, \texttt{z} \mapsto \top \}$.
+	\item Punktis 2: $\{ \texttt{x} \mapsto \{0, 1, 2\}, \texttt{y} \mapsto \top, \texttt{z} \mapsto \top \}$.
+	\item Punktis 3: $\{ \texttt{x} \mapsto \{0\}, \texttt{y} \mapsto \top, \texttt{z} \mapsto \top \}$.
+	\item Punktis 4: $\{ \texttt{x} \mapsto \{1, 2\}, \texttt{y} \mapsto \top, \texttt{z} \mapsto \top \}$.
+	\item Punktis 5: $\{ \texttt{x} \mapsto \{0\}, \texttt{y} \mapsto \{5\}, \texttt{z} \mapsto \top \}$.
+	\item Punktis 6: $\{ \texttt{x} \mapsto \{1, 2\}, \texttt{y} \mapsto \{2, 3\}, \texttt{z} \mapsto \top \}$.
+	\item Punktis 7: $\{ \texttt{x} \mapsto \{0, 1, 2\}, \texttt{y} \mapsto \{2, 3, 5\}, \texttt{z} \mapsto \top \}$.
+	\item Punktis 8: $\{ \texttt{x} \mapsto \{0, 1, 2\}, \texttt{y} \mapsto \{2, 3, 5\}, \texttt{z} \mapsto \{4, 6, 10\} \}$.
+\end{itemize}
+\TODO{See loetelu kuidagi kompaktsemaks?}
+
+Kasutades kogu olekut kirjeldavaid domeeni elemente, on programmi laused ja avaldised juhtimisvoograafis kirjeldatavad funktsioonidena lähteseisundist sihtseisundisse. Neid nimetatakse \textbf{üleminekufunktsioonideks} (ingl. \textit{transfer function}) ja samas näites võivad need olla järgnevad:
+\begin{gather*}
+	\tf_{1,2}(d) = d[\texttt{x} \mapsto \{0, 1, 2\}], \\
+\begin{align*} % nasty hack
+	\tf_{2,3}(d) &= d[\texttt{x} \mapsto \{0\}], &
+	\tf_{2,4}(d) &= d[\texttt{x} \mapsto d(\texttt{x}) \setminus \{0\}], \\
+	\tf_{3,5}(d) &= d[\texttt{y} \mapsto \{5\}], &
+	\tf_{4,6}(d) &= d[\texttt{y} \mapsto d(\texttt{x}) + \{1\}],
+\end{align*} \\
+	\tf_{7,8}(d) = d[\texttt{z} \mapsto \{2\} * d(\texttt{y})],
+\end{gather*}
+kus kirjutis $d[\texttt{x} \mapsto \{0\}]$ tähendab funktsiooni uuendamist (ingl. \textit{function update}) ehk sama funktsiooni $d$, mis argumendil \texttt{x} omab nüüd uut väärtust $\{0\}$. Aritmeetilised tehted hulkade vahel on sellised nagu nad on sisemises domeenis $\Val$.
+\TODO{Funktsiooni uuendamise def?}
+\TODO{Abstraktse aritmeetika jaoks eraldi operaatorid: $\oplus, \odot, \otimes$?}
+Seejuures üleminekufunktsioonid saab keele semantika ning lausete ja avaldiste struktuuri mallide järgi mehaaniliselt defineerida ehk konkreetse programmi analüüsil toimub see automatiseeritult.
+
+Kujutusdomeeni kasutamisega on võimalik lihtsam lihtsam ühte muutujat korraga kirjeldav domeen laiendada kõigile muutujatele korraga. Seejuures muutub võimalikuks järgida andmete liikumist muutujate vahel, mis vastab juba paremini andmevooanalüüsi nimele.
 
 
 \subsection{Algoritmiline analüüs}
@@ -241,31 +280,9 @@ Viimase iteratiivne lahendamine on näidatud tabelis~\ref{tab:itersolve}. On nä
 	\label{tab:itersolve}
 \end{table}
 
-\subsection{Kujutusdomeen}
-\TODO{\textit{mapdomain} --- funktsioondomeen? kujutusdomeen?}
-Olgu $\Var$ programmi muutujate hulk ja $\Val$ domeen, milles vaadeldakse ühe muutuja seisundit. Sel juhul saab vaadelda abstraktsete muutujate väärtustuste domeeni~\cite[45]{seidl_foundations}
-\[
-	\mathbb{D} = (\Var \to \Val)_\bot = (\Var \to \Val) \cup \{\bot\}.
-\]
-Domeeni elementideks on kujutused muutujate hulgast abstraktsete väärtuste hulka, mis on väga analoogilised konkreetsete muutujate väärtustustega funktsionaalselt kirjeldatuna. Element $\bot$ on tehislikult lisatud, et domeen moodustaks täieliku võre, ja tähendab hetkel teadaolevalt saavutamatut programmi punkti. Osaline järjestus selles domeenis on defineeritud järgnevaga:
-\[
-	D_1 \sqleq D_2 \quad\Longleftrightarrow\quad D_1 = \bot \quad\lor\quad \forall x \in \Var\; D_1(x) \sqleq D_2(x).
-\]
-\TODO{Tehted kujutustel, $\top$?}
-
-Eelnevas näites $\Var = \{\texttt{x}, \texttt{y}\}$ ja jätkamiseks sobib juba nähtud $\Val = \powerset{\mathbb{Z}}$. Analüüsides programmi jooniselt~\ref{lst:if} nüüd selles domeenis, saame seisundid:
-\begin{itemize}
-	\item Punktides 1, 2 ja 3: $\{ \texttt{x} \mapsto \top, \texttt{y} \mapsto \top \}$.
-	\item Punktis 4: $\{ \texttt{x} \mapsto \{5\}, \texttt{y} \mapsto \top \}$.
-	\item Punktis 5: $\{ \texttt{x} \mapsto \{3\}, \texttt{y} \mapsto \top \}$.
-	\item Punktis 6: $\{ \texttt{x} \mapsto \{3, 5\}, \texttt{y} \mapsto \top \}$.
-	\item Punktis 7: $\{ \texttt{x} \mapsto \{3, 5\}, \texttt{y} \mapsto \{4, 6\} \}$, sest muutuja \texttt{y} on avaldatud \texttt{x}-i kaudu, mis on juba analüüsitud.
-	\TODO{Abstraktne liitmistehe}
-\end{itemize}
-
-Siit selgubki, et väikese vaevaga on võimalik lihtsam ühte muutujat korraga kirjeldav domeen laiendada kõigile muutujatele korraga. Seejuures muutub võimalikuks järgida andmete liikumist muutujate vahel, mis vastab juba paremini andmevooanalüüsi nimele.
-
+\TODO{Kohandada järgnev lõik sidusaks üleminekuks.}
 Sellegipoolest pole vaadeldu praktiliselt teostatav, sest võimalike väärtuste hulk võib olla lõpmatu ja seejuures ka ebatriviaalne. Üldiselt pole võimalik selliseid hulki programmis kirjeldada ja nendega opereerida. Seetõttu loobutakse ülimast täpsusest suvaliste hulkade kujul ja kasutatakse ebatäpsemaid domeene väärtuste kirjeldamiseks, mida on võimalik analüsaatorisse implementeerida. Üheks variandiks on vaadelda väärtuste lõike.
+
 
 \subsection{Intervalldomeen}
 Intervalldomeen on domeen, milles täisarvude väärtuste abstraheerimiseks kasutatakse arvtelje lõike.
