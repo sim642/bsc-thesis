@@ -1,0 +1,229 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 2.8 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \sortlist[entry]{none/global/}
+    \entry{vojdani_magister}{thesis}{}
+      \name{author}{1}{}{%
+        {{hash=600af351c7421f22dba6da0a37fdcf67}{%
+           family={Vojdani},
+           familyi={V\bibinitperiod},
+           given={Vesal},
+           giveni={V\bibinitperiod}}}%
+      }
+      \list{institution}{1}{%
+        {TÜ arvutiteaduse instituut}%
+      }
+      \strng{namehash}{600af351c7421f22dba6da0a37fdcf67}
+      \strng{fullhash}{600af351c7421f22dba6da0a37fdcf67}
+      \strng{authornamehash}{600af351c7421f22dba6da0a37fdcf67}
+      \strng{authorfullhash}{600af351c7421f22dba6da0a37fdcf67}
+      \field{sortinit}{1}
+      \field{sortinithash}{27a2bc5dfb9ed0a0422134d636544b5d}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{langid}{estonian}
+      \field{title}{Mitmelõimeliste C-programmide kraasimine analüsaatoriga Goblin}
+      \field{type}{mathesis}
+      \field{urlday}{27}
+      \field{urlmonth}{2}
+      \field{urlyear}{2018}
+      \field{year}{2006}
+      \field{urldateera}{ce}
+      \verb{file}
+      \verb :vojdani_magister.pdf:PDF
+      \endverb
+      \verb{url}
+      \verb http://dspace.ut.ee/handle/10062/1253
+      \endverb
+    \endentry
+    \entry{laan_voreteooria}{online}{}
+      \name{author}{1}{}{%
+        {{hash=da06d7d6e9bdb15c102861160aee35cc}{%
+           family={Laan},
+           familyi={L\bibinitperiod},
+           given={Valdis},
+           giveni={V\bibinitperiod}}}%
+      }
+      \list{organization}{1}{%
+        {TÜ}%
+      }
+      \strng{namehash}{da06d7d6e9bdb15c102861160aee35cc}
+      \strng{fullhash}{da06d7d6e9bdb15c102861160aee35cc}
+      \strng{authornamehash}{da06d7d6e9bdb15c102861160aee35cc}
+      \strng{authorfullhash}{da06d7d6e9bdb15c102861160aee35cc}
+      \field{sortinit}{2}
+      \field{sortinithash}{0aa614ace9f3a40ef5a67e7f7a184048}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{langid}{estonian}
+      \field{note}{Loengukonspekt}
+      \field{season}{autumn}
+      \field{title}{Võreteooria}
+      \field{urlday}{27}
+      \field{urlmonth}{2}
+      \field{urlyear}{2018}
+      \field{year}{2017}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \verb{file}
+      \verb :laan_voreteooria.pdf:PDF
+      \endverb
+      \verb{url}
+      \verb https://courses.ms.ut.ee/MTMM.00.039/2017_fall/uploads/Main/kon.pdf
+      \endverb
+    \endentry
+    \entry{seidl_foundations}{inbook}{}
+      \name{author}{3}{}{%
+        {{hash=373dfe68a55f17ca8eddc40062f77bf5}{%
+           family={Seidl},
+           familyi={S\bibinitperiod},
+           given={Helmut},
+           giveni={H\bibinitperiod}}}%
+        {{hash=9802a5637b3d98da7452e0ef8d245e5d}{%
+           family={Wilhelm},
+           familyi={W\bibinitperiod},
+           given={Reinhard},
+           giveni={R\bibinitperiod}}}%
+        {{hash=85e9d96d1ffe41db3be597255f5e060a}{%
+           family={Hack},
+           familyi={H\bibinitperiod},
+           given={Sebastian},
+           giveni={S\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Berlin, Heidelberg}%
+      }
+      \list{publisher}{1}{%
+        {Springer Berlin Heidelberg}%
+      }
+      \strng{namehash}{ab3fc4969c0cedae7f4d59eddd0e4443}
+      \strng{fullhash}{0817c89dec6145c0e32fd0cce5985ba4}
+      \strng{authornamehash}{ab3fc4969c0cedae7f4d59eddd0e4443}
+      \strng{authorfullhash}{0817c89dec6145c0e32fd0cce5985ba4}
+      \field{sortinit}{3}
+      \field{sortinithash}{197da6d6c34c6b20ce45c4d4baace5a4}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{This section presents basic techniques to improve the quality of compiler-generated code. The quality metric need not be a priori fixed. It could be the execution time, the required space, or the consumed energy. This book, however, is primarily concerned with methods to improve the execution time of programs.}
+      \field{booktitle}{Compiler Design: Analysis and Transformation}
+      \field{isbn}{978-3-642-17548-0}
+      \field{langid}{english}
+      \field{title}{Foundations and Intraprocedural Optimization}
+      \field{urlday}{27}
+      \field{urlmonth}{2}
+      \field{urlyear}{2018}
+      \field{year}{2012}
+      \field{urldateera}{ce}
+      \field{pages}{1\bibrangedash 114}
+      \range{pages}{114}
+      \verb{doi}
+      \verb 10.1007/978-3-642-17548-0_1
+      \endverb
+      \verb{file}
+      \verb :seidl_foundations.pdf:PDF
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1007/978-3-642-17548-0_1
+      \endverb
+    \endentry
+    \entry{goblint2016}{inproceedings}{}
+      \name{author}{6}{}{%
+        {{hash=600af351c7421f22dba6da0a37fdcf67}{%
+           family={Vojdani},
+           familyi={V\bibinitperiod},
+           given={Vesal},
+           giveni={V\bibinitperiod}}}%
+        {{hash=8bee5ceabb7876ec6af62a9fde6ab261}{%
+           family={Apinis},
+           familyi={A\bibinitperiod},
+           given={Kalmer},
+           giveni={K\bibinitperiod}}}%
+        {{hash=59ce3b2e30a6a862972d0ba3c4e4d058}{%
+           family={Rõtov},
+           familyi={R\bibinitperiod},
+           given={Vootele},
+           giveni={V\bibinitperiod}}}%
+        {{hash=373dfe68a55f17ca8eddc40062f77bf5}{%
+           family={Seidl},
+           familyi={S\bibinitperiod},
+           given={Helmut},
+           giveni={H\bibinitperiod}}}%
+        {{hash=4950acee3a31461572a10d20c3afda38}{%
+           family={Vene},
+           familyi={V\bibinitperiod},
+           given={Varmo},
+           giveni={V\bibinitperiod}}}%
+        {{hash=ebab264be102d7d1a1b6d24f3522ec6b}{%
+           family={Vogler},
+           familyi={V\bibinitperiod},
+           given={Ralf},
+           giveni={R\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {ACM}%
+      }
+      \strng{namehash}{ede6f0871bd63ee94d27f7fb037dd32e}
+      \strng{fullhash}{ea60af5d265df0562b34de4dc77eebe3}
+      \strng{authornamehash}{ede6f0871bd63ee94d27f7fb037dd32e}
+      \strng{authorfullhash}{ea60af5d265df0562b34de4dc77eebe3}
+      \field{sortinit}{7}
+      \field{sortinithash}{6ac7fe70cdec8cba8f65694411ce2532}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of the 31st {IEEE/ACM} International Conference on Automated Software Engineering, {ASE} 2016}
+      \field{langid}{english}
+      \field{title}{Static race detection for device drivers: the Goblint approach}
+      \field{year}{2016}
+      \field{pages}{391\bibrangedash 402}
+      \range{pages}{12}
+      \verb{doi}
+      \verb 10.1145/2970276.2970337
+      \endverb
+    \endentry
+    \entry{might_orders}{online}{}
+      \name{author}{1}{}{%
+        {{hash=742e9061f42459b8eaab1782a6f32c1f}{%
+           family={Might},
+           familyi={M\bibinitperiod},
+           given={Matt},
+           giveni={M\bibinitperiod}}}%
+      }
+      \strng{namehash}{742e9061f42459b8eaab1782a6f32c1f}
+      \strng{fullhash}{742e9061f42459b8eaab1782a6f32c1f}
+      \strng{authornamehash}{742e9061f42459b8eaab1782a6f32c1f}
+      \strng{authorfullhash}{742e9061f42459b8eaab1782a6f32c1f}
+      \field{sortinit}{8}
+      \field{sortinithash}{2f1b0e69e7617f99664f1cd00bb9603c}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{langid}{english}
+      \field{title}{Order theory for computer scientists}
+      \field{urlday}{3}
+      \field{urlmonth}{3}
+      \field{urlyear}{2018}
+      \field{urldateera}{ce}
+      \verb{url}
+      \verb http://matt.might.net/articles/partial-orders/
+      \endverb
+    \endentry
+  \endsortlist
+\endrefsection
+\endinput
+
