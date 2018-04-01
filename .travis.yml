@@ -32,12 +32,16 @@ script:
   - latexmk -pdf -halt-on-error thesis.tex
   # - latexmk -output-directory=build -aux-directory=build -pdf -halt-on-error thesis.tex
 
+before_deploy:
+  - mkdir pages
+  - cp build/thesis.pdf pages/
+
 deploy:
   provider: pages
   skip-cleanup: true
   github-token: $GITHUB_TOKEN
   keep-history: true
-  local-dir: build
+  local-dir: pages
   verbose: true
   on:
     # branch: master
