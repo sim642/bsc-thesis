@@ -44,5 +44,5 @@ deploy:
   local-dir: pages
   verbose: true
   on:
-    # branch: master
-    all_branches: true # TODO remove
+    branch: master
+    # all_branches: true
