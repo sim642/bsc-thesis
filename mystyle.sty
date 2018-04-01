@@ -37,8 +37,10 @@
 \usepackage{amsmath} 
 \usepackage{amsthm}
 \usepackage{amssymb}
+\usepackage{mathtools}
 \usepackage{stmaryrd} % \bigsqcap
-% widen, narrow - https://tex.stackexchange.com/a/203931
+% widen, narrow - https://tex.stackexchange.com/a/203931, https://tex.stackexchange.com/q/50057
+% this looks weird with partially thicker overlapping lines...
 \usepackage{scalerel}
 \def\widen{\mathrel{\ThisStyle{\stretchrel*{\ooalign{%
   \raise0.2\LMex\hbox{$\SavedStyle\sqcup$}\cr%
@@ -58,6 +60,8 @@
 \usepackage{array}
 \usepackage{tabu}   % Wide lines in tables
 \usepackage{xspace} % Non-eatable spaces in macros
+\usepackage{multirow}
+\usepackage{rotfloat}
 
 % Including graphical images and setting the figure directory
 \usepackage{graphicx}

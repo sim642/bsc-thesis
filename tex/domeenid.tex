@@ -3,6 +3,7 @@
 \begin{document}
 
 \section{Abstraktsed domeenid}
+\TODO{Pikem üleminek sissejuhatusest domeenide juurde}
 
 Andmevooanalüüsiga püütakse võimalikult täpselt määrata programmi seisundit igas programmi punktis.
 
@@ -12,70 +13,46 @@ Andmevooanalüüsiga püütakse võimalikult täpselt määrata programmi seisun
 
 Selline informaalne definitsioon on ebapiisav mingisuguse teooria arendamiseks, mistõttu tegelikult vaadetakse domeene, mis moodustavad täieliku võre.
 
-\subsection{Võred}
+\subsection{Andmevooanalüüs}
+Andmevooanalüüsi ja abstraktse interpretatsiooni põhimõtete selgitamiseks parim viis on näite läbitegemine. Selleks olgu edaspidi vaatluse all programm jooniselt~\ref{fig:prog-if}, kus on kõrvuti C-keelse lähtekoodi jupp ja selle juhtimisvoograaf, mille tippudes on programmi punktid, milles seisundeid uuritakse, ja servadel vastavad laused, mida täidetakse.
+Järgnevalt on käsitsi analüüsitud selle programmi täisarvuliste muutujate võimalike väärtusi igas programmi punktis:
+\begin{itemize}
+	\item Punktis 1 pole muutujaid deklareeritud, seega nende väärtustest ei saa rääkida.
+	\item Punktis 2 muutuja \texttt{x} väärtust üheselt määrata pole võimalik, sest see tuleb juhuarvu funktsioonist \texttt{rand()}, kuid jäägiga jagamise tulemusena kuulub see kindlasti hulka $\{0, 1, 2\}$\footnote{C keele semantika on siinkohal keerukas, kuid (üldiselt võimalikud) negatiivsed jäägid on antud juhul välistatud, sest \texttt{rand()} funktsioon ei tagasta negatiivseid arve.}.
+	Lisaks on vahepeal deklareeritud väärtustamata muutuja \texttt{y}, millel C keele semantikas vaikeväärtust pole ja seetõttu võib selle väärtus olla suvaline täisarv, st suvaline hulgast $\mathbb{Z}$ \cite{C11_draft}.
+	\item Punktis 3, kus tingimus oli tõene, on \texttt{x} kindlasti ainult 0.
+	\item Punktis 4, kus tingimus oli väär, saab eelnevast hulgast välistatud nulli eemaldamisel öelda, et muutuja \texttt{x} väärtus on hulgas $\{1, 2\}$.
+	\item Punktis 5 on täpselt teada, et \texttt{y} on 5.
+	\item Punktis 6, teades võimalikke muutuja \texttt{x} väärtusi, saab öelda, et muutuja \texttt{y} väärtus tehte tulemusena on hulgas $\{2, 3\}$.
+	\item Punktis 7, kus kaks võimalikku tingimuslause haru uuesti kokku saavad, tuleb arvestada mõlema haru võimalike väärtustega, seega muutuja \texttt{y} väärtus kuulub hulka $\{2, 3, 5\}$.
+	\item Punktis 8, teades võimalikke \texttt{y} väärtusi, saab öelda, et muutuja \texttt{z} väärtus tehte tulemusena on hulgas $\{4, 6, 10\}$.
+\begin{comment}
+	\item Punktides 1, 2 ja 3 on muutuja veel väärtustamata. Kuna C keele semantika sellisel juhul mingit vaikeväärtust ei anna, siis võimalikke väärtusi kirjeldab kõige ebatäpsem domeeni element $\top = \mathbb{Z}$.
+	\item Punktis 4 on muutujale just antud konstantne väärtus, mistõttu seda kirjeldab kõige paremini element $\{5\}$.
 
-Kuigi võreteooria on arvestatav matemaatika haru, siis sügavamale laskumata on siin toodud põhilised mõisted võrede mõistmiseks.
-Järgnevad eestikeelsed definitsioonid on refereeritud V. Laane loengukonspektist~\cite{laan_voreteooria}, kuid tähistused on kohandatud programmianalüüsi kirjandusele omaseks~\cite[17]{seidl_foundations}:
-
-\begin{definition}
-\emph{Osaliselt järjestatud hulk} on paar $(A, \sqleq)$, kus $A$ on hulk, millel on defineeritud binaarne seos $\sqleq$, mis iga $a, b, c \in A$ korral rahuldab järgnevaid tingimusi:
-\begin{itemize}[nosep]
-	\item $a \sqleq a$ (refleksiivsus),
-	\item kui $a \sqleq b$ ja $b \sqleq c$, siis $a \sqleq c$ (transitiivsus),
-	\item kui $a \sqleq b$ ja $b \sqleq a$, siis $a = b$ (antisümmeetrilisus).
+		Iseenesest poleks vale seostada selle programmi punktiga mõnda (osalise järjestuse järgi) üldisemat seisundit, nt $\{5, 6, 7\}$ või lausa $\top$, kuid see poleks nii kasulik, sest analüüsi mõte on siiski leida võimalikult täpne kirjeldus. Just selle täpsuse matemaatiliseks kirjeldamiseks nõutaksegi osalist järjestust.
+	\item Punktiga 5 sobib samal põhjusel seostada element $\{3\}$.
+	\item Punktis 6 on olukord huvitavam, sest seda seisundit pole programmis oleva hargnemise (täpsemalt selle ühendumise) tõttu kirjeldada ühe täisarvuga, vaid elemendiga $\{3, 5\}$. Selle tulemuseni jõudmiseks peab intuitiivselt ühendama eelneva kahe punkti seisundid --- leidma seisundi, mis hõlmaks eelnevaid, olles seejuures võimalikult täpne. Just selleks nõutaksegi ülemise raja leidmise tehet, millega seda teha. Antud juhul $\{3\} \sqcup \{5\} = \{3, 5\}$.
+\end{comment}
 \end{itemize}
-\end{definition}
 
-Olgu $(A, \sqleq)$ osaliselt järjestatud hulk ja $X \subseteq A$.
-
-\begin{definition}
-Elementi $c$ nimetatakse hulga $X$ \emph{ülemiseks tõkkeks}, kui iga $x \in X$ korral $x \sqleq c$. Vähimat ülemist tõket nimetatakse \emph{ülemiseks rajaks}, st $X$-i iga ülemise tõkke $d$ korral $c \sqleq d$.
-\end{definition}
-
-\begin{definition}
-Elementi $c$ nimetatakse hulga $X$ \emph{alumiseks tõkkeks}, kui iga $x \in X$ korral $c \sqleq x$. Suurimat alumist tõket nimetatakse \emph{alumiseks rajaks}, st $X$-i iga alumise tõkke $d$ korral $d \sqleq c$.
-\end{definition}
-
-Hulga $X$ ülemist ja alumist raja tähistame vastavalt $\bigsqcup X$ ja $\bigsqcap X$. Kui $X = \{a, b\}$, siis tähistame ülemise ja alumise raja vastavalt $a \sqcup b$ ja $a \sqcap b$.
-
-\begin{definition}
-\emph{Täielik võre} on osaliselt järjestatud hulk, mille igal alamhulgal leidub ülemine ja alumine raja.
-\end{definition}
-
-Täielikus võres $(A, \sqleq)$ leidub vähim element $\bot = \bigsqcap A$ ja suurim element $\top = \bigsqcup A$, mida nimetatakse vastavalt \textit{bottom}iks ja \textit{top}iks.
-
-\subsubsection{Motivatsioon}
-Kui nõuda, et domeen oleks täielik võre, siis pole ilmselge, mis rolli täidab sellel vaadeldav järjestus ja rajad.
-
-Seisundite hulga vaatlemiseks võrena on vaja defineerida seisundite osaline järjestus. Kokkuleppeliselt järjestatakse seisundid täpsemast ebatäpsema suunas --- kirjutis $a \sqleq b$ tähendab, et seisund $a$ on vähemalt sama täpne kui seisund $b$ ning $b$ on vähemalt sama üldine kui $a$. Seega $\top$ tähistab kõige ebatäpsemat seisundit.
-
-Sellise järjestuse korral seisundite ülemine raja kujutab endast nende seisundite ühendamist.
-\TODO{\textit{join}i intuitsioon}
-
-
-\subsection{Potentshulga domeen}
-\TODO{\textit{powerset} = potentshulk?}
-
-Iga hulga $S$ korral saab vaadelda selle kõigi alamhulkade hulka $\powerset{S}$, millel on loomulik osaline järjestus $\subseteq$.
-Osutub, et see on ka täielik võre, kus
-\begin{itemize}[nosep]
-	\item $a \sqleq b \Leftrightarrow a \subseteq b$,
-	\item $a \sqcup b = a \cup b$ ja $a \sqcap b = a \cap b$,
-	\item $\bot = \emptyset$ ja $\top = S$.
-\end{itemize}
+Tehtud analüüs on võimalikult täpne, mis oleks ka automatiseeritud analüüsi eesmärgiks. Iseenesest poleks vale mõnes programmi punktis mõne muutujaga seostada suuremat võimalike väärtuste hulka, kuid sellisest analüüsist oleks vähem kasu, sest see tooks sisse ebavajalikku ebatäpsust.
+Järgnevalt ongi eesmärk matemaatiliselt formaliseerida sellise hea analüüsi teostamine, mis omakorda oleks aluseks analüüsi teoreetiliseks uurimiseks ja automatiseerimiseks.
 
 \begin{figure}
 	\centering
 	\begin{subfigure}[b]{0.4\textwidth}
 		\centering
 		\begin{minted}{c}
-		int x;
-		if (rand() % 2 == 0)
-			x = 5;
-		else
-			x = 3;
-		int y = x + 1;
+			int x = rand() % 3;
+			int y;
+			if (x == 0)
+				y = 5;
+			else
+				y = x + 1;
+			int z = 2 * y;
 		\end{minted}
+		\TODO{kood eraldi faili?}
 		\caption{C-keelne lähtekood}
 	\end{subfigure}
 	~
@@ -90,71 +67,236 @@ Osutub, et see on ka täielik võre, kus
 			initial where=above
 		]
 			\node[initial,state] (1) {1};
-			\node[state] (2) [below left=of 1] {2};
-			\node[state] (3) [below right=of 1] {3};
-			\node[state] (4) [below=of 2] {4};
+			\node[state] (2) [below=of 1] {2};
+			\node[state] (3) [below left=of 2] {3};
+			\node[state] (4) [below right=of 2] {4};
 			\node[state] (5) [below=of 3] {5};
-			\node[state] (6) [below right=of 4] {6};
-			\node[accepting,state] (7) [below=of 6] {7};
+			\node[state] (6) [below=of 4] {6};
+			\node[state] (7) [below right=of 5] {7};
+			\node[accepting,state] (8) [below=of 7] {8};
 
 			\path
-				(1) edge node[stmt,above left] {rand() \% 2 == 0} (2)
-				    edge node[stmt,above right] {rand() \% 2 != 0} (3)
-				(2) edge node[stmt,left] {x = 5} (4)
-				(3) edge node[stmt,right] {x = 3} (5)
-				(4) edge node {} (6)
-				(5) edge node {} (6)
-				(6) edge node[stmt,right] {y = x + 1} (7);
+				(1) edge node[stmt,right] {x = rand() \% 3} (2)
+				(2) edge node[stmt,above left] {x == 0} (3)
+				    edge node[stmt,above right] {x != 0} (4)
+				(3) edge node[stmt,left] {y = 5} (5)
+				(4) edge node[stmt,right] {y = x + 1} (6)
+				(5) edge node {} (7)
+				(6) edge node {} (7)
+				(7) edge node[stmt,right] {z = 2 * y} (8);
 		\end{tikzpicture}
-		\TODO{programmi laused tippudes või servades?}
+		\TODO{tikz eraldi .tex faili?}
 		\caption{Juhtimisvoograaf}
 	\end{subfigure}
 
 	\caption{Tsüklita programmi näidis.}
-	\label{lst:if}
+	\label{fig:prog-if}
 \end{figure}
 
-Hulk $X$ kirjeldab täisarvu $z$ parajasti siis, kui $z \in X$. Sellega on defineeritud, kuidas peaks seostama domeeni elemente konkreetsete võimalike väärtustega.
 
-Olgu vaatluse all programm jooniselt~\ref{lst:if}, kus on kõrvuti C-keelse lähtekoodi jupp ja selle juhtimisvoograaf, mille tippudes on programmi punktid, kus seisundeid vaadeldakse, ja servadel vastavad laused, mida täidetakse. Muutuja \texttt{x} võimalikke väärtusi ehk selle seisundeid saab analüüsida domeenis $(\powerset{\mathbb{Z}}, \subseteq)$:
-\begin{itemize}
-	\item Punktides 1, 2 ja 3 on muutuja veel väärtustamata. Kuna C keele semantika sellisel juhul mingit vaikeväärtust ei anna, siis võimalikke väärtusi kirjeldab kõige ebatäpsem domeeni element $\top = \mathbb{Z}$.
-	\item Punktis 4 on muutujale just antud konstantne väärtus, mistõttu seda kirjeldab kõige paremini element $\{5\}$.
+\subsection{Võred}
+Domeenide kirjeldamiseks kasutatakse matemaatilisi struktuure, mida nimetatakse võredeks. Kuigi võreteooria on arvestatav matemaatika haru, siis sügavamale laskumata on siin toodud vajalikud mõisted võredest aru saamiseks.
+Järgnevad eestikeelsed definitsioonid on refereeritud V. Laane loengukonspektist aines \enquote{Võreteooria}~\cite{laan_voreteooria}, kuid tähistused on kohandatud programmianalüüsi kirjandusele omaseks~\cite[17]{seidl_foundations}:
 
-		Iseenesest poleks vale seostada selle programmi punktiga mõnda (osalise järjestuse järgi) üldisemat seisundit, nt $\{5, 6, 7\}$ või lausa $\top$, kuid see poleks nii kasulik, sest analüüsi mõte on siiski leida võimalikult täpne kirjeldus. Just selle täpsuse matemaatiliseks kirjeldamiseks nõutaksegi osalist järjestust.
-	\item Punktiga 5 sobib samal põhjusel seostada element $\{3\}$.
-	\item Punktis 6 on olukord huvitavam, sest seda seisundit pole programmis oleva hargnemise (täpsemalt selle ühendumise) tõttu kirjeldada ühe täisarvuga, vaid elemendiga $\{3, 5\}$. Selle tulemuseni jõudmiseks peab intuitiivselt ühendama eelneva kahe punkti seisundid --- leidma seisundi, mis hõlmaks eelnevaid, olles seejuures võimalikult täpne. Just selleks nõutaksegi ülemise raja leidmise tehet, millega seda teha. Antud juhul $\{3\} \sqcup \{5\} = \{3, 5\}$.
+\begin{definition}
+\label{def:järjestatud_hulk}
+\emph{Osaliselt järjestatud hulk} on paar $(A, \sqleq)$, kus $A$ on hulk, millel on defineeritud binaarne seos $\sqleq$, mis iga $a, b, c \in A$ korral rahuldab järgnevaid tingimusi:
+\begin{itemize}[nosep]
+	\item $a \sqleq a$ (refleksiivsus),
+	\item kui $a \sqleq b$ ja $b \sqleq c$, siis $a \sqleq c$ (transitiivsus),
+	\item kui $a \sqleq b$ ja $b \sqleq a$, siis $a = b$ (antisümmeetrilisus).
+\end{itemize}
+\end{definition}
+
+Domeenide puhul kasutatakse osalist järjestust seisundite täpsuse võrdlemiseks. Kokkuleppeliselt järjestatakse seisundid täpsemast ebatäpsema suunas --- kirjutis $a \sqleq b$ tähendab, et seisund $a$ kirjeldab programmi olekut täpsemalt või sama täpselt kui seisund $b$. Teiste sõnadega, alati kui programmi olekut kirjeldab $a$, siis saab seda kirjeldada ka $b$-ga.
+
+\noindent
+Järgnevalt olgu $(A, \sqleq)$ osaliselt järjestatud hulk ja $X \subseteq A$.
+
+\begin{definition}
+\label{def:join}
+Elementi $c$ nimetatakse hulga $X$ \emph{ülemiseks tõkkeks}, kui iga $x \in X$ korral $x \sqleq c$. Vähimat ülemist tõket nimetatakse \emph{ülemiseks rajaks}, st $X$-i iga ülemise tõkke $d$ korral $c \sqleq d$.
+\end{definition}
+
+\begin{definition}
+\label{def:meet}
+Elementi $c$ nimetatakse hulga $X$ \emph{alumiseks tõkkeks}, kui iga $x \in X$ korral $c \sqleq x$. Suurimat alumist tõket nimetatakse \emph{alumiseks rajaks}, st $X$-i iga alumise tõkke $d$ korral $d \sqleq c$.
+\end{definition}
+
+Hulga $X$ ülemist ja alumist raja tähistatakse vastavalt $\bigsqcup X$ ja $\bigsqcap X$. Kui $X = \{a, b\}$, siis tähistatakse ülemine ja alumine raja vastavalt $a \sqcup b$ ja $a \sqcap b$.
+
+Domeenide puhul kasutatakse ülemisi tõkkeid mitme seisundi ühendamiseks, nii nagu seda oli vaja teha joonise~\ref{fig:prog-if} programmi punktis 7. Seejuures tahetakse loomulikult täpseimat ühendatud seisundit, mis ongi ühendatavate seisundite ülemine raja.
+\TODO{Milleks vaja alumist raja?}
+
+\begin{definition}
+\emph{Täielik võre} on osaliselt järjestatud hulk, mille igal alamhulgal leidub ülemine ja alumine raja.
+\end{definition}
+
+Täielikus võres $(A, \sqleq)$ leidub vähim element $\bot = \bigsqcap A$ ja suurim element $\top = \bigsqcup A$, mida nimetatakse vastavalt \textit{bottom}iks ja \textit{top}iks.
+
+Domeenidelt nõutaksegi, et need oleks täielikud võred, sest sellega kaasnevad ülal kirjeldatud võimalused seisunditega töötamiseks. Domeeni element $\top$ kirjeldab kõige üldisemat seisundit ehk seisundit, kus pole programmi oleku kohta mitte midagi teada. Element $\bot$ kirjeldab võimatut seisundit ehk tüüpiliselt seda, et programmi täitmisel mitte kunagi uuritavasse punkti ei jõutagi.
+
+
+\subsection{Alamhulkade domeen}
+Iga hulga $S$ korral saab vaadelda selle kõigi alamhulkade hulka $\powerset{S}$, millel on loomulik osaline järjestus $\subseteq$.
+Osutub, et see on ka täielik võre, kus
+\begin{itemize}[nosep]
+	\item $a \sqleq b \Leftrightarrow a \subseteq b$,
+	\item $a \sqcup b = a \cup b$ ja $a \sqcap b = a \cap b$,
+	\item $\bot = \emptyset$ ja $\top = S$.
 \end{itemize}
 
-Näitest peaks olema selge, miks üldse nõuda, et domeen oleks võre, ja millised võimalused see annab domeeni kasutamiseks programmide analüüsimisel. Kirjeldatud näide analüüsis ainult muutujat \texttt{x} ja jättis täielikult kõrvale muutuja \texttt{y}. Loomulikult võiks analüüs midagi öelda ka selle kohta.
+Hulk $X$ kirjeldab väärtust $z$ parajasti siis, kui $z \in X$. Sellega on defineeritud, kuidas peaks seostama domeeni elemente konkreetsete võimalike väärtustega.
+\TODO{\textit{Description relation} --- kas üldse mõtet mainida? Vb jätta Galois ühenduste juurde.}
 
-\TODO{Näide tervest analüüsist: +üleminekufunktsioonid +võrratuste süsteem +süsteemi lahendamine. Sama näite peal?}
+Ülal käsitsi tehtud joonise~\ref{fig:prog-if} programmi analüüsis oligi iga muutuja väärtusi analüüsitud alamhulkade domeeni $\mathbb{D} = (\powerset{\mathbb{Z}}, \subseteq)$ abil. Programmi punktis 7 toimunud muutuja \texttt{y} seisundite ühendamine on võrede terminites $\{5\} \sqcup \{2, 3\}$. Antud programmi analüüsimiseks on selle domeeniga vaja seostada kahte tüüpi tehted:
+\begin{description}
+	\item[Konstantide abstraheerimine] Lause \texttt{y = 5} abstraktseks teostamiseks, st muutujaga~\texttt{y} domeeni elemendi seostamiseks, on esinev konstant vaja sobivalt abstraheerida. Täisarvude alamhulkade domeenis sobib konstantse väärtuse $a$ jaoks ilmselt element $\{a\}$.
+
+	\item[Abstraktne aritmeetika] Lause \texttt{y = x + 1} abstraktseks teostamisks on vaja teostada liitmine muutuja \texttt{x} seisundi $\{1, 2\}$ ja konstandi seisundi $\{1\}$ vahel. Täisarvude alamhulkade domeenis saab elementide $A, B \in \powerset{\mathbb{Z}}$ liitmise defineerida kui
+	\[
+		A + B = \{a + b \mid a \in A, b \in B\}
+	\]
+	ning sarnaselt võib defineerida ülejäänud tehted.
+\end{description}
+
+Nende matemaatiliste vahenditega ongi võimalik näites tehtu süstematiseerida. Siiski kirjeldab kasutatud domeen korraga ainult ühe muutuja väärtuseid, kuid muutujatevahelisi toiminguid otseselt mitte --- seda peab ikkagi domeeniväliselt teostama. Oleks veelgi parem, kui tervet programmi olekut, st kõigi muutujate seisundeid korraga, saaks vaadelda ühe keerukama domeeni elementidena. Selleks võetaksegi kasutusele kujutused.
+
 
 \subsection{Kujutusdomeen}
-\TODO{\textit{mapdomain} --- funktsioondomeen? kujutusdomeen?}
-Olgu $\Var$ programmi muutujate hulk ja $\Val$ domeen, milles vaadeldakse ühe muutuja seisundit. Sel juhul saab vaadelda abstraktsete muutujate väärtustuste domeeni~\cite[45]{seidl_foundations}
+Olgu $\Var$ programmi muutujate hulk ja $\Val$ domeen, milles vaadeldakse üksiku muutuja seisundit. Sel juhul saab vaadelda abstraktsete muutujate väärtustuste domeeni~\cite[45]{seidl_foundations}
 \[
 	\mathbb{D} = (\Var \to \Val)_\bot = (\Var \to \Val) \cup \{\bot\}.
 \]
-Domeeni elementideks on kujutused muutujate hulgast abstraktsete väärtuste hulka, mis on väga analoogilised konkreetsete muutujate väärtustustega funktsionaalselt kirjeldatuna. Element $\bot$ on tehislikult lisatud, et domeen moodustaks täieliku võre, ja tähendab hetkel teadaolevalt saavutamatut programmi punkti. Osaline järjestus selles domeenis on defineeritud järgnevaga:
+Domeeni elementideks on kujutused muutujate hulgast nende abstraktsete väärtuste hulka, mis on väga analoogilised konkreetsete muutujate väärtustustega funktsionaalselt kirjeldatuna. Element $\bot$ on tehislikult lisatud, et domeen moodustaks täieliku võre, ja tähendab saavutamatut (ingl. \textit{unreachable}) programmi punkti. Osaline järjestus selles domeenis on defineeritud järgnevaga:
 \[
 	D_1 \sqleq D_2 \quad\Longleftrightarrow\quad D_1 = \bot \quad\lor\quad \forall x \in \Var\; D_1(x) \sqleq D_2(x).
 \]
-\TODO{Tehted kujutustel, $\top$?}
+\TODO{$\sqcup, \sqcap, \top$?}
 
-Eelnevas näites $\Var = \{\texttt{x}, \texttt{y}\}$ ja jätkamiseks sobib juba nähtud $\Val = \powerset{\mathbb{Z}}$. Analüüsides programmi jooniselt~\ref{lst:if} nüüd selles domeenis, saame seisundid:
+Joonisel~\ref{fig:prog-if} tehtud näites olid muutujad $\Var = \{\texttt{x}, \texttt{y}, \texttt{z}\}$ ja väärtused domeenis $\Val = \powerset{\mathbb{Z}}$. Sellises kujutuste domeenis saabki kirjeldada tervet seisundit korraga ning sama analüüsi lõpptulemus oleks järgmine:
 \begin{itemize}
-	\item Punktides 1, 2 ja 3: $\{ \texttt{x} \mapsto \top, \texttt{y} \mapsto \top \}$.
-	\item Punktis 4: $\{ \texttt{x} \mapsto \{5\}, \texttt{y} \mapsto \top \}$.
-	\item Punktis 5: $\{ \texttt{x} \mapsto \{3\}, \texttt{y} \mapsto \top \}$.
-	\item Punktis 6: $\{ \texttt{x} \mapsto \{3, 5\}, \texttt{y} \mapsto \top \}$.
-	\item Punktis 7: $\{ \texttt{x} \mapsto \{3, 5\}, \texttt{y} \mapsto \{4, 6\} \}$, sest muutuja \texttt{y} on avaldatud \texttt{x}-i kaudu, mis on juba analüüsitud.
-	\TODO{Abstraktne liitmistehe}
+	\item Punktis 1: $\{ \texttt{x} \mapsto \top, \texttt{y} \mapsto \top, \texttt{z} \mapsto \top \}$.
+	\item Punktis 2: $\{ \texttt{x} \mapsto \{0, 1, 2\}, \texttt{y} \mapsto \top, \texttt{z} \mapsto \top \}$.
+	\item Punktis 3: $\{ \texttt{x} \mapsto \{0\}, \texttt{y} \mapsto \top, \texttt{z} \mapsto \top \}$.
+	\item Punktis 4: $\{ \texttt{x} \mapsto \{1, 2\}, \texttt{y} \mapsto \top, \texttt{z} \mapsto \top \}$.
+	\item Punktis 5: $\{ \texttt{x} \mapsto \{0\}, \texttt{y} \mapsto \{5\}, \texttt{z} \mapsto \top \}$.
+	\item Punktis 6: $\{ \texttt{x} \mapsto \{1, 2\}, \texttt{y} \mapsto \{2, 3\}, \texttt{z} \mapsto \top \}$.
+	\item Punktis 7: $\{ \texttt{x} \mapsto \{0, 1, 2\}, \texttt{y} \mapsto \{2, 3, 5\}, \texttt{z} \mapsto \top \}$.
+	\item Punktis 8: $\{ \texttt{x} \mapsto \{0, 1, 2\}, \texttt{y} \mapsto \{2, 3, 5\}, \texttt{z} \mapsto \{4, 6, 10\} \}$.
 \end{itemize}
+\TODO{See loetelu kuidagi kompaktsemaks?}
 
-Siit selgubki, et väikese vaevaga on võimalik lihtsam ühte muutujat korraga kirjeldav domeen laiendada kõigile muutujatele korraga. Seejuures muutub võimalikuks järgida andmete liikumist muutujate vahel, mis vastab juba paremini andmevooanalüüsi nimele.
+Kasutades kogu olekut kirjeldavaid domeeni elemente, on programmi laused ja avaldised juhtimisvoograafis kirjeldatavad funktsioonidena lähteseisundist sihtseisundisse. Neid nimetatakse \textbf{üleminekufunktsioonideks} (ingl. \textit{transfer function}) ja samas näites võivad need olla järgnevad:
+\begin{gather*}
+	\tf_{1,2}(d) = d[\texttt{x} \mapsto \{0, 1, 2\}], \\
+\begin{align*} % nasty hack
+	\tf_{2,3}(d) &= d[\texttt{x} \mapsto \{0\}], &
+	\tf_{2,4}(d) &= d[\texttt{x} \mapsto d(\texttt{x}) \setminus \{0\}], \\
+	\tf_{3,5}(d) &= d[\texttt{y} \mapsto \{5\}], &
+	\tf_{4,6}(d) &= d[\texttt{y} \mapsto d(\texttt{x}) + \{1\}],
+\end{align*} \\
+	\tf_{7,8}(d) = d[\texttt{z} \mapsto \{2\} * d(\texttt{y})],
+\end{gather*}
+kus kirjutis $d[\texttt{x} \mapsto \{0\}]$ tähendab funktsiooni uuendamist (ingl. \textit{function update}) ehk sama funktsiooni $d$, mis argumendil \texttt{x} omab nüüd uut väärtust $\{0\}$. Aritmeetilised tehted hulkade vahel on sellised nagu nad on sisemises domeenis $\Val$.
+\TODO{Funktsiooni uuendamise def?}
+\TODO{Abstraktse aritmeetika jaoks eraldi operaatorid: $\oplus, \odot, \otimes$?}
+Seejuures üleminekufunktsioonid saab keele semantika ning lausete ja avaldiste struktuuri mallide järgi mehaaniliselt defineerida ehk konkreetse programmi analüüsil toimub see automatiseeritult.
 
-Sellegipoolest pole vaadeldu praktiliselt teostatav, sest võimalike väärtuste hulk võib olla lõpmatu ja seejuures ka ebatriviaalne. Üldiselt pole võimalik selliseid hulki programmis kirjeldada ja nendega opereerida. Seetõttu loobutakse ülimast täpsusest suvaliste hulkade kujul ja kasutatakse ebatäpsemaid domeene väärtuste kirjeldamiseks, mida on võimalik analüsaatorisse implementeerida. Üheks variandiks on vaadelda väärtuste lõike.
+Kujutusdomeeni kasutamisega on võimalik lihtsam lihtsam ühte muutujat korraga kirjeldav domeen laiendada kõigile muutujatele korraga. Seejuures muutub võimalikuks järgida andmete liikumist muutujate vahel, mis vastab juba paremini andmevooanalüüsi nimele.
+
+
+\subsection{Algoritmiline analüüs}
+Võrede, nende abstraktsete tehete ja üleminekufunktsioonide abil on formaliseeritud suur osa esialgses näites intuitiivselt tehtust, kuid täielikult automatiseeritud analüüsini on jäänud veel viimane samm, mis võimaldaks kogu analüüsi algoritmiliselt kirjeldada. Kõigepealt peavad paigas olema kaks asja:
+\begin{enumerate}[nosep]
+	\item Domeen $\mathbb{D}$, mille abil analüüsi teostatakse ja mis on võimeline kirjeldama uuritavaid programmi omadusi.
+	\item Üleminekufunktsioonide defineerimise protsess programmeerimiskeele lausetest.
+\end{enumerate}
+
+Nende olemasolul saab konkreetse programmi analüüsi teostada järgnevate sammudega:
+\begin{enumerate}
+	\item Iga programmi punkti $i$ jaoks võtta kasutusele üks muutuja $x_i$, mis vastab otsitavale programmi abstraktsele seisundile selles punktis.
+
+	\item Iga juhtimisvoograafi serva $k \rightarrow i$ jaoks defineerida fikseeritud protsessi abil üleminekufunktsioon $\tf_{k,i}$. Nõnda saab iga serva jaoks moodustada võrratuse $x_i \sqgeq \tf_{k,i}(x_k)$.
+	\TODO{Eriline võrratus algtipu jaoks!}
+
+	\item Neist võrratustest moodustub süsteem, kus iga muutuja on vasakul täpselt ühel korral, selleks vajadusel võrratusi parema poole ülemraja järgi ühendades:
+	\[
+		\begin{cases}
+			x_1 \sqgeq f_1(x_1, \ldots, x_n), \\
+			\vdots \\
+			x_n \sqgeq f_n(x_1, \ldots, x_n),
+		\end{cases}
+	\]
+	kus $f_1, \ldots, f_n$ on moodustatud võrratuste parematest pooltest (üleminekufunktsioonidest ja nende ülemrajadest).
+	\TODO{Täpsemalt defineerida üleminekufunktsioonide ülemraja?}
+
+	Sama saab lühemalt kirja panna, kui vaadelda hoopis täielikku võre $\mathbb{D}^n$, mille elementide positsioonil $i$ on programmi punkti $i$ seisund. Selle võre tehted on defineeritud punktiviisiliselt.
+	\TODO{Otsekorrutise domeeni eraldi defineerimine?}
+	Sellises võres on muutujaks $\bar{x} = (x_1, \ldots, x_n)$ ning funktsioonid ühendatud kokku ühte funktsiooni $\bar{f}(\bar{x}) = (f_1(\bar{x}), \ldots, f_n(\bar{x}))$. Sellega on kogu eelnev võrratuste süsteem ühendatud üheks ainsaks võrratuseks $\bar{x} \sqgeq \bar{f}(\bar{x})$.
+
+	\item Saadud võrratusele (ehk kaudselt algsele võrratuste süsteemile) tuleb leida vähim lahend. Selle iga lahend on üks korrektne analüüs, mis iga programmi punkti kohta sisaldab selle abstraktset seisundit. Vähim sobiv lahend on ühtlasi täpseim võimalik korrektne analüüs, ehk see, millest enim kasu oleks.
+
+	Saab näidata, et see on samaväärne võrrandi $\bar{x} = \bar{f}(\bar{x})$ vähima lahendi leidmisega~\cite[21]{seidl_foundations}, mida nimetatakse ka vähima püsipunkti leidmiseks. Selleks on kõige lihtsam iteratiivne algoritm, mis alustab väärtusest $\bar{x}_0 = \overline{\bot} = (\bot, \ldots, \bot)$ ja järjest iga $\bar{x}_i$ korral arvutab $\bar{x}_{i+1} = \bar{f}(\bar{x}_i)$ kuni lõpuks jõutakse nii kaugele, et mingi $i$ korral $\bar{x}_i = \bar{x}_{i+1}$, st funktsiooni väärtused stabiliseeruvad ja funktsiooni edasi rakendamine tulemust ei muuda. Leitud lahendist ongi võimalik välja lugeda analüüsi tulemused iga programmi punkti jaoks.
+	\TODO{Viidata korrektsusele}
+\end{enumerate}
+
+Joonise~\ref{fig:prog-if} programmi analüüsimisel oleks võrratuste ja võrrandite süsteemid järgnevad:
+\[
+	\begin{cases}
+		x_1 \sqgeq \top \\
+		x_2 \sqgeq \tf_{1,2}(x_1) \\
+		x_3 \sqgeq \tf_{2,3}(x_2) \\
+		x_4 \sqgeq \tf_{2,4}(x_2) \\
+		x_5 \sqgeq \tf_{3,5}(x_3) \\
+		x_6 \sqgeq \tf_{4,6}(x_4) \\
+		\begin{rcases*}
+			x_7 \sqgeq x_5 \\
+			x_7 \sqgeq x_6
+		\end{rcases*} \Rightarrow x_7 \sqgeq x_5 \sqcup x_6 \\
+		x_8 \sqgeq \tf_{7,8}(x_7)
+	\end{cases}
+	\quad \text{ja} \quad
+	\begin{cases}
+		x_1 = \top \\
+		x_2 = \tf_{1,2}(x_1) = x_1[\texttt{x} \mapsto \{0, 1, 2\}] \\
+		x_3 = \tf_{2,3}(x_2) = x_2[\texttt{x} \mapsto \{0\}] \\
+		x_4 = \tf_{2,4}(x_2) = x_2[\texttt{x} \mapsto d(\texttt{x}) \setminus \{0\}] \\
+		x_5 = \tf_{3,5}(x_3) = x_3[\texttt{y} \mapsto \{5\}] \\
+		x_6 = \tf_{4,6}(x_4) = x_4[\texttt{y} \mapsto d(\texttt{x}) + \{1\}] \\
+		x_7 = x_5 \sqcup x_6 \\
+		x_8 = \tf_{7,8}(x_7) = x_7[\texttt{z} \mapsto \{2\} * d(\texttt{y})]
+	\end{cases}.
+\]
+Nende iteratiivne lahendamine on samm-sammult toodud tabelis~\ref{tab:itersolve}. On näha, et algoritmiline analüüs jõudis oodatud tulemuseni.
+\TODO{Mainida paremaid algoritme}
+
+\begin{sidewaystable}
+	\caption{Näiteprogrammi (joonisel~\ref{fig:prog-if}) analüüsi süsteemi iteratiivse lahendamise sammud ja lahend.}
+	\centering
+	\footnotesize
+	$\begin{tabu}{c*{2}{|c}*{5}{*{3}{|c}}|c}
+	\hline
+	i & 0 & 1 & \multicolumn{3}{c|}{2} & \multicolumn{3}{c|}{3} & \multicolumn{3}{c|}{4} & \multicolumn{3}{c|}{5} & \multicolumn{3}{c|}{6} & 7\\
+	 &  &  & \texttt{x} & \texttt{y} & \texttt{z} & \texttt{x} & \texttt{y} & \texttt{z} & \texttt{x} & \texttt{y} & \texttt{z} & \texttt{x} & \texttt{y} & \texttt{z} & \texttt{x} & \texttt{y} & \texttt{z} &  \\
+	\hline
+	x_1 & \bot & \top & \top & \top & \top & \top & \top & \top & \top & \top & \top & \top & \top & \top & \top & \top & \top & \multirow{8}{*}{\text{sama}} \\
+	x_2 & \bot & \bot & \{0, 1, 2\} & \top & \top & \{0, 1, 2\} & \top & \top & \{0, 1, 2\} & \top & \top & \{0, 1, 2\} & \top & \top & \{0, 1, 2\} & \top & \top \\
+	x_3 & \bot & \bot & \multicolumn{3}{c|}{\bot} & \{0\} & \top & \top & \{0\} & \top & \top & \{0\} & \top & \top & \{0\} & \top & \top \\
+	x_4 & \bot & \bot & \multicolumn{3}{c|}{\bot} & \{1, 2\} & \top & \top & \{1, 2\} & \top & \top & \{1, 2\} & \top & \top & \{1, 2\} & \top & \top \\
+	x_5 & \bot & \bot & \multicolumn{3}{c|}{\bot} & \multicolumn{3}{c|}{\bot} & \{0\} & \{5\} & \top & \{0\} & \{5\} & \top & \{0\} & \{5\} & \top \\
+	x_6 & \bot & \bot & \multicolumn{3}{c|}{\bot} & \multicolumn{3}{c|}{\bot} & \{1, 2\} & \{2, 3\} & \top & \{1, 2\} & \{2, 3\} & \top & \{1, 2\} & \{2, 3\} & \top \\
+	x_7 & \bot & \bot & \multicolumn{3}{c|}{\bot} & \multicolumn{3}{c|}{\bot} & \multicolumn{3}{c|}{\bot} & \{0, 1, 2\} & \{2, 3, 5\} & \top & \{0, 1, 2\} & \{2, 3, 5\} & \top \\
+	x_8 & \bot & \bot & \multicolumn{3}{c|}{\bot} & \multicolumn{3}{c|}{\bot} & \multicolumn{3}{c|}{\bot} & \multicolumn{3}{c|}{\bot} & \{0, 1, 2\} & \{2, 3, 5\} & \{4, 6, 10\} \\
+	\hline
+	\end{tabu}$
+	\label{tab:itersolve}
+	\TODO{Massiivne tabel: kuidagi väiksemaks? Lisadesse?}
+\end{sidewaystable}
+
+Sellegipoolest pole vaadeldud analüüs kuigi praktiline, sest võimalike arvuliste väärtuste hulgad võivad olla suured või lausa lõpmatud. Üldiselt pole võimalik lõpmatuid hulki programmis efektiivselt esitada ja nendega opereerida. Seetõttu loobutakse ülimast täpsusest alamhulkade kujul ja kasutatakse ebatäpsemaid domeene väärtuste kirjeldamiseks, mida on efektiivselt võimalik analüsaatorisse implementeerida.
+Alamhulkade domeene saab siiski muudeks analüüsideks mõistlikult kasutada ning neil on oluline roll domeenide abstraheerimise uurimisel.
+
 
 \subsection{Intervalldomeen}
 Intervalldomeen on domeen, milles täisarvude väärtuste abstraheerimiseks kasutatakse arvtelje lõike.
@@ -171,11 +313,12 @@ millel on osaline järjestus
 \end{definition}
 
 Sellises domeenis
-\[
-	[l_1, u_1] \sqcup [l_2, u_2] = [\min\{l_1, l_2\}, \max\{u_1, u_2\}].
-\]
-
-\TODO{$\mathbb{I}$ pole täielik võre! vaja eraldi võre definitsiooni?}
+\begin{align*}
+	[l_1, u_1] \sqcup [l_2, u_2] &= [\min\{l_1, l_2\}, \max\{u_1, u_2\}], \\
+	[l_1, u_1] \sqcap [l_2, u_2] &= [\max\{l_1, l_2\}, \min\{u_1, u_2\}],\quad \text{kui } \max\{l_1, l_2\} \leq \min\{u_1, u_2\}.
+\end{align*}
+\TODO{Joonis intervallide $\sqcup, \sqcap$ kohta \textit{a la} Seidl}
+Kuna alumine raja on ainult tinglikult defineeritud, siis see pole täielik võre. See pole probleem, kuna pisut täiendatud domeen $\mathbb{I}_\bot = \mathbb{I} \cup \{\bot\}$ osutub täielikuks võreks.
 Lõigu otspunktides on lubatud vastavad lõpmatust kirjeldavad väärtused, mis võimaldavad rääkida selles domeenis suurimast elemendist $\top = [-\infty, +\infty]$.
 
 Lõik $[l, u]$ kirjeldab täisarvu $z$ parajasti siis, kui $l \leq z \leq u$.
