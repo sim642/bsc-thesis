@@ -234,12 +234,20 @@ Nende olemasolul saab konkreetse programmi analüüsi teostada järgnevate sammu
 
 	Sama saab lühemalt kirja panna, kui vaadelda hoopis täielikku võre $\mathbb{D}^n$, mille elementide positsioonil $i$ on programmi punkti $i$ seisund. Selle võre tehted on defineeritud punktiviisiliselt.
 	\TODO{Otsekorrutise domeeni eraldi defineerimine?}
-	Sellises võres on muutujaks $\bar{x} = (x_1, \ldots, x_n)$ ning funktsioonid ühendatud kokku ühte funktsiooni $\bar{f}(\bar{x}) = (f_1(\bar{x}), \ldots, f_n(\bar{x}))$. Sellega on kogu eelnev võrratuste süsteem ühendatud üheks ainsaks võrratuseks $\bar{x} \sqgeq \bar{f}(\bar{x})$.
+	Sellises võres on muutujaks $\bar{x} = (x_1, \ldots, x_n)$ ning funktsioonid ühendatud kokku ühte funktsiooni $\bar{f}(\bar{x}) = (f_1(\bar{x}), \ldots, f_n(\bar{x}))$. Sellega on kogu eelnev võrratuste süsteem ühendatud üheks ainsaks võrratuseks $\bar{x} \sqgeq \bar{f}(\bar{x})$~\cite[21]{seidl_foundations}.
+
+	Lisaks eeldatakse, et funktsioonid $f_i$ ja seega kaudselt funktsioon $\bar{f}$ on monotoonsed, mis tähendab, et nad säilitavad rakendamisel täpsusega määratud järjestust~\cite[20]{seidl_foundations}.
+
+	\begin{definition}
+	Olgu $\mathbb{D}_1$ ja $\mathbb{D}_2$ osaliselt järjestatud hulgad. Funktsiooni $f: \mathbb{D}_1 \to \mathbb{D}_2$ nimetatakse \emph{monotoonseks}, kui iga $a, b \in \mathbb{D}_1$ korral
+	\[
+		a \sqleq b \quad\Longrightarrow\quad f(a) \sqleq f(b)~\text{\cite[23]{davey_lattices}}.
+	\]
+	\end{definition}
 
 	\item Saadud võrratusele (ehk kaudselt algsele võrratuste süsteemile) tuleb leida vähim lahend. Selle iga lahend on üks korrektne analüüs, mis iga programmi punkti kohta sisaldab selle abstraktset seisundit. Vähim sobiv lahend on ühtlasi täpseim võimalik korrektne analüüs, ehk see, millest enim kasu oleks.
 
-	Saab näidata, et see on samaväärne võrrandi $\bar{x} = \bar{f}(\bar{x})$ vähima lahendi leidmisega~\cite[21]{seidl_foundations}, mida nimetatakse ka vähima püsipunkti leidmiseks. Selleks on kõige lihtsam iteratiivne algoritm, mis alustab väärtusest $\bar{x}_0 = \overline{\bot} = (\bot, \ldots, \bot)$ ja järjest iga $\bar{x}_i$ korral arvutab $\bar{x}_{i+1} = \bar{f}(\bar{x}_i)$ kuni lõpuks jõutakse nii kaugele, et mingi $i$ korral $\bar{x}_i = \bar{x}_{i+1}$, st funktsiooni väärtused stabiliseeruvad ja funktsiooni edasi rakendamine tulemust ei muuda. Leitud lahendist ongi võimalik välja lugeda analüüsi tulemused iga programmi punkti jaoks.
-	\TODO{Viidata korrektsusele}
+	Saab näidata, et see on samaväärne võrrandi $\bar{x} = \bar{f}(\bar{x})$ vähima lahendi leidmisega, mida nimetatakse ka vähima püsipunkti leidmiseks. Selleks on kõige naiivne iteratiivne algoritm, mis alustab väärtusest $\bar{x}_0 = \overline{\bot} = (\bot, \ldots, \bot)$ ja järjest iga $\bar{x}_i$ korral arvutab $\bar{x}_{i+1} = \bar{f}(\bar{x}_i)$ kuni lõpuks jõutakse nii kaugele, et mingi $i$ korral $\bar{x}_i = \bar{x}_{i+1}$, st funktsiooni väärtused stabiliseeruvad ja funktsiooni edasi rakendamine tulemust ei muuda. Leitud lahendist ongi võimalik välja lugeda analüüsi tulemused iga programmi punkti jaoks~\cite[21]{seidl_foundations}.
 \end{enumerate}
 
 Joonise~\ref{fig:prog-if} programmi analüüsimisel oleks võrratuste ja võrrandite süsteemid järgnevad:
