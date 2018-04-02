@@ -5,6 +5,9 @@
 \section{Domeeni omadused}
 
 \subsection{Võre omadused}
+Kuna nõutakse, et domeenid oleks täielikud võred, siis peavadki nad kõiksugu võrede tingimusi rahuldama. Järgnev on ülevaade erinevatest omadustest, mis täielikel võredel kehtima peaks:
+
+\noindent
 Olgu $\mathbb{D}$ täielik võre, siis iga $a, b, c \in \mathbb{D}$ korral peavad kehtima järgnevad tingimused:
 
 \paragraph{Osalise järjestuse omadused} (definitsioonist~\ref{def:järjestatud_hulk})
@@ -14,10 +17,12 @@ Olgu $\mathbb{D}$ täielik võre, siis iga $a, b, c \in \mathbb{D}$ korral peava
 	\item kui $a \sqleq b$ ja $b \sqleq a$, siis $a = b$ (antisümmeetrilisus);
 \end{itemize}
 
-\paragraph{Rajade omadused}
+\paragraph{Rajade omadused}~\cite{might_orders}
 \begin{itemize}[nosep]
 	\item $a \sqleq a \sqcup b$ ja $b \sqleq a \sqcup b$ (definitsioonist~\ref{def:join});
 	\item $a \sqcap b \sqleq a$ ja $a \sqcap b \sqleq b$ (definitsioonist~\ref{def:meet});
+	\item kui $a \sqleq c$ ja $b \sqleq c$, siis $a \sqcup b \sqleq c$ (definitsioonist~\ref{def:join});
+	\item kui $c \sqleq a$ ja $c \sqleq b$, siis $c \sqleq a \sqcap b$ (definitsioonist~\ref{def:meet});
 \end{itemize}
 
 \paragraph{Rajade tehete omadused}~\cites[6]{laan_voreteooria}[39]{davey_lattices}
@@ -28,7 +33,7 @@ Olgu $\mathbb{D}$ täielik võre, siis iga $a, b, c \in \mathbb{D}$ korral peava
 	\item $a \sqcup (a \sqcap b) = a$ ja $a \sqcap (a \sqcup b) = a$ (neelduvus);
 \end{itemize}
 
-\paragraph{Vähima ja suurima elemendi omadused}
+\paragraph{Vähima ja suurima elemendi omadused}~\cite{might_orders}
 \begin{itemize}[nosep]
 	\item $\bot \sqleq a$;
 	\item $a \sqleq \top$;
