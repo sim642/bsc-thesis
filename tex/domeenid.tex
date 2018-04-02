@@ -278,7 +278,8 @@ Joonise~\ref{fig:prog-if} programmi analüüsimisel oleks võrratuste ja võrran
 	\end{cases}.
 \]
 Nende iteratiivne lahendamine on samm-sammult toodud tabelis~\ref{tab:itersolve}. On näha, et algoritmiline analüüs jõudis oodatud tulemuseni.
-\TODO{Mainida paremaid algoritme}
+Nagu näha, siis naiivne iteratsioon on üsna ebaefektiivne viis vähima püsipunkti leidmiseks, kuna väärtuste stabiliseerumine võib võtta palju samme, kusjuures iga kord arvutatakse uuesti ka need väärtused, mis enam niikuinii ei muutu. Loomulikult on olemas mitmeid palju efektiivsemaid meetodeid, näiteks \textit{round-robin} iteratsioon ja \textit{worklist} algoritm~\cite[24,83]{seidl_foundations}.
+\TODO{Algoritmide nimesid kuidagi tõlkida?}
 
 \begin{sidewaystable}
 	\caption{Näiteprogrammi (joonisel~\ref{fig:prog-if}) analüüsi süsteemi iteratiivse lahendamise sammud ja lahend.}
