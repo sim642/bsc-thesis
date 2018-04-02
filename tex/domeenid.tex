@@ -299,7 +299,7 @@ Alamhulkade domeene saab siiski muudeks analüüsideks mõistlikult kasutada nin
 
 
 \subsection{Intervalldomeen}
-Intervalldomeen on domeen, milles täisarvude väärtuste abstraheerimiseks kasutatakse arvtelje lõike.
+Intervalldomeen on domeen, milles täisarvude väärtuste abstraheerimiseks kasutatakse arvtelje lõike. Selline abstraktsioon on arvuhulkadega võrreldes efektiivsem, olles samaaegselt praktikas ka piisavalt täpne.
 
 \begin{definition}
 \emph{Intervalldomeeniks}~\cite[55]{seidl_foundations} nimetatakse hulka
@@ -311,6 +311,7 @@ millel on osaline järjestus
 	[l_1, u_1] \sqleq [l_2, u_2] \quad\Longleftrightarrow\quad l_2 \leq l_1 \land u_1 \leq u_2.
 \]
 \end{definition}
+\TODO{Ülejäänud domeenid ka definitsiooni kujul?}
 
 Sellises domeenis
 \begin{align*}
@@ -318,19 +319,63 @@ Sellises domeenis
 	[l_1, u_1] \sqcap [l_2, u_2] &= [\max\{l_1, l_2\}, \min\{u_1, u_2\}],\quad \text{kui } \max\{l_1, l_2\} \leq \min\{u_1, u_2\}.
 \end{align*}
 \TODO{Joonis intervallide $\sqcup, \sqcap$ kohta \textit{a la} Seidl}
-Kuna alumine raja on ainult tinglikult defineeritud, siis see pole täielik võre. See pole probleem, kuna pisut täiendatud domeen $\mathbb{I}_\bot = \mathbb{I} \cup \{\bot\}$ osutub täielikuks võreks.
+Intervallide järjestus on määratud nende omavahelise sisalduvuse kaudu ning ülem- ja alamraja on vastavalt lõikude ühend ja ühisosa.
 Lõigu otspunktides on lubatud vastavad lõpmatust kirjeldavad väärtused, mis võimaldavad rääkida selles domeenis suurimast elemendist $\top = [-\infty, +\infty]$.
+Kuna alumine raja on ainult tinglikult defineeritud, siis intervalldomeen ei moodusta täielikku võre. See pole probleem, kuna pisut täiendatud domeen $\mathbb{I}_\bot = \mathbb{I} \cup \{\bot\}$ osutub täielikuks võreks, kui seda vaja peaks olema.
 
 Lõik $[l, u]$ kirjeldab täisarvu $z$ parajasti siis, kui $l \leq z \leq u$.
 
-Valides eelnevas joonisel~\ref{lst:if} tehtud näites $\Var = \mathbb{I}$, saame seisundid analoogiliselt:
-\begin{itemize}
-	\item Punktides 1, 2 ja 3: $\{ \texttt{x} \mapsto \top, \texttt{y} \mapsto \top \}$.
-	\item Punktis 4: $\{ \texttt{x} \mapsto [5, 5], \texttt{y} \mapsto \top \}$.
-	\item Punktis 5: $\{ \texttt{x} \mapsto [3, 3], \texttt{y} \mapsto \top \}$.
-	\item Punktis 6: $\{ \texttt{x} \mapsto [3, 5], \texttt{y} \mapsto \top \}$, kus \texttt{x}-i seisundi saab avaldada harudes olevatest: $[3, 3] \sqcup [5, 5] = [3, 5]$.
-	\item Punktis 7: $\{ \texttt{x} \mapsto [3, 5], \texttt{y} \mapsto [4, 6] \}$.
-\end{itemize}
+Analoogiliselt alamhulkade domeeniga, tuuakse siin programmide analüüsimiseks sisse:
+\begin{description}
+	\item[Konstantide abstraheerimine] Konstantsele täisarvulisele väärtusele $a$ vastab intervall $[a, a]$.
+
+	\item[Abstraktne aritmeetika] Intervallidel saab samuti defineerida erinevad aritmeetilised tehted, moodustades intervallaritmeetika. Näiteks lõikude $[l_1, u_1], [l_2, u_2] \in \mathbb{I}$ korral:
+	\begin{align*}
+		[l_1, u_1] + [l_2, u_2] &= [l_1 + l_2, u_1 + u_2], \\
+		[l_1, u_1] \cdot [l_2, u_2] &= [\min\{l_1l_2, l_1u_2, u_1l_2, u_1u_2\}, \max\{l_1l_2, l_1u_2, u_1l_2, u_1u_2\}].
+	\end{align*}
+	Siin on tehete defineerimine keerulisem kui alamhulkade domeenis, nagu korrutamisest paistab, kusjuures lisaks peab defineerima juhud, kus mõned otspunktidest on $-\infty$ või $\infty$.
+	\TODO{Kas peaks seda ka siin tegema?}
+\end{description}
+
+Valides eelnevas joonisel~\ref{fig:prog-if} tehtud näites seekord $\Val = \mathbb{I}$, saab taaskord kirjeldada üleminekufunktsioonid, kasutades seekord intervallide operatsioone. Tabelis~\ref{tab:itersolve2} on toodud samasuguse algoritmilise analüüsi lõpptulemus, kui seda oleks tehtud intervalldomeeni abil. Nagu näha, siis intervallide kasutamine on ebatäpsem kui alamhulkade kasutamine, sest kaob informatsioon selle kohta, kui mõni väärtus lõigu keskelt tegelikult ei saa esineda. Samas on analüüs ikkagi korrektne, sest ühtegi päriselt võimalikku väärtust pole ekslikult välistatud.
+
+\begin{table}[h]
+	\caption{Näiteprogrammi (joonisel~\ref{fig:prog-if}) analüüsi lahend intervalldomeenis.}
+	\centering
+	$\begin{tabu}{c*{3}{|c}}
+	\hline
+	 & \texttt{x} & \texttt{y} & \texttt{z} \\
+	\hline
+	x_1 & \top & \top & \top \\
+	x_2 & [0, 2] & \top & \top \\
+	x_3 & [0, 0] & \top & \top \\
+	x_4 & [1, 2] & \top & \top \\
+	x_5 & [0, 0] & [5, 5] & \top \\
+	x_6 & [1, 2] & [2, 3] & \top \\
+	x_7 & [0, 2] & [2, 5] & \top \\
+	x_8 & [0, 2] & [2, 5] & [4, 10] \\
+	\hline
+	\end{tabu}$
+	\begin{comment}
+	$\begin{tabu}{c*{3}{*{2}{|c}}}
+	\hline
+	 & \multicolumn{2}{c|}{\texttt{x}} & \multicolumn{2}{c|}{\texttt{y}} & \multicolumn{2}{c}{\texttt{z}} \\
+	 & l & u & l & u & l & u \\
+	\hline
+	x_1 & -\infty & \infty & -\infty & \infty & -\infty & \infty \\
+	x_2 & 0 & 2 & -\infty & \infty & -\infty & \infty \\
+	x_3 & 0 & 0 & -\infty & \infty & -\infty & \infty \\
+	x_4 & 1 & 2 & -\infty & \infty & -\infty & \infty \\
+	x_5 & 0 & 0 & 5 & 5 & -\infty & \infty \\
+	x_6 & 1 & 2 & 2 & 3 & -\infty & \infty \\
+	x_7 & 0 & 2 & 2 & 5 & -\infty & \infty \\
+	x_8 & 0 & 2 & 2 & 5 & 4 & 10 \\
+	\hline
+	\end{tabu}$
+	\end{comment}
+	\label{tab:itersolve2}
+\end{table}
 
 
 \end{document}
