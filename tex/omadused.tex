@@ -53,6 +53,48 @@ Järgnevad on ekvivalentsed~\cite[39]{davey_lattices}:
 \subsection{Laiendamine ja kitsendamine}
 \TODO{\textit{widening, narrowing}}
 
+\begin{figure}
+	\centering
+	\begin{subfigure}[b]{0.4\textwidth}
+		\centering
+		\begin{minted}{c}
+			int x = 0;
+			while (x < 100)
+				x++;
+		\end{minted}
+		\TODO{kood eraldi faili?}
+		\caption{C-keelne lähtekood}
+	\end{subfigure}
+	~
+	\begin{subfigure}[b]{0.4\textwidth}
+		\centering
+		\begin{tikzpicture}[
+			->,>=stealth,
+			node distance=0.75cm,
+			every state/.style={inner sep=3pt, minimum size=0pt},
+			stmt/.style={font=\ttfamily},
+			initial text={},
+			initial where=above
+		]
+			\node[initial,state] (1) {1};
+			\node[state] (2) [below=of 1] {2};
+			\node[state] (3) [below left=of 2] {3};
+			\node[accepting,state] (4) [below right=of 2] {4};
+
+			\path
+				(1) edge node[stmt,right] {x = 0} (2)
+				(2) edge[bend right] node[stmt,above left,near start] {x < 100} (3)
+				    edge node[stmt,above right] {x >= 100} (4)
+				(3) edge[bend right] node[stmt,below right,very near start] {x++} (2);
+		\end{tikzpicture}
+		\TODO{tikz eraldi .tex faili?}
+		\caption{Juhtimisvoograaf}
+	\end{subfigure}
+
+	\caption{Tsükliga programmi näidis.}
+	\label{fig:prog-while}
+\end{figure}
+
 \paragraph{Omadused}
 \begin{itemize}[nosep]
 	\item $a \sqcup b \sqleq a \widen b$ \cite[61]{seidl_foundations};
