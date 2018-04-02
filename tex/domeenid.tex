@@ -217,8 +217,9 @@ Nende olemasolul saab konkreetse programmi analüüsi teostada järgnevate sammu
 \begin{enumerate}
 	\item Iga programmi punkti $i$ jaoks võtta kasutusele üks muutuja $x_i$, mis vastab otsitavale programmi abstraktsele seisundile selles punktis.
 
-	\item Iga juhtimisvoograafi serva $k \rightarrow i$ jaoks defineerida fikseeritud protsessi abil üleminekufunktsioon $\tf_{k,i}$. Nõnda saab iga serva jaoks moodustada võrratuse $x_i \sqgeq \tf_{k,i}(x_k)$.
-	\TODO{Eriline võrratus algtipu jaoks!}
+	\item Iga juhtimisvoograafi serva $k \rightarrow i$ jaoks defineerida fikseeritud protsessi abil üleminekufunktsioon $\tf_{k,i}$. Nõnda saab iga serva jaoks moodustada võrratuse $x_i \sqgeq \tf_{k,i}(x_k)$. See tähendab, et analüüsis otsitav seisund võib olla ebatäpsem kui konkreetne üleminek ette näeb.
+
+	Lisaks üleminekutele koostatakse võrratus ka programmi alguspunkti, milleks olgu $x_1$, jaoks kujul $x_1 \sqgeq \imath$, kus $\imath$ kirjeldab algseisundit.
 
 	\item Neist võrratustest moodustub süsteem, kus iga muutuja on vasakul täpselt ühel korral, selleks vajadusel võrratusi parema poole ülemraja järgi ühendades:
 	\[
