@@ -51,7 +51,30 @@ Järgnevad on ekvivalentsed~\cite[39]{davey_lattices}:
 
 
 \subsection{Laiendamine ja kitsendamine}
-\TODO{\textit{widening, narrowing}}
+Kui joonisel~\ref{fig:prog-if} olev programm oli tsükliteta ja selle analüüsi saaks teostada ka ilma võrratuste süsteemi püsipunkti leidmata teostada, siis üldiselt see nii pole. Huvitavamad programmid sisaldavad tsükleid, mille korral ülalkirjeldatud algoritm on analüüsimiseks vajalik. Olgu vaatluse all programm jooniselt~\ref{fig:prog-while} ja domeen $\mathbb{D} = (\Var \to \mathbb{I})_\bot$ nagu enne, siis võrratuste ja võrrandite süsteemid on järgnevad:
+\[
+	\begin{cases}
+		x_1 \sqgeq \top \\
+		\begin{comment}
+		\begin{rcases*}
+			x_2 \sqgeq \tf_{1,2}(x_1) \\
+			x_2 \sqgeq \tf_{3,2}(x_3)
+		\end{rcases*} \Rightarrow
+		\end{comment}
+		x_2 \sqgeq \tf_{1,2}(x_1) \sqcup \tf_{3,2}(x_3) \\
+		x_3 \sqgeq \tf_{2,3}(x_2) \\
+		x_4 \sqgeq \tf_{2,4}(x_2)
+	\end{cases}
+	\quad \text{ja} \quad
+	\begin{cases}
+		x_1 = \top \\
+		x_2 = \tf_{1,2}(x_1) \sqcup \tf_{3,2}(x_3) = \\ \quad\: = x_1[\texttt{x} \mapsto [0, 0]] \sqcup x_3[\texttt{x} \mapsto d(\texttt{x}) + [1, 1]] \\ % TODO proper align
+		x_3 = \tf_{2,3}(x_2) = x_2[\texttt{x} \mapsto d(\texttt{x}) \sqcap [-\infty, 99]] \\
+		x_4 = \tf_{2,4}(x_2) = x_2[\texttt{x} \mapsto d(\texttt{x}) \sqcap [100, +\infty]]
+	\end{cases}.
+\]
+
+Nende vähim püsipunkt (tabelis~\ref{tab:while-iter}) leitakse naiivse iteratsiooni 204. sammul. Itereerimisel sisuliselt tehakse läbi kõik 100 tsükli iteratsiooni, mistõttu sellise süsteemi püsipunkti leidmise ajaline keerukus on $O(k)$, kus $k$ on tsükli iteratsioonide arv. Selline ebaefektiivsus on vastuvõetamatu, sest toimub justkui programmi kogu töö simuleerimine, mis on vastuolus staatilise analüüsi eesmärgiga.
 
 \begin{figure}
 	\centering
@@ -95,11 +118,108 @@ Järgnevad on ekvivalentsed~\cite[39]{davey_lattices}:
 	\label{fig:prog-while}
 \end{figure}
 
+\paragraph{Laiendamine}
+Ebaefektiivsuses on süüdi asjaolu, et intervalldomeenis leiduvad \emph{lõpmatud rangelt kasvavad ahelad}.
+\TODO{Selgitada kuidagi ahelaid}
+Püsipunkti leidmise igal iteratsioonil tsüklis muutuja väärtuste lõik suurenes ühe võrra seetõttu stabiliseerumiseks läks ebameeldivalt palju iteratsioone. Probleemi lahendamiseks muudetakse analüüsimist nii, et püsipunkti leidmine toimuks kiirendatult, tuues meelega sisse täiendava ebatäpsuse. Sellist võtet nimetatakse \emph{laiendamiseks} (ingl. \textit{widening}).
+
+Lahendatav võrratus $\bar{x} \sqgeq \bar{f}(\bar{x})$ kirjutatakse samaväärsel akumuleerival kujul $\bar{x} = \bar{x} \sqcup \bar{f}(\bar{x})$, kus ülemraja asemele valitakse sobiv \emph{laiendamise operaator} $\widen$ ja otsitakse vähim püsipunkt võrrandile $\bar{x} = \bar{x} \widen \bar{f}(\bar{x})$. Intervallidel defineeritakse see järgnevalt:
+\begin{gather*}
+	[l_1, u_1] \widen [l_2, u_2] = [l, u], \text{ kus} \\
+	l = \begin{cases}
+		l_1, & \text{kui } l_1 \leq l_2, \\
+		-\infty, & \text{muidu}
+	\end{cases}
+	\qquad \text{ja} \qquad
+	u = \begin{cases}
+		u_1, & \text{kui } u_2 \leq u_1, \\
+		+\infty, & \text{muidu}.
+	\end{cases}
+\end{gather*}
+Intervallide laiendamise idee seiseb selles, et intervall suurenedes suureneb kohe vastavas suunas lõpmatusse, garanteerides, et intervall saab suureneda ülimalt kaks korda, mis muudab kasvavad ahelad lõplikeks. Sellise modifikatsiooniga süsteemi vähim püsipunkt (tabelis~\ref{tab:while-widen}) leitakse juba naiivse iteratsiooni 6. sammul, mis ühest küljest on oluline võit, teisest kaotus, sest lahend pole nii täpne kui eelnevalt.
+
+\paragraph{Kitsendamine}
+Kuna $\bar{f}$ on monotoonne, siis selle rakendamine püsipunktile tulemust ebatäpsemaks ei muuda, aga võib ebatäpset laiendatud tulemust siiski parandada. Sellist võtet nimetatakse \emph{kitsendamiseks} (ingl. \textit{narrowing}) ning eelmisele laiendatud lahendile kitsendamist rakendades stabiliseerub tulemus (tabelis~\ref{tab:while-narrow}) 4. sammul, jõudes sama tulemuseni, mis ilma laiendamist ja kitsendamist. Üldiselt see siiski nii ei pruugi olla, kuid tulemuse täpsust suurendab ikka.
+
+Kitsendamisel võib tekkida analoogiline probleem \emph{lõpmatute rangelt kahanevate ahelatega}, mistõttu funktsiooni korduv rakendamine mõistliku sammude arvuga ei stabiliseeru. Samas võib kitsendamist võib lõpetada mistahes hetkel ja analüüs on ikka korrektne. Kitsendamise stabiliseerumiseks kasutatakse analoogilist võtet: lahendatav võrratus kirjutatakse samaväärsel kujul $\bar{x} = \bar{x} \sqcap \bar{f}(\bar{x})$, kus alamraja asemele valitakse sobiv \emph{kitsendamise operaator} $\narrow$ ja otsitakse vähim püsipunkt võrrandile $\bar{x} = \bar{x} \narrow \bar{f}(\bar{x})$. Intervallidel defineeritakse see järgnevalt:
+\begin{gather*}
+	[l_1, u_1] \narrow [l_2, u_2] = [l, u], \text{ kus} \\
+	l = \begin{cases}
+		l_2, & \text{kui } l_1 = -\infty, \\
+		l_1, & \text{muidu}
+	\end{cases}
+	\qquad \text{ja} \qquad
+	u = \begin{cases}
+		u_2, & \text{kui } u_1 = +\infty, \\
+		u_1, & \text{muidu}.
+	\end{cases}
+\end{gather*}
+Intervallide kitsendamise idee seiseb selles, et intervall vähenedeb ainult lõpmatusest, garanteerides, et intervall saab väheneda ülimalt kaks korda, mis muudab kahanevad ahelad lõplikeks. Uuritud näitel kiirendatud kitsendamine jõuab sama tulemuseni kui tavaline kitsendamine (tabelis~\ref{tab:while-narrow}). Üldiselt see nii ei pruugi olla, sest kiirendamisel tuuakse sisse meelega täiendav ebatäpsus.
+
+\begin{table}
+	\caption{Näiteprogrammi (joonisel~\ref{fig:prog-while}) analüüsi lahendid erinevatel meetoditel.}
+	\centering
+	\begin{subtable}[t]{0.3\textwidth}
+		\caption{Iteratsiooni lahend}
+		\centering
+		$\begin{tabu}{c|c}
+		\hline
+		 & \texttt{x} \\
+		\hline
+		x_1 & \top \\
+		x_2 & [0, 100] \\
+		x_3 & [0, 99] \\
+		x_4 & [100, 100] \\
+		\hline
+		\end{tabu}$
+		\label{tab:while-iter}
+	\end{subtable}
+	~
+	\begin{subtable}[t]{0.3\textwidth}
+		\caption{Laiendamise tulemus}
+		\centering
+		$\begin{tabu}{c|c}
+		\hline
+		 & \texttt{x} \\
+		\hline
+		x_1 & \top \\
+		x_2 & [0, +\infty] \\
+		x_3 & [0, +\infty] \\
+		x_4 & [100, +\infty] \\
+		\hline
+		\end{tabu}$
+		\label{tab:while-widen}
+	\end{subtable}
+	~
+	\begin{subtable}[t]{0.3\textwidth}
+		\caption{Kitsendamise tulemus}
+		\centering
+		$\begin{tabu}{c|c}
+		\hline
+		 & \texttt{x} \\
+		\hline
+		x_1 & \top \\
+		x_2 & [0, 100] \\
+		x_3 & [0, 99] \\
+		x_4 & [100, 100] \\
+		\hline
+		\end{tabu}$
+		\label{tab:while-narrow}
+	\end{subtable}
+	\label{tab:itersolve-while}
+\end{table}
+
 \paragraph{Omadused}
+Laiendamise ja kitsendamise operaatorid peavad analüüsi korrektsuse tagamiseks rahuldama teatud tingimusi.
+
+\noindent
+Olgu $\mathbb{D}$ abstraktne domeen, siis iga $a, b \in \mathbb{D}$ korral peavad kehtima järgnevad tingimused:
 \begin{itemize}[nosep]
 	\item $a \sqcup b \sqleq a \widen b$ \cite[61]{seidl_foundations};
 	\item $a \sqcap b \sqleq a \narrow b \sqleq a$ \cite[66]{seidl_foundations}.
 \end{itemize}
+
+Kusjuures need operaatorid pole tingimata assotsiatiivsed, kommutatiivsed, jne nagu nende algsed analoogid. Neid kasutatakse nii nagu ülal toodud, kus vasak operand on vana seisund ja parem operand on uus seisund. Sellel asjaolul põhineb nende defineerimine ja seda ka nähtud intervalldomeeni puhul.
 
 \subsection{Abstraktsiooni korrektsus}
 \cite[242]{cousot77}
