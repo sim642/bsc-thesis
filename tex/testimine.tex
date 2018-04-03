@@ -1,0 +1,40 @@
+\documentclass[../thesis.tex]{subfiles}
+
+\begin{document}
+
+\section{Omaduspõhine testimine}
+\TODO{Omaduspõhise testimise metoodika}
+\TODO{Teek \enquote{qcheck}}
+
+\subsection{Goblint}
+
+\begin{figure}
+	\centering
+	\begin{minted}[mathescape]{ocaml}
+		module type S =
+		sig
+		  type t (* domeeni elementide tüüp *)
+		  val equal: t -> t -> bool (* seos $=$ *)
+		  val leq: t -> t -> bool (* seos $\sqleq$ *)
+		  val join: t -> t -> t (* tehe $\sqcup$ *)
+		  val meet: t -> t -> t (* tehe $\sqcap$ *)
+		  val bot: unit -> t (* element $\bot$ *)
+		  val is_bot: t -> bool
+		  val top: unit -> t (* element $\top$ *)
+		  val is_top: t -> bool
+		  val widen: t -> t -> t (* tehe $\widen$ *)
+		  val narrow: t -> t -> t (* tehe $\narrow$ *)
+		end
+	\end{minted}
+	\caption{Domeeni (lihtsustatud) signatuur Goblinti moodulis \texttt{Lattice}.}
+	\label{fig:lattice-s}
+\end{figure}
+
+
+
+
+\TODO{\textit{bottom-up}, \textit{top-down} lähenemised}
+\TODO{Testimise tulemused}
+
+
+\end{document}

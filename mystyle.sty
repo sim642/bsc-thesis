@@ -62,6 +62,7 @@
 \usepackage{xspace} % Non-eatable spaces in macros
 \usepackage{multirow}
 \usepackage{rotfloat}
+% \usepackage[section]{placeins} % keep floats in their section
 
 % Including graphical images and setting the figure directory
 \usepackage{graphicx}
@@ -141,6 +142,7 @@
 	autogobble=true,
 	tabsize=4
 }
+\RecustomVerbatimEnvironment{Verbatim}{BVerbatim}{} % center all minted - https://tex.stackexchange.com/a/161128
 
 % If you really want to draw figures in LaTeX use packages tikz or pstricks
 % However, getting a corresponding illustrations is really painful  
