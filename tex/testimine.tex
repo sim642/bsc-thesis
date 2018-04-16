@@ -16,8 +16,6 @@ Juhuslikult genereeritud argumendid võivad olla \enquote{suured}: suured arvud,
 
 Tüüpiliselt on ka põhiliste andmetüüpide vähendaminie testimisraamistikesse juba sisse ehitatud, aga sedagi on võimalik ise laiendada oma andmetüüpidele.
 
-\TODO{Teek \enquote{qcheck}}
-
 \subsection{Goblint}
 Goblint on mitmelõimeliste C programmide staatiline analüsaator, mis keskendub andmejooksude tuvastamisele \cite{goblint2016}. Seda tehakse andmevooanalüüsi raamistikus, kasutades keerukamaid spetsiifilisi abstraktseid domeene. Goblinti autoritele on teada, et analüsaator ei käitu alati oodatud viisil, vaid võib teha vigu. Üheks võimalikuks probleemide allikaks on kasutusel olevad abstraktsed domeenid ja täpsemalt nende implementatsioonid. Leidmaks nende vigade allikat, testitigi käesoleva töö raames Goblintis implementeeritud domeenide omadusi.
 
@@ -59,9 +57,25 @@ let join_comm = make ~name:"join comm" (pair arb arb)
 \end{minted}
 kus \texttt{D} on testitava domeeni moodul ja \texttt{arb} on mugavuse mõttes \texttt{D.arbitrary ()}.
 
-Testid implementeeriti polümorfselt OCaml-i funktorite abil, mis võimaldab samu omadusi kontrollida mistahes domeenil. See oligi eesmärk, sest kõik need omadused peavad universaalselt kehtima.
+Testid implementeeriti polümorfselt OCaml-i funktorite abil, mis võimaldab samu omadusi kontrollida mistahes domeenil. See oligi eesmärk, sest kõik need omadused peavad universaalselt kehtima. Domeeni testimiseks peab sellel siiski olema defineeritud \texttt{arbitrary}, mida saab teha üksnes manuaalselt ja mis seega on kõige ajamahukam osa Goblinti arvukate domeenide testimise juures. Sellele läheneti kahelt poolt.
 
-\TODO{\textit{bottom-up}, \textit{top-down} lähenemised}
+\subsection{Alt-üles lähenemine}
+Ühest küljest testiti erinevaid täisarvudega töötavaid domeene moodulist \texttt{IntDomain}, mis on üsna sõltumatud ja seetõttu saab neid eraldiseisvalt testida. Paljud teised domeenid kasutavad oma elementidena konkreetsest analüüsitavast programmist leitud muutujaid, funktsioone vms, mis teeb nende testimise raskeks, sest pole selge, kust võtta juhuslikke elemente. Täisarvude abstraktsioonide puhul seda probleemi ei esine.
+
+Nende testimiseks loodi moodul \texttt{Maindomaintest}, mida saab Goblintist endast eraldi kompileerida (käsuga \texttt{make domaintest}) ja käivitada (käsuga \texttt{./goblint.domaintest -v}). Selles moodulis on nimekiri domeenidest, mida käivitamisel testitakse.
+
+\subsection{Ülalt-alla lähenemine}
+Teisest küljest testiti domeeni, mida Goblint päriselt etteantud programmi analüüsimisel kasutama hakkaks. See domeen pannakse erinevate seadistuste abil kokku paljudest domeenidest, mis oma osadena kasutavad teisi lihtsamaid domeene (nagu seda teeb kujutusdomeen), mis omakorda võivad olla veelgi lihtsamatest domeenidest komponeeritud. Sellised sõltuvusi arvestades saab analüüsiks kasutatavat domeeni ette kujutada kui puud, mille lehtedeks on lihtsad sõltuvusteta domeenid nagu eelnevalt testitud täisarvude domeenid. Kui alt-üles lähenemise puhul testiti sellise puu lehti, siis ülalt-alla lähenemises testitakse domeene alustades juurest.
+
+Juurdomeeni elementide genereerimiseks oleks põhimõtteliselt vaja genereerida elemente kõigist teistest domeenidest, millest sõltutakse. See eeldab korraga kõigi Goblinti domeenide jaoks generaatorite lisamist, mis lisaks suurele töömahule võib olla ka ebaotstarbekas. Kui mingite alamdomeenide generaatorid defineerida triviaalselt, näiteks alati $\bot$ genereerimise teel, siis on võimalik tervet domeeni testida, ilma et oleks vaja kõiki generaatoreid lisada, sest mingite alamdomeenide elemente pole vaja genereerida. Selliselt testitigi domeenide hierarhia ülemist osa.
+\TODO{Mingi näide kõrgemat järku domeenist ja selle sõltuvustest/alamdomeenidest?}
+
+Selliselt testimiseks lisati Goblinti käsurealippude hulka uus nimega \texttt{dbg.test.domain}. Kui see on sisse lülitatud, siis enne etteantud programmi analüüsimist jooksutatakse analüüsiks kasutataval domeenil samad testid. Goblinti näidiskäivitus koos selle lipuga toimub järgneva käsuga:
+\begin{minted}{bash}
+	./goblint --enable dbg.test.domain \
+	    ./tests/regression/04-mutex/01-simple_rc.c
+\end{minted}
+
 \TODO{Testimise tulemused}
 
 
