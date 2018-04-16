@@ -19,6 +19,9 @@ Tüüpiliselt on ka põhiliste andmetüüpide vähendaminie testimisraamistikess
 \TODO{Teek \enquote{qcheck}}
 
 \subsection{Goblint}
+Goblint on mitmelõimeliste C programmide staatiline analüsaator, mis keskendub andmejooksude tuvastamisele \cite{goblint2016}. Seda tehakse andmevooanalüüsi raamistikus, kasutades keerukamaid spetsiifilisi abstraktseid domeene. Goblinti autoritele on teada, et analüsaator ei käitu alati oodatud viisil, vaid võib teha vigu. Üheks võimalikuks probleemide allikaks on kasutusel olevad abstraktsed domeenid ja täpsemalt nende implementatsioonid. Leidmaks nende vigade allikat, testitigi käesoleva töö raames Goblintis implementeeritud domeenide omadusi.
+
+Goblint ise on kirjutatud OCaml-is ja on avatud lähtekoodiga~\cite{goblint_repo}. Selle omaduspõhiseks testimiseks valiti vastav OCaml-i teek qcheck~\cite{qcheck_repo}, mis on sarnaste teekide hulgast enim kasutatud ja uuendatud.
 
 \begin{figure}
 	\centering
@@ -42,9 +45,21 @@ Tüüpiliselt on ka põhiliste andmetüüpide vähendaminie testimisraamistikess
 	\label{fig:lattice-s}
 \end{figure}
 
+Goblintis on domeenid implementeeritud OCaml-i moodulitena, mis muu hulgas sisaldavad domeeni elemendi tüüpi ning neil defineeritud seoseid ja tehteid, nagu näidatud joonisel~\ref{fig:lattice-s}. Domeenide omaduste testimiseks on esmalt vaja defineerida selle elementide generaator. Selleks lisati domeeni signatuuri järgneva signatuuriga funktsioon:
 \begin{minted}{ocaml}
 	val arbitrary: unit -> t QCheck.arbitrary
 \end{minted}
+
+Igas domeenis defineeritav \texttt{t QCheck.arbitrary} hõlmab endas nii tüüpi \texttt{t} elementide generaatorit (\texttt{t QCheck.Gen}) kui ka vähendajat (\texttt{t QCheck.Shrink}).
+
+Kõik eelmises peatükis toodud omadused implementeeriti omaduspõhiste testidena moodulis \texttt{DomainProperties}. Näiteks ülemraja kommutatiivsuse test näeb välja järgmiselt:
+\begin{minted}{ocaml}
+let join_comm = make ~name:"join comm" (pair arb arb)
+                  (fun (a, b) -> D.equal (D.join a b) (D.join b a))
+\end{minted}
+kus \texttt{D} on testitava domeeni moodul ja \texttt{arb} on mugavuse mõttes \texttt{D.arbitrary ()}.
+
+Testid implementeeriti polümorfselt OCaml-i funktorite abil, mis võimaldab samu omadusi kontrollida mistahes domeenil. See oligi eesmärk, sest kõik need omadused peavad universaalselt kehtima.
 
 \TODO{\textit{bottom-up}, \textit{top-down} lähenemised}
 \TODO{Testimise tulemused}
