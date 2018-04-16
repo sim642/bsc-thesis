@@ -22,7 +22,7 @@ Tüüpiliselt on ka põhiliste andmetüüpide vähendaminie testimisraamistikess
 
 \begin{figure}
 	\centering
-	\begin{minted}[mathescape]{ocaml}
+	\begin{bminted}[mathescape]{ocaml}
 		module type S =
 		sig
 		  type t (* domeeni elementide tüüp *)
@@ -37,7 +37,7 @@ Tüüpiliselt on ka põhiliste andmetüüpide vähendaminie testimisraamistikess
 		  val widen: t -> t -> t (* tehe $\widen$ *)
 		  val narrow: t -> t -> t (* tehe $\narrow$ *)
 		end
-	\end{minted}
+	\end{bminted}
 	\caption{Domeeni (lihtsustatud) signatuur Goblinti moodulis \texttt{Lattice}.}
 	\label{fig:lattice-s}
 \end{figure}
