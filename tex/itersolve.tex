@@ -1,0 +1,29 @@
+\documentclass[../thesis.tex]{subfiles}
+
+\begin{document}
+
+\section{Näiteprogrammi iteratiivne analüüs}
+\label{app:itersolve}
+\vspace{-9ex} % hack to fit on page
+\begin{sidewaystable}[H]
+	\caption*{\tablename. Näiteprogrammi (joonisel~\ref{fig:prog-if}) analüüsi süsteemi iteratiivse lahendamise sammud ja lahend.}
+	\centering
+	\footnotesize
+	$\begin{tabu}{c*{1}{|c}*{5}{*{3}{|c}}}
+	\hline
+	i & 1 & \multicolumn{3}{c|}{2} & \multicolumn{3}{c|}{3} & \multicolumn{3}{c|}{4} & \multicolumn{3}{c|}{5} & \multicolumn{3}{c}{6} \\
+	 &  & \texttt{x} & \texttt{y} & \texttt{z} & \texttt{x} & \texttt{y} & \texttt{z} & \texttt{x} & \texttt{y} & \texttt{z} & \texttt{x} & \texttt{y} & \texttt{z} & \texttt{x} & \texttt{y} & \texttt{z} \\
+	\hline
+	x_1 & \top & \top & \top & \top & \top & \top & \top & \top & \top & \top & \top & \top & \top & \top & \top & \top \\
+	x_2 & \bot & \{0, 1, 2\} & \top & \top & \{0, 1, 2\} & \top & \top & \{0, 1, 2\} & \top & \top & \{0, 1, 2\} & \top & \top & \{0, 1, 2\} & \top & \top \\
+	x_3 & \bot & \multicolumn{3}{c|}{\bot} & \{0\} & \top & \top & \{0\} & \top & \top & \{0\} & \top & \top & \{0\} & \top & \top \\
+	x_4 & \bot & \multicolumn{3}{c|}{\bot} & \{1, 2\} & \top & \top & \{1, 2\} & \top & \top & \{1, 2\} & \top & \top & \{1, 2\} & \top & \top \\
+	x_5 & \bot & \multicolumn{3}{c|}{\bot} & \multicolumn{3}{c|}{\bot} & \{0\} & \{5\} & \top & \{0\} & \{5\} & \top & \{0\} & \{5\} & \top \\
+	x_6 & \bot & \multicolumn{3}{c|}{\bot} & \multicolumn{3}{c|}{\bot} & \{1, 2\} & \{2, 3\} & \top & \{1, 2\} & \{2, 3\} & \top & \{1, 2\} & \{2, 3\} & \top \\
+	x_7 & \bot & \multicolumn{3}{c|}{\bot} & \multicolumn{3}{c|}{\bot} & \multicolumn{3}{c|}{\bot} & \{0, 1, 2\} & \{2, 3, 5\} & \top & \{0, 1, 2\} & \{2, 3, 5\} & \top \\
+	x_8 & \bot & \multicolumn{3}{c|}{\bot} & \multicolumn{3}{c|}{\bot} & \multicolumn{3}{c|}{\bot} & \multicolumn{3}{c|}{\bot} & \{0, 1, 2\} & \{2, 3, 5\} & \{4, 6, 10\} \\
+	\hline
+	\end{tabu}$
+\end{sidewaystable}
+
+\end{document}

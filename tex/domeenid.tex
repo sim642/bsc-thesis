@@ -277,10 +277,13 @@ Joonise~\ref{fig:prog-if} programmi analüüsimisel oleks võrratuste ja võrran
 		x_8 = \tf_{7,8}(x_7) = x_7[\texttt{z} \mapsto \{2\} * d(\texttt{y})]
 	\end{cases}.
 \]
-Nende iteratiivne lahendamine on samm-sammult toodud tabelis~\ref{tab:itersolve}. On näha, et algoritmiline analüüs jõudis oodatud tulemuseni.
+%Nende iteratiivne lahendamine on samm-sammult toodud tabelis~\ref{tab:itersolve}.
+Nende iteratiivne lahendamine on samm-sammult toodud lisas~\ref{app:itersolve}.
+On näha, et algoritmiline analüüs jõudis oodatud tulemuseni.
 Nagu näha, siis naiivne iteratsioon on üsna ebaefektiivne viis vähima püsipunkti leidmiseks, kuna väärtuste stabiliseerumine võib võtta palju samme, kusjuures iga kord arvutatakse uuesti ka need väärtused, mis enam niikuinii ei muutu. Loomulikult on olemas mitmeid palju efektiivsemaid meetodeid, näiteks \textit{round-robin} iteratsioon ja \textit{worklist} algoritm~\cite[24,83]{seidl_foundations}.
 \TODO{Algoritmide nimesid kuidagi tõlkida?}
 
+\begin{comment}
 \begin{sidewaystable}
 	\caption{Näiteprogrammi (joonisel~\ref{fig:prog-if}) analüüsi süsteemi iteratiivse lahendamise sammud ja lahend.}
 	\centering
@@ -303,6 +306,7 @@ Nagu näha, siis naiivne iteratsioon on üsna ebaefektiivne viis vähima püsipu
 	\label{tab:itersolve}
 	\TODO{Massiivne tabel: kuidagi väiksemaks? Lisadesse?}
 \end{sidewaystable}
+\end{comment}
 
 Sellegipoolest pole vaadeldud analüüs kuigi praktiline, sest võimalike arvuliste väärtuste hulgad võivad olla suured või lausa lõpmatud. Üldiselt pole võimalik lõpmatuid hulki programmis efektiivselt esitada ja nendega opereerida. Seetõttu loobutakse ülimast täpsusest alamhulkade kujul ja kasutatakse ebatäpsemaid domeene väärtuste kirjeldamiseks, mida on efektiivselt võimalik analüsaatorisse implementeerida.
 Alamhulkade domeene saab siiski muudeks analüüsideks mõistlikult kasutada ning neil on oluline roll domeenide abstraheerimise uurimisel.
