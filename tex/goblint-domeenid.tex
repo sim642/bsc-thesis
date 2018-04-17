@@ -1,0 +1,129 @@
+\documentclass[../thesis.tex]{subfiles}
+
+\begin{document}
+
+\section{Goblinti domeenid}
+\label{app:goblint-domeenid}
+\vspace{-10ex} % hack to fit both on one page
+\begin{center}
+\noindent
+\begin{tikzpicture}[
+	level distance=1cm,
+	sibling distance=3.5cm,
+	edge from parent/.style={draw,-latex},
+	on grid=true,
+	narrow/.style={sibling distance=2cm},
+	bot/.style={text=darkgray},
+	group/.style={rectangle,draw=black,dashed}
+	%every label/.style={text=gray}
+	%style={font=\ttfamily}
+]
+\node {}
+	child { node (DeadCodeNorth) {Dom}
+		child { node (DeadCodeSouth) {Lift}
+			child { node {HConsed}
+				child { node (PathSensitiveNorth) {Hoare}
+					child { node {ToppedSet}
+						child { node (PathSensitiveSouth) {SetDomain}
+							child { node {DomList}
+								% base
+								child [xshift=-2cm] { node (BaseNorth) {Prod}
+									child { node {CPA}
+										child { node (BaseWest) {MapBot\_LiftTop}
+											child { node {LiftTop}
+												child { node {MapBot}
+													child { node [bot] {(PMap)} }
+												}
+											}
+										}
+									}
+									child { node {Flag}
+										child { node {SimpleThreadDomain}
+											child { node {ProdSimple}
+												child { node {ProdConf}
+													child [narrow] { node {Simple}
+														child { node {Chain}
+														}
+													}
+													child [narrow] { node {Flat}
+														child { node {Thread}
+															child { node [bot] (BaseSouthEast) {(Variables)} }
+														}
+													}
+												}
+											}
+										}
+									}
+								}
+								% escape
+								child { node (EscapeNorth) {EscapedVars}
+									child { node {ToppedSet}
+										child { node {SetDomain}
+											child { node [bot] (EscapeSouth) {(Variables)} }
+										}
+									}
+								}
+								% mutex
+								child { node (MutexNorth) {Lockset}
+									child { node {Reverse}
+										child { node {ToppedSet}
+											child { node {SetDomain}
+												child { node {Prod}
+													child { node {ProdConf}
+														child [narrow] { node {NormalLat}
+															child { node [bot] (MutexSouthWest) {(Normal)} }
+														}
+														child [narrow] { node (MutexEast) {Booleans} }
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	};
+
+\node[group,fit=(DeadCodeNorth) (DeadCodeSouth),label=right:DeadCode] {};
+\node[group,fit=(PathSensitiveNorth) (PathSensitiveSouth),label=right:PathSensitive] {};
+\node[group,fit=(BaseNorth) (BaseWest) (BaseSouthEast),label=below:Base] {};
+\node[group,fit=(EscapeNorth) (EscapeSouth),label=below:Escape] {};
+\node[group,fit=(MutexNorth) (MutexSouthWest) (MutexEast),label=below:Mutex] {};
+\end{tikzpicture}
+
+\begin{tikzpicture}[
+	level distance=1cm,
+	sibling distance=2cm,
+	edge from parent/.style={draw,-latex},
+	on grid=true
+	%style={font=\ttfamily}
+]
+\node (IntDomTuple) {IntDomTuple}
+	child { node {Trier}
+		child { node {SetDomain}
+			child { node (Integers) {Integers} }
+		}
+		child { node (Interval32) {Interval32} }
+	}
+	child { node {} edge from parent [draw=none] }
+	child { node {CircInterval} }
+	child { node (Enums) {Enums} };
+\path[-latex] (IntDomTuple) edge (Interval32)
+	(Enums) edge (Integers)
+			edge (Interval32);
+\node[above=2cm of Integers,xshift=-2cm] (Flattened) {Flattened}
+	child { node (Flat) {Flat} };
+\node[left=2cm of Flattened] (Lifted) {Lifted}
+	child { node (Lift) {Lift} };
+\path[-latex] (Flat) edge (Integers)
+	(Lift) edge (Integers);
+\node[below=2cm of Enums] {Booleans};
+\end{tikzpicture}
+\end{center}
+
+
+\end{document}
