@@ -222,8 +222,69 @@ Olgu $\mathbb{D}$ abstraktne domeen, siis iga $a, b \in \mathbb{D}$ korral peava
 Kusjuures need operaatorid pole tingimata assotsiatiivsed, kommutatiivsed, jne nagu nende algsed analoogid. Neid kasutatakse nii nagu ülal toodud, kus vasak operand on vana seisund ja parem operand on uus seisund. Sellel asjaolul põhineb nende defineerimine ja seda ka nähtud intervalldomeeni puhul.
 
 \subsection{Abstraktsiooni korrektsus}
-\cite[242]{cousot77}
-\TODO{Galois ühendused vms.}
+\TODO{\textit{Consistent abstract interpretations} -- Cousot. Korrektsus? Kooskõlalisus?}
+Abstraktse domeeni defineerimisel tekib küsimus, kas saadud domeen abstraheerib võimalikke olukordi korrektselt, st käitub mingis mõttes sama moodi. Näiteks intervalldomeen peaks olema täisarvude alamhulkade domeeni abstraktsioon, mille tehted käituks nii, nagu nad käituks konkreetsete alamhulkadega. Sellist olukorda kirjeldab järgmine definitsioon:
+\begin{definition}
+\label{def:abstraction}
+Domeeni $\mathbb{D}_2$ nimetatakse domeeni $\mathbb{D}_1$ \emph{korrektseks abstraktsiooniks}, kui leiduvad funktsioonid $\alpha: \mathbb{D}_1 \to \mathbb{D}_2$ ja $\gamma: \mathbb{D}_2 \to \mathbb{D}_1$, mis rahuldavad järgnevaid tingimusi~\cite[242]{cousot77}:
+\begin{enumerate}[nosep]
+	\item $\alpha$ on monotoonne, \label{item:alphamono}
+	\item $\gamma$ on monotoonne,
+	\item iga $x_2 \in \mathbb{D}_2$ korral $x_2 = \alpha (\gamma (x_2))$, \label{item:gamma}
+	\item iga $x_1 \in \mathbb{D}_1$ korral $x_1 \sqleq \gamma (\alpha (x_1))$, \label{item:alpha}
+	\item iga $x_1 \in \mathbb{D}_1$ korral $\alpha (f_1 (x_1)) \sqleq f_2 (\alpha (x_1))$, kus $f_1$ on monotoonne tehe domeenis $\mathbb{D}_1$ ja $f_2$ sellele vastav monotoonne tehe domeenis $\mathbb{D}_2$. \label{item:abstraction}
+\end{enumerate}
+\end{definition}
+Funktsiooni $\alpha$ nimetatakse abstraktsioonifunktsiooniks (ingl. \textit{abstraction function}) ja funktsiooni $\gamma$ konkretisatsioonifunktsiooniks (ingl. \textit{concretization function}).
+Seega võib rääkida, et $\mathbb{D}_1$ on konkreetne domeen ja $\mathbb{D}_2$ selle abstraktne domeen.
+\TODO{Paremad tõlked?}
+
+Tingimus~\ref{item:gamma} nõuab, et konkretiseerimine ei kaotaks täpsust.
+Tingimus~\ref{item:alpha} lubab, et abstraheerimine kaotab täpsust (aga ei suurenda seda).
+Tingimust~\ref{item:abstraction} illustreerib joonis~\ref{fig:abstraction} ja see tähendab, et abstraktse tehte teostamine abstraktsel väärtusel pole täpsem, kui konkreetse tehte teostamine konkreetsel väärtusel.
+
+Viimast tingimust saab samaväärselt sõnastada $\gamma$ kaudu. Lisaks kogu definitsioonist järeldub domeenidevahline Galois' vastavus (ingl. \textit{Galois connection}), millel on oluline roll abstraktse interpretatsiooni formaliseerimisel ja üleüldse võreteoorias~\cite{cousot77}.
+
+\begin{figure}
+	\centering
+	\begin{tikzpicture}[
+		on grid
+	]
+		\node (x1) {$x_1$};
+		\node [right=4cm of x1] (f1x1) {$f_1(x_1)$};
+		\node [below=2.5cm of x1] (ax1) {$\alpha(x_1)$};
+		\node [right=4cm of ax1] (f2ax1) {$f_2(\alpha(x_1))$};
+		\node [above=1cm of f2ax1] (af1x1) {$\alpha(f_1(x_1))$};
+
+		\path[->]
+			(x1) edge node [above] {$f_1$} (f1x1)
+			     edge node [left,pos=0.2] {$\alpha$} (ax1)
+			(f1x1) edge node [right,pos=0.4] {$\alpha$} (af1x1)
+			(ax1) edge node [below] {$f_2$} (f2ax1);
+		\path (af1x1) -- (f2ax1) node [midway,sloped] {$\sqleq$};
+
+		\path[draw=gray,dashed] ($(x1)+(-3cm,-0.9cm)$) to node [above,pos=0.05] {$\mathbb{D}_1$} node [below,pos=0.05] {$\mathbb{D}_2$} ($(f1x1)+(2cm,-0.9cm)$); % TODO better positioning
+	\end{tikzpicture}
+	\caption{Definitsiooni~\ref{def:abstraction} tingimust~\ref{item:abstraction} illustreeriv skeem.}
+	\label{fig:abstraction}
+\end{figure}
+
+Domeenide $\mathbb{D}_1 = \powerset{\mathbb{Z}}$ ja $\mathbb{D}_2 = \mathbb{I}_\bot$ korral~\cite[243]{cousot77}
+\begin{align*}
+	\alpha(x_1) &= \begin{cases}
+		\bot, & \text{kui } x_1 = \emptyset, \\
+		[\min x_1, \max x_1], & \text{muidu};
+	\end{cases} \\
+	\gamma(x_2) &= \begin{cases}
+		\emptyset, & \text{kui } x_2 = \bot, \\
+		\{l, \ldots, u\}, & \text{kui } x_2 = [l, u].
+	\end{cases}
+\end{align*}
+
+\paragraph{Omadused}
+Kui on teada, millist konkreetset domeeni mingi abstraktne domeen abstraheerib, ja nende vahel on defineeritud abstraheerimine ja konkretiseerimine, siis peavad kehtima definitsiooni~\ref{def:abstraction} tingimused.
+
+Isegi kui konkretiseerimisfunktsioon leidub ja on matemaatiliselt kirjeldatud, siis ei pruugi olla võimalik seda analüsaatoris implementeerida, sest abstraktsele väärtusele vastav konkreetne väärtus võib olla ebapraktiliselt mahukas või isegi lõpmatu. Nii on näiteks ülaltoodud alamhulkade ja intervallide domeenide puhul, kus $\gamma([-\infty, +\infty]) = \mathbb{Z}$. Konkretiseerimisfunktsiooni puudumisel analüsaatori implementatsioonis pole loomulikult sellega seonduvat võimalik verifitseerida, kuid definitsiooni tingimusi~\ref{item:alphamono} ja~\ref{item:abstraction} saab kontrollida ikka. Seejuures ongi kasulik tingimuse~\ref{item:abstraction} toodud kuju, mitte selle konkretiseerimisega kuju.
 
 
 \end{document}
