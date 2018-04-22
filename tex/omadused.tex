@@ -121,7 +121,7 @@ Nende vähim püsipunkt (tabelis~\ref{tab:while-iter}) leitakse naiivse iteratsi
 \paragraph{Laiendamine}
 Ebaefektiivsuses on süüdi asjaolu, et intervalldomeenis leiduvad \emph{lõpmatud rangelt kasvavad ahelad}.
 \TODO{Selgitada kuidagi ahelaid}
-Püsipunkti leidmise igal iteratsioonil tsüklis muutuja väärtuste lõik suurenes ühe võrra seetõttu stabiliseerumiseks läks ebameeldivalt palju iteratsioone. Probleemi lahendamiseks muudetakse analüüsimist nii, et püsipunkti leidmine toimuks kiirendatult, tuues meelega sisse täiendava ebatäpsuse. Sellist võtet nimetatakse \emph{laiendamiseks} (ingl. \textit{widening}).
+Püsipunkti leidmise igal iteratsioonil tsüklis muutuja väärtuste lõik suurenes ühe võrra seetõttu stabiliseerumiseks läks ebameeldivalt palju iteratsioone. Probleemi lahendamiseks muudetakse analüüsimist nii, et püsipunkti leidmine toimuks kiirendatult, tuues meelega sisse täiendava ebatäpsuse. Sellist võtet nimetatakse \emph{laiendamiseks} (\ingl{widening}).
 
 Lahendatav võrratus $\bar{x} \sqgeq \bar{f}(\bar{x})$ kirjutatakse samaväärsel akumuleerival kujul $\bar{x} = \bar{x} \sqcup \bar{f}(\bar{x})$, kus ülemraja asemele valitakse sobiv \emph{laiendamise operaator} $\widen$ ja otsitakse vähim püsipunkt võrrandile $\bar{x} = \bar{x} \widen \bar{f}(\bar{x})$. Intervallidel defineeritakse see järgnevalt:
 \begin{gather*}
@@ -139,7 +139,7 @@ Lahendatav võrratus $\bar{x} \sqgeq \bar{f}(\bar{x})$ kirjutatakse samaväärse
 Intervallide laiendamise idee seiseb selles, et intervall suurenedes suureneb kohe vastavas suunas lõpmatusse, garanteerides, et intervall saab suureneda ülimalt kaks korda, mis muudab kasvavad ahelad lõplikeks. Sellise modifikatsiooniga süsteemi vähim püsipunkt (tabelis~\ref{tab:while-widen}) leitakse juba naiivse iteratsiooni 6. sammul, mis ühest küljest on oluline võit, teisest kaotus, sest lahend pole nii täpne kui eelnevalt.
 
 \paragraph{Kitsendamine}
-Kuna $\bar{f}$ on monotoonne, siis selle rakendamine püsipunktile tulemust ebatäpsemaks ei muuda, aga võib ebatäpset laiendatud tulemust siiski parandada. Sellist võtet nimetatakse \emph{kitsendamiseks} (ingl. \textit{narrowing}) ning eelmisele laiendatud lahendile kitsendamist rakendades stabiliseerub tulemus (tabelis~\ref{tab:while-narrow}) 4. sammul, jõudes sama tulemuseni, mis ilma laiendamist ja kitsendamist. Üldiselt see siiski nii ei pruugi olla, kuid tulemuse täpsust suurendab ikka.
+Kuna $\bar{f}$ on monotoonne, siis selle rakendamine püsipunktile tulemust ebatäpsemaks ei muuda, aga võib ebatäpset laiendatud tulemust siiski parandada. Sellist võtet nimetatakse \emph{kitsendamiseks} (\ingl{narrowing}) ning eelmisele laiendatud lahendile kitsendamist rakendades stabiliseerub tulemus (tabelis~\ref{tab:while-narrow}) 4. sammul, jõudes sama tulemuseni, mis ilma laiendamist ja kitsendamist. Üldiselt see siiski nii ei pruugi olla, kuid tulemuse täpsust suurendab ikka.
 
 Kitsendamisel võib tekkida analoogiline probleem \emph{lõpmatute rangelt kahanevate ahelatega}, mistõttu funktsiooni korduv rakendamine mõistliku sammude arvuga ei stabiliseeru. Samas võib kitsendamist võib lõpetada mistahes hetkel ja analüüs on ikka korrektne. Kitsendamise stabiliseerumiseks kasutatakse analoogilist võtet: lahendatav võrratus kirjutatakse samaväärsel kujul $\bar{x} = \bar{x} \sqcap \bar{f}(\bar{x})$, kus alamraja asemele valitakse sobiv \emph{kitsendamise operaator} $\narrow$ ja otsitakse vähim püsipunkt võrrandile $\bar{x} = \bar{x} \narrow \bar{f}(\bar{x})$. Intervallidel defineeritakse see järgnevalt:
 \begin{gather*}
@@ -235,7 +235,7 @@ Domeeni $\mathbb{D}_2$ nimetatakse domeeni $\mathbb{D}_1$ \emph{korrektseks abst
 	\item iga $x_1 \in \mathbb{D}_1$ korral $\alpha (f_1 (x_1)) \sqleq f_2 (\alpha (x_1))$, kus $f_1$ on monotoonne tehe domeenis $\mathbb{D}_1$ ja $f_2$ sellele vastav monotoonne tehe domeenis $\mathbb{D}_2$. \label{item:abstraction}
 \end{enumerate}
 \end{definition}
-Funktsiooni $\alpha$ nimetatakse abstraktsioonifunktsiooniks (ingl. \textit{abstraction function}) ja funktsiooni $\gamma$ konkretisatsioonifunktsiooniks (ingl. \textit{concretization function}).
+Funktsiooni $\alpha$ nimetatakse abstraktsioonifunktsiooniks (\ingl{abstraction function}) ja funktsiooni $\gamma$ konkretisatsioonifunktsiooniks (\ingl{concretization function}).
 Seega võib rääkida, et $\mathbb{D}_1$ on konkreetne domeen ja $\mathbb{D}_2$ selle abstraktne domeen.
 \TODO{Paremad tõlked?}
 
@@ -243,7 +243,7 @@ Tingimus~\ref{item:gamma} nõuab, et konkretiseerimine ei kaotaks täpsust.
 Tingimus~\ref{item:alpha} lubab, et abstraheerimine kaotab täpsust (aga ei suurenda seda).
 Tingimust~\ref{item:abstraction} illustreerib joonis~\ref{fig:abstraction} ja see tähendab, et abstraktse tehte teostamine abstraktsel väärtusel pole täpsem, kui konkreetse tehte teostamine konkreetsel väärtusel.
 
-Viimast tingimust saab samaväärselt sõnastada $\gamma$ kaudu. Lisaks kogu definitsioonist järeldub domeenidevahline Galois' vastavus (ingl. \textit{Galois connection}), millel on oluline roll abstraktse interpretatsiooni formaliseerimisel ja üleüldse võreteoorias~\cite{cousot77}.
+Viimast tingimust saab samaväärselt sõnastada $\gamma$ kaudu. Lisaks kogu definitsioonist järeldub domeenidevahline Galois' vastavus (\ingl{Galois connection}), millel on oluline roll abstraktse interpretatsiooni formaliseerimisel ja üleüldse võreteoorias~\cite{cousot77}.
 
 \begin{figure}
 	\centering

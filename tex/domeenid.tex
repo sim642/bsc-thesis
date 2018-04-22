@@ -168,7 +168,7 @@ Olgu $\Var$ programmi muutujate hulk ja $\Val$ domeen, milles vaadeldakse üksik
 \[
 	\mathbb{D} = (\Var \to \Val)_\bot = (\Var \to \Val) \cup \{\bot\}.
 \]
-Domeeni elementideks on kujutused muutujate hulgast nende abstraktsete väärtuste hulka, mis on väga analoogilised konkreetsete muutujate väärtustustega funktsionaalselt kirjeldatuna. Element $\bot$ on tehislikult lisatud, et domeen moodustaks täieliku võre, ja tähendab saavutamatut (ingl. \textit{unreachable}) programmi punkti. Osaline järjestus selles domeenis on defineeritud järgnevaga:
+Domeeni elementideks on kujutused muutujate hulgast nende abstraktsete väärtuste hulka, mis on väga analoogilised konkreetsete muutujate väärtustustega funktsionaalselt kirjeldatuna. Element $\bot$ on tehislikult lisatud, et domeen moodustaks täieliku võre, ja tähendab saavutamatut (\ingl{unreachable}) programmi punkti. Osaline järjestus selles domeenis on defineeritud järgnevaga:
 \[
 	D_1 \sqleq D_2 \quad\Longleftrightarrow\quad D_1 = \bot \quad\lor\quad \forall x \in \Var\; D_1(x) \sqleq D_2(x).
 \]
@@ -187,7 +187,7 @@ Joonisel~\ref{fig:prog-if} tehtud näites olid muutujad $\Var = \{\texttt{x}, \t
 \end{itemize}
 \TODO{See loetelu kuidagi kompaktsemaks?}
 
-Kasutades kogu olekut kirjeldavaid domeeni elemente, on programmi laused ja avaldised juhtimisvoograafis kirjeldatavad funktsioonidena lähteseisundist sihtseisundisse. Neid nimetatakse \textbf{üleminekufunktsioonideks} (ingl. \textit{transfer function}) ja samas näites võivad need olla järgnevad:
+Kasutades kogu olekut kirjeldavaid domeeni elemente, on programmi laused ja avaldised juhtimisvoograafis kirjeldatavad funktsioonidena lähteseisundist sihtseisundisse. Neid nimetatakse \textbf{üleminekufunktsioonideks} (\ingl{transfer function}) ja samas näites võivad need olla järgnevad:
 \begin{gather*}
 	\tf_{1,2}(d) = d[\texttt{x} \mapsto \{0, 1, 2\}], \\
 \begin{align*} % nasty hack
@@ -198,7 +198,7 @@ Kasutades kogu olekut kirjeldavaid domeeni elemente, on programmi laused ja aval
 \end{align*} \\
 	\tf_{7,8}(d) = d[\texttt{z} \mapsto \{2\} * d(\texttt{y})],
 \end{gather*}
-kus kirjutis $d[\texttt{x} \mapsto \{0\}]$ tähendab funktsiooni uuendamist (ingl. \textit{function update}) ehk sama funktsiooni $d$, mis argumendil \texttt{x} omab nüüd uut väärtust $\{0\}$. Aritmeetilised tehted hulkade vahel on sellised nagu nad on sisemises domeenis $\Val$.
+kus kirjutis $d[\texttt{x} \mapsto \{0\}]$ tähendab funktsiooni uuendamist (\ingl{function update}) ehk sama funktsiooni $d$, mis argumendil \texttt{x} omab nüüd uut väärtust $\{0\}$. Aritmeetilised tehted hulkade vahel on sellised nagu nad on sisemises domeenis $\Val$.
 \TODO{Funktsiooni uuendamise def?}
 \TODO{Abstraktse aritmeetika jaoks eraldi operaatorid: $\oplus, \odot, \otimes$?}
 Seejuures üleminekufunktsioonid saab keele semantika ning lausete ja avaldiste struktuuri mallide järgi mehaaniliselt defineerida ehk konkreetse programmi analüüsil toimub see automatiseeritult.
