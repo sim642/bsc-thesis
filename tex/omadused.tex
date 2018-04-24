@@ -5,6 +5,7 @@
 \section{Domeeni omadused}
 
 \subsection{Võre omadused}
+\label{sec:lattice-props}
 Kuna nõutakse, et domeenid oleks täielikud võred, siis peavadki nad kõiksugu võrede tingimusi rahuldama. Järgnev on ülevaade erinevatest omadustest, mis täielikel võredel kehtima peaks:
 
 \noindent
@@ -51,6 +52,7 @@ Järgnevad on ekvivalentsed~\cite[39]{davey_lattices}:
 
 
 \subsection{Laiendamine ja kitsendamine}
+\label{sec:widen-narrow}
 Kui joonisel~\ref{fig:prog-if} olev programm oli tsükliteta ja selle analüüsi saaks teostada ka ilma võrratuste süsteemi püsipunkti leidmata teostada, siis üldiselt see nii pole. Huvitavamad programmid sisaldavad tsükleid, mille korral ülalkirjeldatud algoritm on analüüsimiseks vajalik. Olgu vaatluse all programm jooniselt~\ref{fig:prog-while} ja domeen $\mathbb{D} = (\Var \to \mathbb{I})_\bot$ nagu enne, siis võrratuste ja võrrandite süsteemid on järgnevad:
 \[
 	\begin{cases}
@@ -222,6 +224,7 @@ Olgu $\mathbb{D}$ abstraktne domeen, siis iga $a, b \in \mathbb{D}$ korral peava
 Kusjuures need operaatorid pole tingimata assotsiatiivsed, kommutatiivsed, jne nagu nende algsed analoogid. Neid kasutatakse nii nagu ülal toodud, kus vasak operand on vana seisund ja parem operand on uus seisund. Sellel asjaolul põhineb nende defineerimine ja seda ka nähtud intervalldomeeni puhul.
 
 \subsection{Abstraktsiooni korrektsus}
+\label{sec:abstraction-props}
 \TODO{\textit{Consistent abstract interpretations} -- Cousot. Korrektsus? Kooskõlalisus?}
 Abstraktse domeeni defineerimisel tekib küsimus, kas saadud domeen abstraheerib võimalikke olukordi korrektselt, st käitub mingis mõttes sama moodi. Näiteks intervalldomeen peaks olema täisarvude alamhulkade domeeni abstraktsioon, mille tehted käituks nii, nagu nad käituks konkreetsete alamhulkadega. Sellist olukorda kirjeldab järgmine definitsioon:
 \begin{definition}

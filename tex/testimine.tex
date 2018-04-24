@@ -50,7 +50,7 @@ Goblintis on domeenid implementeeritud OCaml-i moodulitena, mis muu hulgas sisal
 
 Igas domeenis defineeritav \texttt{t QCheck.arbitrary} hõlmab endas nii tüüpi \texttt{t} elementide generaatorit (\texttt{t QCheck.Gen}) kui ka vähendajat (\texttt{t QCheck.Shrink}).
 
-Kõik eelmises peatükis toodud omadused implementeeriti omaduspõhiste testidena moodulis \texttt{DomainProperties}. Näiteks ülemraja kommutatiivsuse test näeb välja järgmiselt:
+Kõik omadused peatükkidest~\ref{sec:lattice-props} ja~\ref{sec:widen-narrow} implementeeriti omaduspõhiste testidena moodulis \texttt{DomainProperties}. Näiteks ülemraja kommutatiivsuse test näeb välja järgmiselt:
 \begin{minted}{ocaml}
 let join_comm = make ~name:"join comm" (pair arb arb)
                   (fun (a, b) -> D.equal (D.join a b) (D.join b a))
@@ -62,7 +62,33 @@ Testid implementeeriti polümorfselt OCaml-i funktorite abil, mis võimaldab sam
 \subsection{Alt-üles lähenemine}
 Ühest küljest testiti erinevaid täisarvudega töötavaid domeene moodulist \texttt{IntDomain}, mis on üsna sõltumatud ja seetõttu saab neid eraldiseisvalt testida. Paljud teised domeenid kasutavad oma elementidena konkreetsest analüüsitavast programmist leitud muutujaid, funktsioone vms, mis teeb nende testimise raskeks, sest pole selge, kust võtta juhuslikke elemente. Täisarvude abstraktsioonide puhul seda probleemi ei esine.
 
-Nende testimiseks loodi moodul \texttt{Maindomaintest}, mida saab Goblintist endast eraldi kompileerida (käsuga \texttt{make domaintest}) ja käivitada (käsuga \texttt{./goblint.domaintest -v}). Selles moodulis on nimekiri domeenidest, mida käivitamisel testitakse.
+\paragraph{Täisarvudomeenide korrektsus}
+Täisarve abstraheerivad domeenid omavad Goblintis tavalisetele domeenidele lisaks mitmeid spetsiifilisi funktsioone, nagu näidatud joonisel~\ref{fig:intdomain-s}.
+Olemasolevatele lisaks implementeeriti lihtne täisarvude alamhulkade domeen, mille suhtes testiti ka kõigi täisarvude domeenide korrektsust, kasutades peatükis~\ref{sec:abstraction-props} toodud tingimusi.
+
+Hulga abstraheerimiseks kasutati neis domeenides olevat \texttt{of\_int} funktsiooni, et üksikuid elemente abstraheerida ja seejärel ülemraja leida, mis vastaks kogu vaadeldavale arvuhulgale. See võimaldas testida kõigi tehete, nii ühekohaliste (nt \texttt{neg}) kui ka kahekohaliste (nt \texttt{add}), korrektsust alamhulkade kaudu defineeritute suhtes.
+
+Kuna abstraktsiooni õigsuse testimiseks on domeenile lisaks vaja teist domeeni, mille abstraheerimist kontrollida, ja vastavaid tehteid mõlemas domeenis, siis sellist testimist üldisel tasandil teostada ei saa. Täisarvude domeenidel tehtu näitas, et selliseid omadusi on siiski võimalik testida, kuigi vajab olulist lisatööd.
+
+\begin{figure}
+	\centering
+	\begin{bminted}[mathescape]{ocaml}
+		module type S =
+		sig
+		  include Lattice.S (* sisaldab domeeni signatuuri, vt joonis $\texttt{\ref{fig:lattice-s}}$ *)
+		  val of_int: int64 -> t (* funktsioon $\alpha$ ühe arvu jaoks *)
+		  val neg: t -> t (* vastandarvu tehe, unaarne $-$ *)
+		  val add: t -> t -> t (* liitmistehe, binaarne $+$ *)
+		  val sub: t -> t -> t (* lahutamistehe, binaarne $-$ *)
+		  (* ..., veel tehteid *)
+		end
+	\end{bminted}
+	\caption{Täisarve abstraheeriva domeeni (lihtsustatud) signatuur Goblinti moodulis \texttt{IntDomain}.}
+	\label{fig:intdomain-s}
+\end{figure}
+
+\paragraph{Käivitamine}
+Nende domeenide testimiseks loodi moodul \texttt{Maindomaintest}, mida saab Goblintist endast eraldi kompileerida (käsuga \texttt{make domaintest}) ja käivitada (käsuga \texttt{./goblint.domaintest -v}). Selles moodulis on nimekiri domeenidest, mida käivitamisel testitakse.
 
 \subsection{Ülalt-alla lähenemine}
 Teisest küljest testiti domeeni, mida Goblint päriselt etteantud programmi analüüsimisel kasutama hakkaks. See domeen pannakse erinevate seadistuste abil kokku paljudest domeenidest, mis oma osadena kasutavad teisi lihtsamaid domeene (nagu seda teeb kujutusdomeen), mis omakorda võivad olla veelgi lihtsamatest domeenidest komponeeritud. Sellised sõltuvusi arvestades saab analüüsiks kasutatavat domeeni ette kujutada kui puud, mille lehtedeks on lihtsad sõltuvusteta domeenid nagu eelnevalt testitud täisarvude domeenid. Kui alt-üles lähenemise puhul testiti sellise puu lehti, siis ülalt-alla lähenemises testitakse domeene alustades juurest.
@@ -70,6 +96,7 @@ Teisest küljest testiti domeeni, mida Goblint päriselt etteantud programmi ana
 Juurdomeeni elementide genereerimiseks oleks põhimõtteliselt vaja genereerida elemente kõigist teistest domeenidest, millest sõltutakse. See eeldab korraga kõigi Goblinti domeenide jaoks generaatorite lisamist, mis lisaks suurele töömahule võib olla ka ebaotstarbekas. Kui mingite alamdomeenide generaatorid defineerida triviaalselt, näiteks alati $\bot$ genereerimise teel, siis on võimalik tervet domeeni testida, ilma et oleks vaja kõiki generaatoreid lisada, sest mingite alamdomeenide elemente pole vaja genereerida. Selliselt testitigi domeenide hierarhia ülemist osa.
 \TODO{Mingi näide kõrgemat järku domeenist ja selle sõltuvustest/alamdomeenidest?}
 
+\paragraph{Käivitamine}
 Selliselt testimiseks lisati Goblinti käsurealippude hulka uus nimega \texttt{dbg.test.domain}. Kui see on sisse lülitatud, siis enne etteantud programmi analüüsimist jooksutatakse analüüsiks kasutataval domeenil samad testid. Goblinti näidiskäivitus koos selle lipuga toimub järgneva käsuga:
 \begin{minted}{bash}
 	./goblint --enable dbg.test.domain \
