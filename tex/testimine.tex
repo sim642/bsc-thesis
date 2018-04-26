@@ -127,4 +127,23 @@ Goblinti domeenide hierarhia osa, millele lisati generaatorid ja mida seeläbi s
 	\TODO{Uuenda kui muutunud}
 \end{table}
 
+Enamike omaduste testimisel on vaja kontrollida mingite domeeni elementide võrdumist. Esimese loomuliku variandina kasutati selleks domeenide \texttt{equal} funktsiooni (vt joonis~\ref{fig:lattice-s}). Kuna pole kindel, et kõigis Goblinti domeenides \texttt{equal} on defineeritud võre struktuuriga kooskõlaliselt, siis viidi samad testid läbi ka teisiti: testimisel kasutati elementide \texttt{a} ja \texttt{b} võrdumise tingimusena \texttt{leq a b \&\& leq b a}. Eeliseks on see, et selline võrdlus ei eelda, et \texttt{equal} funktsioon oleks kooskõlaliselt defineeritud, aga puuduseks see, et eeldatakse, et järjestus on korrektne. Kuna tegu on kompromissiga, siis viidi samad testid läbi mõlema võrdlusmetoodikaga, ja tulemused on toodud tabelis~\ref{tab:tulemused}.
+
+Mõnede omaduste testimisel tekkisid erindid enne kui kehtivust kontrollida oli võimalik. Selleks oli kaks põhilist põhjust:
+\begin{enumerate}[nosep]
+	\item Domeen ei moodusta täielikku võre ning elementide $\bot$ ja $\top$ asemel antakse erind. Sel põhjusel lõpevad erindiga domeeni \texttt{Integers} testid, mis kontrollivad vähima ja suurima elemendiga seotud omadusi.
+	\item Jagamise abstraktsioonide kontrollimisel tekkis nulliga jagamine.
+\end{enumerate}
+
+Omaduste mittekehtimise põhjusteks võis olla:
+\begin{enumerate}[nosep]
+	\item Omaduse mittekehtimine teoreetilisel tasandil. Sel põhjusel ei kehti domeeni \texttt{Trier} ülemraja assotsiatiivsus.
+	\item Omaduse dokumenteeritud mittekehtimine. Sel põhjusel tõenäoliselt ei kehti domeeni \texttt{CircInterval} rajade omadused, sest neid on nimetatud \enquote{pseudo-ülemrajaks} ja \enquote{pseudo-alamrajaks}.
+	\item Omaduse sõltumine teistest mittekehtivatest omadustest samal või domeeni osaks oleval teisel domeenil. Sel põhjusel ei kehti domeeni \texttt{IntDomTuple} paljud omadused, kuna need ei kehti domeenidel, millest see koosneb.
+	\item Viga domeeni implementeerimisel.
+\end{enumerate}
+Kuna töö eesmärgiks polnud vigade parandamine, siis põhjustesse oluliselt ei süvenetud, mistõttu ei saa kindlalt kõigi ebaõnnestunud testide kohta midagi väita. See nõuab omaette teadmisi konkreetsete domeenide ettenähtud tööpõhimõtetest ja tööd täpsete kontranäidete analüüsimiseks. Sellele vaatamata annavad läbiviidud testid suuna, kus tõenäoliselt probleemid võivad olla.
+
+
+
 \end{document}
