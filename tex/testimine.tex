@@ -104,7 +104,27 @@ Selliselt testimiseks lisati Goblinti käsurealippude hulka uus nimega \texttt{d
 \end{minted}
 
 Goblinti domeenide hierarhia osa, millele lisati generaatorid ja mida seeläbi sai testida, on toodud lisas~\ref{app:goblint-domeenid}.
-\TODO{Testimise tulemused}
 
+\subsection{Tulemused}
+\begin{table}[h]
+	\caption{Domeenide erinevatel meetoditel testimise tulemused.}
+	\centering
+	\begin{tabu}{cc|ccc}
+	\hline
+	 & & \multicolumn{3}{c}{Testide arv} \\
+	Lähenemine & Võrdlemine & Kokku & Erindi teke & Mittekehtivad \\
+	\hline
+	\multirow{2}{*}{Alt-üles} & \texttt{equal} & 468 & \presim 40 & \presim 70 \\
+	%\cline{2-5}
+	 & \texttt{leq} & 468 & \presim 40 & \presim 64 \\
+	\hline
+	\multirow{2}{*}{Ülalt-alla} & \texttt{equal} & 27 & 0 & \presim 12 \\
+	%\cline{2-5}
+	 & \texttt{leq} & 27 & 0 & \presim 12 \\
+	\hline
+	\end{tabu}
+	\label{tab:tulemused}
+	\TODO{Uuenda kui muutunud}
+\end{table}
 
 \end{document}
