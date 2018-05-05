@@ -52,7 +52,6 @@ Järgnevalt ongi eesmärk matemaatiliselt formaliseerida sellise hea analüüsi 
 				y = x + 1;
 			int z = 2 * y;
 		\end{bminted}
-		\TODO{kood eraldi faili?}
 		\caption{C-keelne lähtekood}
 	\end{subfigure}
 	~
@@ -85,7 +84,6 @@ Järgnevalt ongi eesmärk matemaatiliselt formaliseerida sellise hea analüüsi 
 				(6) edge node {} (7)
 				(7) edge node[stmt,right] {z = 2 * y} (8);
 		\end{tikzpicture}
-		\TODO{tikz eraldi .tex faili?}
 		\caption{Juhtimisvoograaf}
 	\end{subfigure}
 
@@ -342,7 +340,6 @@ Sellises domeenis
 	[l_1, u_1] \sqcup [l_2, u_2] &= [\min\{l_1, l_2\}, \max\{u_1, u_2\}], \\
 	[l_1, u_1] \sqcap [l_2, u_2] &= [\max\{l_1, l_2\}, \min\{u_1, u_2\}],\quad \text{kui } \max\{l_1, l_2\} \leq \min\{u_1, u_2\}.
 \end{align*}
-\TODO{Joonis intervallide $\sqcup, \sqcap$ kohta \textit{a la} Seidl}
 Intervallide järjestus on määratud nende omavahelise sisalduvuse kaudu ning ülem- ja alamraja on vastavalt lõikude ühend ja ühisosa.
 Lõigu otspunktides on lubatud vastavad lõpmatust kirjeldavad väärtused, mis võimaldavad rääkida selles domeenis suurimast elemendist $\top = [-\infty, +\infty]$.
 Kuna alumine raja on ainult tinglikult defineeritud, siis intervalldomeen ei moodusta täielikku võre. See pole probleem, kuna pisut täiendatud domeen $\mathbb{I}_\bot = \mathbb{I} \cup \{\bot\}$ osutub täielikuks võreks, kui seda vaja peaks olema.
