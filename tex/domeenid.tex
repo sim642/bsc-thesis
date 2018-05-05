@@ -3,15 +3,15 @@
 \begin{document}
 
 \section{Abstraktsed domeenid}
-\TODO{Pikem üleminek sissejuhatusest domeenide juurde}
-
-Andmevooanalüüsiga püütakse võimalikult täpselt määrata programmi seisundit igas programmi punktis.
+Andmevooanalüüsiga püütakse võimalikult täpselt määrata programmi seisundit igas programmi punktis. Andmevooanalüüs kasutab programmi juhtimisvoograafi (\ingl{control-flow graph}), et järgida programmi seisundi muutumist selle võimalike töövoogude jooksul.
 
 \begin{definition}
 \emph{Domeeniks} nimetatakse programmi kõikvõimalike seisundite hulka~\cite{vojdani_magister}.
 \end{definition}
 
-Selline informaalne definitsioon on ebapiisav mingisuguse teooria arendamiseks, mistõttu tegelikult vaadetakse domeene, mis moodustavad täieliku võre.
+Programmi seisundiks on ilmselt muutujate väärtused, aga ka mistahes keerulisemad uuritavad omadused, näiteks lõime hetkel hoitavate lukkude hulk~\cite{vojdani_magister} või kättesaadavadte omistamiste hulk (\ingl{available assignments})~\cite[12]{seidl_foundations}. Kuna staatilise analüüsiga üldiselt pole võimalik programmi seisundeid täpselt määrata, siis tehakse seda ligikaudsete seisundite abil, mis moodustavad \textbf{abstraktse domeeni}.
+
+Selline informaalne definitsioon on ebapiisav mingisuguse teooria arendamiseks, mistõttu tegelikult vaadetakse domeene, mis moodustavad täieliku võre. Mida see täpselt tähendab, selgub pärast järgmist illustreerivat näidet.
 
 \subsection{Andmevooanalüüs}
 Andmevooanalüüsi ja abstraktse interpretatsiooni põhimõtete selgitamiseks parim viis on näite läbitegemine. Selleks olgu edaspidi vaatluse all programm jooniselt~\ref{fig:prog-if}, kus on kõrvuti C-keelse lähtekoodi jupp ja selle juhtimisvoograaf, mille tippudes on programmi punktid, milles seisundeid uuritakse, ja servadel vastavad laused, mida täidetakse.
@@ -134,7 +134,7 @@ Domeenide puhul kasutatakse ülemisi tõkkeid mitme seisundi ühendamiseks, nii 
 
 Täielikus võres $(A, \sqleq)$ leidub vähim element $\bot = \bigsqcap A$ ja suurim element $\top = \bigsqcup A$, mida nimetatakse vastavalt \textit{bottom}iks ja \textit{top}iks.
 
-Domeenidelt nõutaksegi, et need oleks täielikud võred, sest sellega kaasnevad ülal kirjeldatud võimalused seisunditega töötamiseks. Domeeni element $\top$ kirjeldab kõige üldisemat seisundit ehk seisundit, kus pole programmi oleku kohta mitte midagi teada. Element $\bot$ kirjeldab võimatut seisundit ehk tüüpiliselt seda, et programmi täitmisel mitte kunagi uuritavasse punkti ei jõutagi.
+Domeenidelt nõutaksegi, et need oleks täielikud võred, sest sellega kaasnevad ülal kirjeldatud võimalused seisunditega töötamiseks. Domeeni element $\top$ kirjeldab kõige üldisemat seisundit ehk seisundit, kus pole programmi oleku kohta mitte midagi teada. Element $\bot$ kirjeldab võimatut seisundit, milleks tüüpiliselt on saavutamatu (\ingl{unreachable}) programmi punkt ehk punkt, kuhu programmi täitmisel mitte kunagi ei jõutagi.
 
 
 \subsection{Alamhulkade domeen}
@@ -168,7 +168,7 @@ Olgu $\Var$ programmi muutujate hulk ja $\Val$ domeen, milles vaadeldakse üksik
 \[
 	\mathbb{D} = (\Var \to \Val)_\bot = (\Var \to \Val) \cup \{\bot\}.
 \]
-Domeeni elementideks on kujutused muutujate hulgast nende abstraktsete väärtuste hulka, mis on väga analoogilised konkreetsete muutujate väärtustustega funktsionaalselt kirjeldatuna. Element $\bot$ on tehislikult lisatud, et domeen moodustaks täieliku võre, ja tähendab saavutamatut (\ingl{unreachable}) programmi punkti. Osaline järjestus selles domeenis on defineeritud järgnevaga:
+Domeeni elementideks on kujutused muutujate hulgast nende abstraktsete väärtuste hulka, mis on väga analoogilised konkreetsete muutujate väärtustustega funktsionaalselt kirjeldatuna. Element $\bot$ on tehislikult lisatud, et domeen moodustaks täieliku võre, ja tähendab saavutamatut programmi punkti. Osaline järjestus selles domeenis on defineeritud järgnevaga:
 \[
 	D_1 \sqleq D_2 \quad\Longleftrightarrow\quad D_1 = \bot \quad\lor\quad \forall x \in \Var\; D_1(x) \sqleq D_2(x).
 \]
