@@ -180,3 +180,9 @@
 \usepackage{etoolbox}
 %\AtBeginEnvironment{definition}{\renewcommand\em{\bfseries}}
 \renewcommand{\em}{\bfseries} % always bold emphasis
+
+% https://tex.stackexchange.com/a/296150
+\makeatletter
+\renewrobustcmd*{\mkbibemph}{\mkbibitalic}
+\protected\long\def\blx@imc@mkbibemph#1{\blx@imc@mkbibitalic{#1}}
+\makeatother
