@@ -68,10 +68,13 @@ Kui joonisel~\ref{fig:prog-if} olev programm oli tsükliteta ja selle analüüsi
 		x_3 \sqgeq \tf_{2,3}(x_2) \\
 		x_4 \sqgeq \tf_{2,4}(x_2)
 	\end{cases}
-	\quad \text{ja} \quad
+	\  \text{ja} \quad
 	\begin{cases}
 		x_1 = \top \\
-		x_2 = \tf_{1,2}(x_1) \sqcup \tf_{3,2}(x_3) = \\ \quad\: = x_1[\texttt{x} \mapsto [0, 0]] \sqcup x_3[\texttt{x} \mapsto d(\texttt{x}) + [1, 1]] \\ % TODO proper align
+		\begin{aligned}
+			x_2 &= \tf_{1,2}(x_1) \sqcup \tf_{3,2}(x_3) = \\
+			&= x_1[\texttt{x} \mapsto [0, 0]] \sqcup x_3[\texttt{x} \mapsto d(\texttt{x}) + [1, 1]]
+		\end{aligned} \\
 		x_3 = \tf_{2,3}(x_2) = x_2[\texttt{x} \mapsto d(\texttt{x}) \sqcap [-\infty, 99]] \\
 		x_4 = \tf_{2,4}(x_2) = x_2[\texttt{x} \mapsto d(\texttt{x}) \sqcap [100, +\infty]]
 	\end{cases}.
