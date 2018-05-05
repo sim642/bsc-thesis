@@ -174,18 +174,28 @@ Domeeni elementideks on kujutused muutujate hulgast nende abstraktsete väärtus
 \]
 \TODO{$\sqcup, \sqcap, \top$?}
 
-Joonisel~\ref{fig:prog-if} tehtud näites olid muutujad $\Var = \{\texttt{x}, \texttt{y}, \texttt{z}\}$ ja väärtused domeenis $\Val = \powerset{\mathbb{Z}}$. Sellises kujutuste domeenis saabki kirjeldada tervet seisundit korraga ning sama analüüsi lõpptulemus oleks järgmine:
-\begin{itemize}
-	\item Punktis 1: $\{ \texttt{x} \mapsto \top, \texttt{y} \mapsto \top, \texttt{z} \mapsto \top \}$.
-	\item Punktis 2: $\{ \texttt{x} \mapsto \{0, 1, 2\}, \texttt{y} \mapsto \top, \texttt{z} \mapsto \top \}$.
-	\item Punktis 3: $\{ \texttt{x} \mapsto \{0\}, \texttt{y} \mapsto \top, \texttt{z} \mapsto \top \}$.
-	\item Punktis 4: $\{ \texttt{x} \mapsto \{1, 2\}, \texttt{y} \mapsto \top, \texttt{z} \mapsto \top \}$.
-	\item Punktis 5: $\{ \texttt{x} \mapsto \{0\}, \texttt{y} \mapsto \{5\}, \texttt{z} \mapsto \top \}$.
-	\item Punktis 6: $\{ \texttt{x} \mapsto \{1, 2\}, \texttt{y} \mapsto \{2, 3\}, \texttt{z} \mapsto \top \}$.
-	\item Punktis 7: $\{ \texttt{x} \mapsto \{0, 1, 2\}, \texttt{y} \mapsto \{2, 3, 5\}, \texttt{z} \mapsto \top \}$.
-	\item Punktis 8: $\{ \texttt{x} \mapsto \{0, 1, 2\}, \texttt{y} \mapsto \{2, 3, 5\}, \texttt{z} \mapsto \{4, 6, 10\} \}$.
-\end{itemize}
-\TODO{See loetelu kuidagi kompaktsemaks?}
+Joonisel~\ref{fig:prog-if} tehtud näites olid muutujad $\Var = \{\texttt{x}, \texttt{y}, \texttt{z}\}$ ja väärtused domeenis $\Val = \powerset{\mathbb{Z}}$.
+Sellises kujutuste domeenis saabki kirjeldada tervet seisundit korraga ning sama analüüsi lõpptulemus oleks selline, nagu näidatud tabelis~\ref{tab:prog-if-set}.
+
+\begin{table}
+	\caption{Näiteprogrammi (joonisel~\ref{fig:prog-if}) analüüsi lõpptulemus kujutuste domeenis.}
+	\centering
+	$\begin{tabu}{c*{3}{|c}}
+	\hline
+	\text{Punkt} & \texttt{x} & \texttt{y} & \texttt{z} \\
+	\hline
+	1 & \top & \top & \top \\
+	2 & \{0, 1, 2\} & \top & \top \\
+	3 & \{0\} & \top & \top \\
+	4 & \{1, 2\} & \top & \top \\
+	5 & \{0\} & \{5\} & \top \\
+	6 & \{1, 2\} & \{2, 3\} & \top \\
+	7 & \{0, 1, 2\} & \{2, 3, 5\} & \top \\
+	8 & \{0, 1, 2\} & \{2, 3, 5\} & \{4, 6, 10\} \\
+	\hline
+	\end{tabu}$
+	\label{tab:prog-if-set}
+\end{table}
 
 Kasutades kogu olekut kirjeldavaid domeeni elemente, on programmi laused ja avaldised juhtimisvoograafis kirjeldatavad funktsioonidena lähteseisundist sihtseisundisse. Neid nimetatakse \textbf{üleminekufunktsioonideks} (\ingl{transfer function}) ja samas näites võivad need olla järgnevad:
 \begin{gather*}
