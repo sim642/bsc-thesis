@@ -123,14 +123,14 @@ Nende vähim püsipunkt (tabelis~\ref{tab:while-iter}) leitakse naiivse iteratsi
 \end{figure}
 
 \paragraph{Laiendamine}
-Probleemi põhjuseks on asjaolu, et intervalldomeen ei rahulda kasvavate jadade stabiliseerumise tingimust (\ingl{ascending chains condition}), sest selles leiduvad lõpmatud rangelt kasvavad ahelad, näiteks
+Probleemi põhjuseks on asjaolu, et intervalldomeen ei rahulda kasvavate jadade stabiliseerumise tingimust (\ingl{ascending chains condition}), sest selles leiduvad lõpmatud rangelt kasvavad ahelad~\cite[56]{seidl_foundations}, näiteks
 \[
 	[0, 0] \sqlt [0, 1] \sqlt [0, 2] \sqlt \ldots \sqlt [0, +\infty].
 \]
 \TODO{Seletada kuidagi paremini? Mitte tuua sisse rangelt kasvavust $\sqlt$?}
 Püsipunkti leidmise igal iteratsioonil tsüklis muutuja väärtuste lõik suureneb ühe võrra seetõttu stabiliseerumiseks läheb ebameeldivalt palju iteratsioone. Probleemi lahendamiseks muudetakse analüüsimist nii, et püsipunkti leidmine toimuks kiirendatult, tuues meelega sisse täiendava ebatäpsuse. Sellist võtet nimetatakse laiendamiseks (\ingl{widening}).
 
-Lahendatav võrratus $\bar{x} \sqgeq \bar{f}(\bar{x})$ kirjutatakse samaväärsel akumuleerival kujul $\bar{x} = \bar{x} \sqcup \bar{f}(\bar{x})$, kus ülemraja asemele valitakse sobiv \emph{laiendamise operaator} $\widen$ ja otsitakse vähim püsipunkt võrrandile $\bar{x} = \bar{x} \widen \bar{f}(\bar{x})$. Intervallidel defineeritakse see järgnevalt:
+Lahendatav võrratus $\bar{x} \sqgeq \bar{f}(\bar{x})$ kirjutatakse samaväärsel akumuleerival kujul $\bar{x} = \bar{x} \sqcup \bar{f}(\bar{x})$, kus ülemraja asemele valitakse sobiv \emph{laiendamise operaator} $\widen$ ja otsitakse vähim püsipunkt võrrandile $\bar{x} = \bar{x} \widen \bar{f}(\bar{x})$. Intervallidel defineeritakse see järgnevalt~\cite[62]{seidl_foundations}:
 \begin{gather*}
 	[l_1, u_1] \widen [l_2, u_2] = [l, u], \text{ kus} \\
 	l = \begin{cases}
@@ -148,7 +148,7 @@ Intervallide laiendamise idee seiseb selles, et intervall suurenedes suureneb ko
 \paragraph{Kitsendamine}
 Kuna $\bar{f}$ on monotoonne, siis selle rakendamine püsipunktile tulemust ebatäpsemaks ei muuda, aga võib ebatäpset laiendatud tulemust siiski parandada. Sellist võtet nimetatakse kitsendamiseks (\ingl{narrowing}) ning eelmisele laiendatud lahendile kitsendamist rakendades stabiliseerub tulemus (tabelis~\ref{tab:while-narrow}) 4. sammul, jõudes sama tulemuseni, mis ilma laiendamist ja kitsendamist. Üldiselt see siiski nii ei pruugi olla, kuid tulemuse täpsust suurendab ikka.
 
-Kitsendamisel võib tekkida analoogiline probleem kahanevate jadade stabiliseerumise tingimusega (\ingl{descending chains condition}) ja lõpmatute rangelt kahanevate ahelatega, mistõttu funktsiooni korduv rakendamine mõistliku sammude arvuga ei stabiliseeru. Samas võib kitsendamist lõpetada mistahes hetkel ja analüüs on ikka korrektne. Kitsendamise stabiliseerumiseks kasutatakse analoogilist võtet: lahendatav võrratus kirjutatakse samaväärsel kujul $\bar{x} = \bar{x} \sqcap \bar{f}(\bar{x})$, kus alamraja asemele valitakse sobiv \emph{kitsendamise operaator} $\narrow$ ja otsitakse vähim püsipunkt võrrandile $\bar{x} = \bar{x} \narrow \bar{f}(\bar{x})$. Intervallidel defineeritakse see järgnevalt:
+Kitsendamisel võib tekkida analoogiline probleem kahanevate jadade stabiliseerumise tingimusega (\ingl{descending chains condition}) ja lõpmatute rangelt kahanevate ahelatega~\cite[65]{seidl_foundations}, mistõttu funktsiooni korduv rakendamine mõistliku sammude arvuga ei stabiliseeru. Samas võib kitsendamist lõpetada mistahes hetkel ja analüüs on ikka korrektne. Kitsendamise stabiliseerumiseks kasutatakse analoogilist võtet: lahendatav võrratus kirjutatakse samaväärsel kujul $\bar{x} = \bar{x} \sqcap \bar{f}(\bar{x})$, kus alamraja asemele valitakse sobiv \emph{kitsendamise operaator} $\narrow$ ja otsitakse vähim püsipunkt võrrandile $\bar{x} = \bar{x} \narrow \bar{f}(\bar{x})$. Intervallidel defineeritakse see järgnevalt~\cite[66]{seidl_foundations}:
 \begin{gather*}
 	[l_1, u_1] \narrow [l_2, u_2] = [l, u], \text{ kus} \\
 	l = \begin{cases}
