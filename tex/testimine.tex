@@ -47,7 +47,6 @@ Goblintis on domeenid implementeeritud OCaml-i moodulitena, mis muu hulgas sisal
 \begin{minted}{ocaml}
 	val arbitrary: unit -> t QCheck.arbitrary
 \end{minted}
-
 Igas domeenis defineeritav \texttt{t QCheck.arbitrary} hõlmab endas nii tüüpi \texttt{t} elementide generaatorit (\texttt{t QCheck.Gen}) kui ka vähendajat (\texttt{t QCheck.Shrink}).
 
 Kõik omadused peatükkidest~\ref{sec:lattice-props} ja~\ref{sec:widen-narrow} implementeeriti omaduspõhiste testidena moodulis \texttt{DomainProperties}. Näiteks ülemraja kommutatiivsuse test näeb välja järgmiselt:
@@ -64,7 +63,7 @@ Testid implementeeriti polümorfselt OCaml-i funktorite abil, mis võimaldab sam
 
 \paragraph{Täisarvudomeenide korrektsus}
 Täisarve abstraheerivad domeenid omavad Goblintis tavalisetele domeenidele lisaks mitmeid spetsiifilisi funktsioone, nagu näidatud joonisel~\ref{fig:intdomain-s}.
-Olemasolevatele lisaks implementeeriti lihtne täisarvude alamhulkade domeen, mille suhtes testiti ka kõigi täisarvude domeenide korrektsust, kasutades peatükis~\ref{sec:abstraction-props} toodud tingimusi.
+Olemasolevatele lisaks implementeeriti lihtne täisarvude alamhulkade domeen \texttt{IntegerSet}, mille suhtes testiti ka kõigi täisarvude domeenide korrektsust, kasutades peatükis~\ref{sec:abstraction-props} toodud tingimusi.
 
 Hulga abstraheerimiseks kasutati neis domeenides olevat \texttt{of\_int} funktsiooni, et üksikuid elemente abstraheerida ja seejärel ülemraja leida, mis vastaks kogu vaadeldavale arvuhulgale. See võimaldas testida kõigi tehete, nii ühekohaliste (nt \texttt{neg}) kui ka kahekohaliste (nt \texttt{add}), korrektsust alamhulkade kaudu defineeritute suhtes.
 
@@ -88,22 +87,20 @@ Kuna abstraktsiooni õigsuse testimiseks on domeenile lisaks vaja teist domeeni,
 \end{figure}
 
 \paragraph{Käivitamine}
-Nende domeenide testimiseks loodi moodul \texttt{Maindomaintest}, mida saab Goblintist endast eraldi kompileerida (käsuga \texttt{make domaintest}) ja käivitada (käsuga \texttt{./goblint.domaintest -v}). Selles moodulis on nimekiri domeenidest, mida käivitamisel testitakse.
+Nende domeenide testimiseks loodi moodul \texttt{Maindomaintest}, mida saab Goblintist endast eraldi kompileerida (käsuga \texttt{make domaintest}) ja käivitada (käsuga \texttt{./goblint.domaintest -v}). Selles moodulis on nimekiri domeenidest, mida käivitamisel testitakse ja mida on kujutatud lisa~\ref{app:goblint-domeenid} allosas.
 
 \subsection{Ülalt-alla lähenemine}
-Teisest küljest testiti domeeni, mida Goblint päriselt etteantud programmi analüüsimisel kasutama hakkaks. See domeen pannakse erinevate seadistuste abil kokku paljudest domeenidest, mis oma osadena kasutavad teisi lihtsamaid domeene (nagu seda teeb kujutusdomeen), mis omakorda võivad olla veelgi lihtsamatest domeenidest komponeeritud. Sellised sõltuvusi arvestades saab analüüsiks kasutatavat domeeni ette kujutada kui puud, mille lehtedeks on lihtsad sõltuvusteta domeenid nagu eelnevalt testitud täisarvude domeenid. Kui alt-üles lähenemise puhul testiti sellise puu lehti, siis ülalt-alla lähenemises testitakse domeene alustades juurest.
+Teisest küljest testiti domeeni, mida Goblint päriselt etteantud programmi analüüsimisel kasutama hakkaks. See domeen pannakse erinevate seadistuste abil kokku paljudest domeenidest, mis oma osadena kasutavad teisi lihtsamaid domeene (nagu seda teeb kujutusdomeen), mis omakorda võivad olla veelgi lihtsamatest domeenidest komponeeritud. Sellised sõltuvusi arvestades saab analüüsiks kasutatavat domeeni ette kujutada kui puud või sõltuvusgraafi (\ingl{dependency graph}), mille lehtedeks on lihtsad sõltuvusteta domeenid nagu eelnevalt testitud täisarvude domeenid. Kui alt-üles lähenemise puhul testiti sellise puu lehti, siis ülalt-alla lähenemises testitakse domeene alustades juurest.
 
-Juurdomeeni elementide genereerimiseks oleks põhimõtteliselt vaja genereerida elemente kõigist teistest domeenidest, millest sõltutakse. See eeldab korraga kõigi Goblinti domeenide jaoks generaatorite lisamist, mis lisaks suurele töömahule võib olla ka ebaotstarbekas. Kui mingite alamdomeenide generaatorid defineerida triviaalselt, näiteks alati $\bot$ genereerimise teel, siis on võimalik tervet domeeni testida, ilma et oleks vaja kõiki generaatoreid lisada, sest mingite alamdomeenide elemente pole vaja genereerida. Selliselt testitigi domeenide hierarhia ülemist osa.
+Juurdomeeni elementide genereerimiseks oleks põhimõtteliselt vaja genereerida elemente kõigist teistest domeenidest, millest sõltutakse. See eeldab korraga kõigi Goblinti domeenide jaoks generaatorite lisamist, mis lisaks suurele töömahule võib olla ka ebaotstarbekas. Kui mingite alamdomeenide generaatorid defineerida triviaalselt, näiteks alati $\bot$ genereerimise teel, siis on võimalik tervet domeeni testida, ilma et oleks vaja kõiki generaatoreid lisada, sest mingite alamdomeenide elemente pole vaja genereerida. Selliselt testitigi domeenide hierarhia ülemist osa, mida on kujutatud lisa~\ref{app:goblint-domeenid} ülaosas.
 \TODO{Mingi näide kõrgemat järku domeenist ja selle sõltuvustest/alamdomeenidest?}
 
 \paragraph{Käivitamine}
-Selliselt testimiseks lisati Goblinti käsurealippude hulka uus nimega \texttt{dbg.test.domain}. Kui see on sisse lülitatud, siis enne etteantud programmi analüüsimist jooksutatakse analüüsiks kasutataval domeenil samad testid. Goblinti näidiskäivitus koos selle lipuga toimub järgneva käsuga:
+Selliselt testimiseks lisati Goblinti käsurealippude hulka uus nimega \texttt{dbg.test.domain}. Kui see on sisse lülitatud, siis enne etteantud programmi analüüsimist jooksutatakse analüüsiks kasutataval domeenil\footnote{Täpsmalt \enquote{domeenidel}: Goblint kasutab analüüsis kahte erinevat domeeni, n-ö lokaalset ja globaalset.} samad testid. Goblinti näidiskäivitus koos selle lipuga toimub järgneva käsuga:
 \begin{minted}{bash}
 	./goblint --enable dbg.test.domain \
 	    ./tests/regression/04-mutex/01-simple_rc.c
 \end{minted}
-
-Goblinti domeenide hierarhia osa, millele lisati generaatorid ja mida seeläbi sai testida, on toodud lisas~\ref{app:goblint-domeenid}.
 
 \subsection{Tulemused}
 \begin{table}[h]
