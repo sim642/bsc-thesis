@@ -33,7 +33,7 @@
 										child { node (BaseWest) {MapBot\_LiftTop}
 											child { node {LiftTop}
 												child { node {MapBot}
-													child { node [bot] {(PMap)} }
+													child { node [bot] (PMap) {(PMap)} }
 												}
 											}
 										}
@@ -70,7 +70,7 @@
 												child { node {Prod}
 													child { node (MutexProdConf) {ProdConf}
 														child [xshift=-1cm] { node {NormalLat}
-															child { node [bot] (MutexSouthWest) {(Normal)} }
+															child { node [bot] (MutexSouthWest) (Normal) {(Normal)} }
 														}
 													}
 												}
@@ -90,11 +90,13 @@
 
 \node[group,fit=(DeadCodeNorth) (DeadCodeSouth),label=right:DeadCode] {};
 \node[group,fit=(PathSensitiveNorth) (PathSensitiveSouth),label=right:PathSensitive] {};
-\node[group,fit=(BaseNorth) (BaseWest) (BaseEast) (BaseSouthEast),label=below:Base] {};
+\node[group,fit=(BaseNorth) (BaseWest) (BaseEast) (BaseSouthEast),label={[xshift=-2.5cm]below:Base}] {};
 \node[group,fit=(EscapeNorth) (EscapeSouth),label={[xshift=0.6cm]below:Escape}] {};
-\node[group,fit=(MutexNorth) (MutexSouthWest) (MutexEast),label=below:Mutex] {};
+\node[group,fit=(MutexNorth) (Normal) (MutexEast),label=below:Mutex] {};
 \end{tikzpicture}
-
+\vspace{1ex}
+\textcolor{gray}{\hrule}
+\vspace{2ex}
 \begin{tikzpicture}[
 	remember picture,
 	level distance=1cm,
@@ -124,12 +126,14 @@
 	(Lift) edge (Integers);
 \node[below=2cm of Enums] (Booleans) {Booleans};
 \end{tikzpicture}
-
 \begin{tikzpicture}[
 	remember picture,
 	overlay
 ]
 \path[-latex] (MutexProdConf) edge[bend left=30] (Booleans);
+
+\path[gray,-latex] (Normal) edge (IntDomTuple);
+\path[gray,-latex,dashed] (PMap) edge [out=300,in=160] (IntDomTuple);
 \end{tikzpicture}
 \end{center}
 
