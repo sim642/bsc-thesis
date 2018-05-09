@@ -38,7 +38,7 @@
 										}
 									}
 									child { node {Flag}
-										child { node {SimpleThreadDomain}
+										child { node (BaseEast) {SimpleThreadDomain}
 											child { node {ProdSimple}
 												child { node {ProdConf}
 													child [narrow] { node {Simple}
@@ -46,8 +46,8 @@
 														}
 													}
 													child [narrow] { node {Flat}
-														child { node {Thread}
-															child { node [bot] (BaseSouthEast) {(Variables)} }
+														child { node (BaseSouthEast) {Thread}
+															child [xshift=1.25cm] { node [bot] (Variables) {(Variables)} }
 														}
 													}
 												}
@@ -58,9 +58,7 @@
 								% escape
 								child { node (EscapeNorth) {EscapedVars}
 									child { node {ToppedSet}
-										child { node {SetDomain}
-											child { node [bot] (EscapeSouth) {(Variables)} }
-										}
+										child { node (EscapeSouth) {SetDomain} }
 									}
 								}
 								% mutex
@@ -88,10 +86,12 @@
 		}
 	};
 
+\path[-latex] (EscapeSouth) edge (Variables);
+
 \node[group,fit=(DeadCodeNorth) (DeadCodeSouth),label=right:DeadCode] {};
 \node[group,fit=(PathSensitiveNorth) (PathSensitiveSouth),label=right:PathSensitive] {};
-\node[group,fit=(BaseNorth) (BaseWest) (BaseSouthEast),label=below:Base] {};
-\node[group,fit=(EscapeNorth) (EscapeSouth),label=below:Escape] {};
+\node[group,fit=(BaseNorth) (BaseWest) (BaseEast) (BaseSouthEast),label=below:Base] {};
+\node[group,fit=(EscapeNorth) (EscapeSouth),label={[xshift=0.6cm]below:Escape}] {};
 \node[group,fit=(MutexNorth) (MutexSouthWest) (MutexEast),label=below:Mutex] {};
 \end{tikzpicture}
 
