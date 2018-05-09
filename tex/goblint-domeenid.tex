@@ -8,6 +8,7 @@
 \begin{center}
 \noindent
 \begin{tikzpicture}[
+	remember picture,
 	level distance=1cm,
 	sibling distance=3.5cm,
 	edge from parent/.style={draw,-latex},
@@ -65,13 +66,12 @@
 								child { node (MutexNorth) {Lockset}
 									child { node {Reverse}
 										child { node {ToppedSet}
-											child { node {SetDomain}
+											child { node (MutexEast) {SetDomain}
 												child { node {Prod}
-													child { node {ProdConf}
-														child [narrow] { node {NormalLat}
+													child { node (MutexProdConf) {ProdConf}
+														child [xshift=-1cm] { node {NormalLat}
 															child { node [bot] (MutexSouthWest) {(Normal)} }
 														}
-														child [narrow] { node (MutexEast) {Booleans} }
 													}
 												}
 											}
@@ -96,6 +96,7 @@
 \end{tikzpicture}
 
 \begin{tikzpicture}[
+	remember picture,
 	level distance=1cm,
 	sibling distance=2cm,
 	edge from parent/.style={draw,-latex},
@@ -121,7 +122,14 @@
 	child { node (Lift) {Lift} };
 \path[-latex] (Flat) edge (Integers)
 	(Lift) edge (Integers);
-\node[below=2cm of Enums] {Booleans};
+\node[below=2cm of Enums] (Booleans) {Booleans};
+\end{tikzpicture}
+
+\begin{tikzpicture}[
+	remember picture,
+	overlay
+]
+\path[-latex] (MutexProdConf) edge[bend left=30] (Booleans);
 \end{tikzpicture}
 \end{center}
 
