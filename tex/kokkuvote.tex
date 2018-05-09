@@ -5,13 +5,15 @@
 \section*{Kokkuvõte}
 \addcontentsline{toc}{section}{Kokkuvõte}
 
-Töö teoreetilise osana koostati ülevaatlik abstraktsete domeenide omaduste komplekt, mis ühest küljest on piisavalt üldine, et kehtida mistahes domeenil, ja teisest küljest on piisavalt täielik, et katta kõik, mida nii üldisel tasemel võimalik kontrollida. Sinna kuuluvad täielike võrede, programmianalüüsi spetsiifilised ja abstraktsiooni korrektsuse omadused.
+Töö teoreetilise osana koostati ülevaatlik abstraktsete domeenide omaduste komplekt, mis ühest küljest on piisavalt üldine, et kehtida mistahes domeenil, ja teisest küljest on piisavalt täielik, et katta kõik, mida nii üldisel tasemel võimalik kontrollida. Sinna kuuluvad täielike võrede, programmianalüüsi spetsiifilised ja abstraktsiooni korrektsuse omadused. Lisaks loodab autor, et tehtud eestikeelne ülevaade abstraktsetest domeenidest ja andmevooanalüüsist pakub huvi tulevastele staatilise analüüsi huvilistele.
 
-Töö praktilise osana lisati Goblint analüsaatorile, täpsemalt selle domeenidele, omaduspõhise testimise võimekus, kasutades teeki QCheck. Implementeeriti üldrakendataval viisil kõigi omaduste testimine, lähenedes domeenide testimisele kahest suunast. Lõpuks viidi läbimine testimine ise.
+Töö praktilise osana lisati Goblint analüsaatorile, täpsemalt selle domeenidele, omaduspõhise testimise võimekus, kasutades teeki QCheck. Implementeeriti üldrakendataval viisil kõigi omaduste testimine, lähenedes domeenide testimisele kahest suunast. Lõpuks viidi läbimine testimine ise. Töö autor loodab, et lisatud omaduspõhine testimine võetakse kasutusele Goblinti edasises arenduses.
 
 Goblinti domeenide omaduspõhise testimise tulemusena leiti mitmeid domeene, millel mingid omadused ei kehtinud. Kuna töö eesmärgiks polnud leitud vigade parandamine, siis kõigi põhjused pole täpselt teada, kuid on olemas selged kohad, mis probleemide allikaks võivad olla.
 
 Selle töö raames siiski ei täiendatud absoluutselt kõiki Goblinti domeene nii, et neid sisukalt testida saaks, mis tähendab, et tööd on võimalik jätkata, et kontrollitud oleks rohkemad domeenid. Lisaks on muidugi vaja põhjalikult analüüsida neid domeene, millest vigu leiti, et aru saada vigade täpsest sisust, ja lõpuks vead kõrvaldada. Viimane võib osutuda üpris keeruliseks, kui viga pole põhjustatud halvast implementatsioonist, vaid mittekehtivast teooriast selle taga.
+
+Omaduspõhist testimist oleks tõenäoliselt võimalik ka teiste analüsaatori osade (nt üleminekufunktsioonide) korrektse toimimise kontrollimiseks kasutada, kuna abstraktsed domeenid pole kaugeltki ainsad andmevooanalüüsi osad, milles vigu võib esineda.
 
 \TODO{Kokkuvõte pikemaks? Midagi positiivsemat ka juurde}
 
