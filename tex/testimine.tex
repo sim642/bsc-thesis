@@ -96,7 +96,7 @@ Juurdomeeni elementide genereerimiseks oleks põhimõtteliselt vaja genereerida 
 \TODO{Mingi näide kõrgemat järku domeenist ja selle sõltuvustest/alamdomeenidest?}
 
 \paragraph{Käivitamine}
-Selliselt testimiseks lisati Goblinti käsurealippude hulka uus nimega \texttt{dbg.test.domain}. Kui see on sisse lülitatud, siis enne etteantud programmi analüüsimist jooksutatakse analüüsiks kasutataval domeenil\footnote{Täpsmalt \enquote{domeenidel}: Goblint kasutab analüüsis kahte erinevat domeeni, n-ö lokaalset ja globaalset.} samad testid. Goblinti näidiskäivitus koos selle lipuga toimub järgneva käsuga:
+Selliselt testimiseks lisati Goblinti käsurealippude hulka uus nimega \texttt{dbg.test.domain}. Kui see on sisse lülitatud, siis enne etteantud programmi analüüsimist jooksutatakse analüüsiks kasutataval domeenil\footnote{Täpsemalt \enquote{domeenidel}: Goblint kasutab analüüsis kahte erinevat domeeni, n-ö lokaalset ja globaalset.} samad testid. Goblinti näidiskäivitus koos selle lipuga toimub järgneva käsuga:
 \begin{minted}{bash}
 	./goblint --enable dbg.test.domain \
 	    ./tests/regression/04-mutex/01-simple_rc.c
