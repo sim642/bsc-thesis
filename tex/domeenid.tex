@@ -18,14 +18,14 @@ Andmevooanalüüsi ja abstraktse interpretatsiooni põhimõtete selgitamiseks pa
 Järgnevalt on käsitsi analüüsitud selle programmi täisarvuliste muutujate võimalike väärtusi igas programmi punktis:
 \begin{itemize}
 	\item Punktis 1 pole muutujaid deklareeritud, seega nende väärtustest ei saa rääkida.
-	\item Punktis 2 muutuja \texttt{x} väärtust üheselt määrata pole võimalik, sest see tuleb juhuarvu funktsioonist \texttt{rand()}, kuid jäägiga jagamise tulemusena kuulub see kindlasti hulka $\{0, 1, 2\}$\footnote{C keele semantika on siinkohal keerukas, kuid (üldiselt võimalikud) negatiivsed jäägid on antud juhul välistatud, sest \texttt{rand()} funktsioon ei tagasta negatiivseid arve.}.
-	Lisaks on vahepeal deklareeritud väärtustamata muutuja \texttt{y}, millel C keele semantikas vaikeväärtust pole ja seetõttu võib selle väärtus olla suvaline täisarv, st suvaline hulgast $\mathbb{Z}$ \cite{C11_draft}.
-	\item Punktis 3, kus tingimus oli tõene, on \texttt{x} kindlasti ainult 0.
-	\item Punktis 4, kus tingimus oli väär, saab eelnevast hulgast välistatud nulli eemaldamisel öelda, et muutuja \texttt{x} väärtus on hulgas $\{1, 2\}$.
-	\item Punktis 5 on täpselt teada, et \texttt{y} on 5.
-	\item Punktis 6, teades võimalikke muutuja \texttt{x} väärtusi, saab öelda, et muutuja \texttt{y} väärtus tehte tulemusena on hulgas $\{2, 3\}$.
-	\item Punktis 7, kus kaks võimalikku tingimuslause haru uuesti kokku saavad, tuleb arvestada mõlema haru võimalike väärtustega, seega muutuja \texttt{y} väärtus kuulub hulka $\{2, 3, 5\}$.
-	\item Punktis 8, teades võimalikke \texttt{y} väärtusi, saab öelda, et muutuja \texttt{z} väärtus tehte tulemusena on hulgas $\{4, 6, 10\}$.
+	\item Punktis 2 muutuja \texttt{x} väärtust üheselt määrata pole võimalik, sest see tuleb juhuarvu funktsioonist \texttt{rand()}, kuid jäägiga jagamise tulemusena kindlasti $\texttt{x} \in \{0, 1, 2\}$\footnote{C keele semantika on siinkohal keerukas, kuid (üldiselt võimalikud) negatiivsed jäägid on antud juhul välistatud, sest \texttt{rand()} funktsioon ei tagasta negatiivseid arve.}.
+	Lisaks on vahepeal deklareeritud väärtustamata muutuja \texttt{y}, millel C keele semantikas vaikeväärtust pole ja seetõttu $\texttt{y} \in \mathbb{Z}$ \cite{C11_draft}.
+	\item Punktis 3, kus tingimus oli tõene, $\texttt{x} = 0$.
+	\item Punktis 4, kus tingimus oli väär, saab eelnevast hulgast välistatud nulli eemaldamisel öelda, et $\texttt{x} \in \{1, 2\}$.
+	\item Punktis 5 on täpselt teada, et $\texttt{y} = 5$. Lisaks on selles harus jätkuvalt $\texttt{x} = 0$.
+	\item Punktis 6, teades võimalikke muutuja \texttt{x} väärtusi, saab öelda, et liitmistehte tulemusena $\texttt{y} \in \{2, 3\}$.
+	\item Punktis 7, kus kaks võimalikku tingimuslause haru uuesti kokku saavad, tuleb arvestada mõlema haru võimalike väärtustega, seega muutuja $\texttt{y} \in \{2, 3, 5\}$.
+	\item Punktis 8, teades võimalikke muutuja \texttt{y} väärtusi, saab öelda, et korrutamistehte tulemusena $\texttt{z} \in \{4, 6, 10\}$.
 \begin{comment}
 	\item Punktides 1, 2 ja 3 on muutuja veel väärtustamata. Kuna C keele semantika sellisel juhul mingit vaikeväärtust ei anna, siis võimalikke väärtusi kirjeldab kõige ebatäpsem domeeni element $\top = \mathbb{Z}$.
 	\item Punktis 4 on muutujale just antud konstantne väärtus, mistõttu seda kirjeldab kõige paremini element $\{5\}$.
