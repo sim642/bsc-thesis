@@ -102,8 +102,23 @@ Selliselt testimiseks lisati Goblinti käsurealippude hulka uus nimega \texttt{d
 	    ./tests/regression/04-mutex/01-simple_rc.c
 \end{minted}
 
+\subsection{Probleemid}
+\paragraph{Võrdlemine}
+Enamike omaduste testimisel on vaja kontrollida mingite domeeni elementide võrdumist. Esimese loomuliku variandina kasutati selleks domeenide \texttt{equal} funktsiooni (vt joonis~\ref{fig:lattice-s}). Kuna pole kindel, et kõigis Goblinti domeenides \texttt{equal} on defineeritud võre struktuuriga kooskõlaliselt, siis viidi samad testid läbi ka teisiti: testimisel kasutati elementide \texttt{a} ja \texttt{b} võrdumise tingimusena \texttt{leq a b \&\& leq b a}. Eeliseks on see, et selline võrdlus ei eelda, et \texttt{equal} funktsioon oleks kooskõlaliselt defineeritud, aga puuduseks see, et eeldatakse, et järjestus on korrektne.
+
+\paragraph{Laiendamine}
+Esialgse testimise tulemused näitasid, nagu oleks kõigis testitud domeenides laiendamise operaator vigane, sest ei rahulda selle ainsat omadust peatükist~\ref{sec:widen-narrow}. Osutub, et Goblinti domeenides olevat laiendamise operaatorit \texttt{widen} ei kasutata täpselt nii, nagu ülalkirjeldatud teooria seda ette näeb, vaid alati kujul \texttt{D.widen a (D.join a b)}, kus teiseks argumendiks on juba vastav ülemraja.
+
+Seega nõutud omaduse $a \sqcup b \sqleq a \widen b$ asemel peaks kehtima omadus
+\begin{align*}
+	a \sqcup (a \sqcup b) &\sqleq a \widen (a \sqcup b) \qquad\stackrel{\text{assotsiatiivsus}}{\Longrightarrow} \\
+	(a \sqcup a) \sqcup b &\sqleq a \widen (a \sqcup b) \qquad\stackrel{\text{idempotentsus}}{\Longrightarrow} \\
+	a \sqcup b &\sqleq a \widen (a \sqcup b).
+\end{align*}
+Goblintis laiendamise operaatori testimiseks lõpuks kasutatigi viimast kuju. Seejuures eeldatakse, et ülemraja leidmise tehe on assotsiatiivne ja idempotentne, kuid neid kontrollitakse niikuinii vahetult omaette testidega.
+
 \subsection{Tulemused}
-\begin{table}[h]
+\begin{table}
 	\caption{Domeenide erinevatel meetoditel testimise tulemused.}
 	\centering
 	\begin{tabu}{cc|ccc}
@@ -124,7 +139,7 @@ Selliselt testimiseks lisati Goblinti käsurealippude hulka uus nimega \texttt{d
 	\TODO{Uuenda kui muutunud}
 \end{table}
 
-Enamike omaduste testimisel on vaja kontrollida mingite domeeni elementide võrdumist. Esimese loomuliku variandina kasutati selleks domeenide \texttt{equal} funktsiooni (vt joonis~\ref{fig:lattice-s}). Kuna pole kindel, et kõigis Goblinti domeenides \texttt{equal} on defineeritud võre struktuuriga kooskõlaliselt, siis viidi samad testid läbi ka teisiti: testimisel kasutati elementide \texttt{a} ja \texttt{b} võrdumise tingimusena \texttt{leq a b \&\& leq b a}. Eeliseks on see, et selline võrdlus ei eelda, et \texttt{equal} funktsioon oleks kooskõlaliselt defineeritud, aga puuduseks see, et eeldatakse, et järjestus on korrektne. Kuna tegu on kompromissiga, siis viidi samad testid läbi mõlema võrdlusmetoodikaga, ja tulemused on toodud tabelis~\ref{tab:tulemused}.
+Testide jooksutamise tulemused on toodud tabelis~\ref{tab:tulemused}, kus on toodud mõlema lähenemise tulemused. Kuna võrdlusmetoodika puhul on tegemist kompromissiga, siis viidi samad testid läbi mõlemal moel.
 
 Mõnede omaduste testimisel tekkisid erindid enne kui kehtivust kontrollida oli võimalik. Enamus juhtudel seetõttu, et domeen ei moodusta täielikku võre ning elementide $\bot$ ja $\top$ asemel antakse erind. Sel põhjusel lõpevad erindiga domeeni \texttt{Integers} testid, mis kontrollivad vähima ja suurima elemendiga seotud omadusi.
 
