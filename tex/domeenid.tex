@@ -166,9 +166,9 @@ Olgu $\Var$ programmi muutujate hulk ja $\Val$ domeen, milles vaadeldakse üksik
 \[
 	\mathbb{D} = (\Var \to \Val)_\bot = (\Var \to \Val) \cup \{\bot\}.
 \]
-Domeeni elementideks on kujutused muutujate hulgast nende abstraktsete väärtuste hulka, mis on väga analoogilised konkreetsete muutujate väärtustustega funktsionaalselt kirjeldatuna. Element $\bot$ on tehislikult lisatud, et domeen moodustaks täieliku võre, ja tähendab saavutamatut programmi punkti. Osaline järjestus selles domeenis on defineeritud järgnevaga:
+Domeeni elementideks on kujutused muutujate hulgast nende abstraktsete väärtuste hulka, mis on väga analoogilised konkreetsete muutujate väärtustustega funktsionaalselt kirjeldatuna. Element $\bot$ on tehislikult lisatud, et domeen moodustaks täieliku võre, ja tähendab saavutamatut programmi punkti. Osaline järjestus domeenis $\mathbb{D}$ on iga $D_1, D_2 \in \mathbb{D}$ korral defineeritud kui
 \[
-	D_1 \sqleq D_2 \quad\Longleftrightarrow\quad D_1 = \bot \quad\lor\quad \forall x \in \Var\; D_1(x) \sqleq D_2(x).
+	D_1 \sqleq D_2 \quad\Longleftrightarrow\quad D_1 = \bot \quad\lor\quad \forall x \in \Var.\; D_1(x) \sqleq D_2(x).
 \]
 \TODO{$\sqcup, \sqcap, \top$?}
 
