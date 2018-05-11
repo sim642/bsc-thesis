@@ -131,7 +131,7 @@ Domeenide puhul kasutatakse ülemisi tõkkeid mitme seisundi ühendamiseks, nii 
 
 Täielikus võres $(A, \sqleq)$ leidub vähim element $\bot = \bigsqcap A$ ja suurim element $\top = \bigsqcup A$, mida nimetatakse vastavalt \textit{bottom}'iks ja \textit{top}'iks. Tegelikult tuleneb täielikes võredes kõik alumise rajaga seonduv automaatselt ülemisest rajast~\cite[18]{seidl_foundations}.
 
-Domeenidelt nõutaksegi, et need oleks täielikud võred, sest sellega kaasnevad ülal kirjeldatud võimalused seisunditega töötamiseks. Domeeni element $\top$ kirjeldab kõige üldisemat seisundit ehk seisundit, kus pole programmi oleku kohta mitte midagi teada. Element $\bot$ kirjeldab kokkuleppeliselt võimatut seisundit, milleks tüüpiliselt on saavutamatu (\ingl{unreachable}) programmi punkt ehk punkt, kuhu programmi täitmisel mitte kunagi ei jõutagi.
+Domeenidelt nõutaksegi, et need oleks täielikud võred, sest sellega kaasnevad ülal kirjeldatud võimalused seisunditega töötamiseks. Domeeni element $\top$ kirjeldab kõige üldisemat seisundit ehk seisundit, kus pole programmi oleku kohta mitte midagi teada. Element $\bot$ kirjeldab kokkuleppeliselt võimatut seisundit, milleks tüüpiliselt on saavutamatu (\ingl{unreachable}) programmi punkt ehk punkt, kuhu programmi täitmisel mitte kunagi ei jõutagi. Edaspidi tähistagu $\mathbb{D}$ mingit parasjagu vaadeldavat domeeni, millega käib ilmutamata kaasas täielik võre $(\mathbb{D}, \sqleq)$.
 
 
 \subsection{Alamhulkade domeen}
@@ -146,7 +146,7 @@ Osutub, et see on ka täielik võre~\cite[6]{laan_voreteooria}, kus
 Hulk $X$ kirjeldab väärtust $z$ parajasti siis, kui $z \in X$. Sellega on defineeritud, kuidas peaks seostama domeeni elemente konkreetsete võimalike väärtustega.
 \TODO{\textit{Description relation} --- kas üldse mõtet mainida? Vb jätta Galois ühenduste juurde.}
 
-Ülal käsitsi tehtud joonise~\ref{fig:prog-if} programmi analüüsis oligi iga muutuja väärtusi analüüsitud alamhulkade domeeni $\mathbb{D} = (\powerset{\mathbb{Z}}, \subseteq)$ abil. Programmi punktis 7 toimunud muutuja \texttt{y} seisundite ühendamine on võrede terminites $\{5\} \sqcup \{2, 3\}$. Antud programmi analüüsimiseks on selle domeeniga vaja seostada kahte tüüpi tehted:
+Ülal käsitsi tehtud joonise~\ref{fig:prog-if} programmi analüüsis oligi iga muutuja väärtusi analüüsitud alamhulkade domeeni $\mathbb{D} = \powerset{\mathbb{Z}}$ abil. Programmi punktis 7 toimunud muutuja \texttt{y} seisundite ühendamine on võrede terminites $\{5\} \sqcup \{2, 3\}$. Antud programmi analüüsimiseks on selle domeeniga vaja seostada kahte tüüpi tehted:
 \begin{description}
 	\item[Konstantide abstraheerimine] Lause \texttt{y = 5} abstraktseks teostamiseks, st muutujaga~\texttt{y} domeeni elemendi seostamiseks, on esinev konstant vaja sobivalt abstraheerida. Täisarvude alamhulkade domeenis sobib konstantse väärtuse $a$ jaoks ilmselt element $\{a\}$.
 
