@@ -54,10 +54,10 @@ Järgnevad on ekvivalentsed~\cite[39]{davey_lattices}:
 
 \subsection{Laiendamine ja kitsendamine}
 \label{sec:widen-narrow}
-Kui joonisel~\ref{fig:prog-if} olev programm on tsükliteta ja selle analüüsi saaks teostada ka ilma võrratuste süsteemi püsipunkti leidmata, siis üldiselt sama lihtsalt ei saa. Huvitavamad programmid sisaldavad tsükleid, mille analüüsimiseks võib püsipunkti leidmisel põhinev algoritm siiski kasulik olla. Olgu nüüd vaatluse all tsükliga programm jooniselt~\ref{fig:prog-while} ja domeen $\mathbb{D} = (\Var \to \mathbb{I})_\bot$ nagu viimati, siis võrratuste ja võrrandite süsteemid on järgnevad:
+Kui joonisel~\ref{fig:prog-if} olev programm on tsükliteta ja selle analüüsi saaks teostada ka ilma võrratuste süsteemi püsipunkti leidmata, siis üldiselt sama lihtsalt ei saa. Huvitavamad programmid sisaldavad tsükleid, mille analüüsimiseks võib püsipunkti leidmisel põhinev algoritm siiski kasulik olla. Olgu nüüd vaatluse all tsükliga programm jooniselt~\ref{fig:prog-while} ja domeen $\mathbb{D} = (\Var \to \mathbb{I}_\bot)_\bot$ nagu viimati, siis võrratuste ja võrrandite süsteemid on järgnevad:
 \[
 	\begin{cases}
-		x_1 \sqgeq \top \\
+		x_1 \sqgeq \imath \\
 		\begin{comment}
 		\begin{rcases*}
 			x_2 \sqgeq \tf_{1,2}(x_1) \\
@@ -70,16 +70,16 @@ Kui joonisel~\ref{fig:prog-if} olev programm on tsükliteta ja selle analüüsi 
 	\end{cases}
 	\  \text{ja} \quad
 	\begin{cases}
-		x_1 = \top \\
+		x_1 = \imath \\
 		\begin{aligned}
 			x_2 &= \tf_{1,2}(x_1) \sqcup \tf_{3,2}(x_3) = \\
 			&= x_1[\texttt{x} \mapsto [0, 0]] \sqcup x_3[\texttt{x} \mapsto d(\texttt{x}) + [1, 1]]
 		\end{aligned} \\
 		x_3 = \tf_{2,3}(x_2) = x_2[\texttt{x} \mapsto d(\texttt{x}) \sqcap [-\infty, 99]] \\
 		x_4 = \tf_{2,4}(x_2) = x_2[\texttt{x} \mapsto d(\texttt{x}) \sqcap [100, +\infty]]
-	\end{cases}.
+	\end{cases},
 \]
-
+kus algseisund $\imath$ on konstantne kujutus väärtustega $\bot$.
 Nende vähim püsipunkt (tabelis~\ref{tab:while-iter}) leitakse Kleene püsipunktialgoritmi 204. sammul. Itereerimisel sisuliselt tehakse läbi kõik 100 tsükli iteratsiooni, mistõttu sellise süsteemi püsipunkti leidmise ajaline keerukus on $O(k)$, kus $k$ on tsükli iteratsioonide arv. Selline ebaefektiivsus on vastuvõetamatu, sest toimub justkui programmi kogu töö simuleerimine, mis on vastuolus staatilise analüüsi eesmärgiga. Keerulisemate programmide puhul on isegi võimalik, et analüüs ei termineeru~\cite[60]{seidl_foundations}.
 
 \begin{figure}
@@ -174,7 +174,7 @@ Intervallide kitsendamise idee seiseb selles, et intervall vähenedeb ainult lõ
 		\hline
 		 & \texttt{x} \\
 		\hline
-		x_1 & \top \\
+		x_1 & \bot \\
 		x_2 & [0, 100] \\
 		x_3 & [0, 99] \\
 		x_4 & [100, 100] \\
@@ -190,7 +190,7 @@ Intervallide kitsendamise idee seiseb selles, et intervall vähenedeb ainult lõ
 		\hline
 		 & \texttt{x} \\
 		\hline
-		x_1 & \top \\
+		x_1 & \bot \\
 		x_2 & [0, +\infty] \\
 		x_3 & [0, +\infty] \\
 		x_4 & [100, +\infty] \\
@@ -206,7 +206,7 @@ Intervallide kitsendamise idee seiseb selles, et intervall vähenedeb ainult lõ
 		\hline
 		 & \texttt{x} \\
 		\hline
-		x_1 & \top \\
+		x_1 & \bot \\
 		x_2 & [0, 100] \\
 		x_3 & [0, 99] \\
 		x_4 & [100, 100] \\
