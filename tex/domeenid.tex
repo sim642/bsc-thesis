@@ -3,18 +3,11 @@
 \begin{document}
 
 \section{Abstraktsed domeenid}
-Andmevooanalüüsiga püütakse võimalikult täpselt määrata programmi seisundit igas programmi punktis. Andmevooanalüüs kasutab programmi juhtimisvoograafi (\ingl{control-flow graph}), et järgida programmi seisundi muutumist selle võimalike töövoogude jooksul.
-
-\begin{definition}
-\emph{Domeeniks} nimetatakse programmi kõikvõimalike seisundite hulka~\cite{vojdani_magister}.
-\end{definition}
-
-Programmi seisundiks on ilmselt muutujate väärtused, aga ka mistahes keerulisemad uuritavad omadused, näiteks lõime hetkel hoitavate lukkude hulk~\cite{vojdani_magister} või kättesaadavadte omistamiste hulk (\ingl{available assignments})~\cite[12]{seidl_foundations}. Kuna staatilise analüüsiga üldiselt pole võimalik programmi seisundeid täpselt määrata, siis tehakse seda ligikaudsete seisundite abil, mis moodustavad \emph{abstraktse domeeni}.
-
-Selline informaalne definitsioon on ebapiisav mingisuguse teooria arendamiseks, mistõttu tegelikult vaadetakse domeene, mis moodustavad täieliku võre. Mida see täpselt tähendab, selgub pärast järgmist illustreerivat näidet.
+Andmevooanalüüsi ja abstraktse interpretatsiooni põhimõtete selgitamiseks parim viis on illustreeriva näite läbitegemine.
+Seejärel samm-sammult formaliseeritakse tehtu matemaatiliselt, kuna sissejuhatuses antud informaalne definitsioon on ebapiisav mingisuguse teooria arendamiseks.
 
 \subsection{Andmevooanalüüs}
-Andmevooanalüüsi ja abstraktse interpretatsiooni põhimõtete selgitamiseks parim viis on näite läbitegemine. Selleks olgu edaspidi vaatluse all programm jooniselt~\ref{fig:prog-if}, kus on kõrvuti C-keelse lähtekoodi jupp ja selle juhtimisvoograaf, mille tippudes on programmi punktid, milles seisundeid uuritakse, ja servadel vastavad laused, mida täidetakse.
+Selleks olgu edaspidi vaatluse all programm jooniselt~\ref{fig:prog-if}, kus on kõrvuti C-keelse lähtekoodi jupp ja selle juhtimisvoograaf, mille tippudes on programmi punktid, milles seisundeid uuritakse, ja servadel vastavad laused, mida täidetakse.
 Järgnevalt on käsitsi analüüsitud selle programmi täisarvuliste muutujate võimalike väärtusi igas programmi punktis:
 \begin{itemize}
 	\item Punktis 1 pole muutujaid deklareeritud, seega nende väärtustest ei saa rääkida.
