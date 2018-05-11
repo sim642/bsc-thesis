@@ -17,7 +17,7 @@ Juhuslikult genereeritud argumendid võivad olla \enquote{suured}: suured arvud,
 Tüüpiliselt on ka põhiliste andmetüüpide vähendaminie testimisraamistikesse juba sisse ehitatud, aga sedagi on võimalik ise laiendada oma andmetüüpidele.
 
 \subsection{Goblint}
-Goblint on mitmelõimeliste C programmide staatiline analüsaator, mis keskendub andmejooksude tuvastamisele \cite{goblint2016}. Seda tehakse andmevooanalüüsi raamistikus, kasutades keerukamaid spetsiifilisi abstraktseid domeene. Goblinti autoritele on teada, et analüsaator ei käitu alati oodatud viisil, vaid võib teha vigu. Üheks võimalikuks probleemide allikaks on kasutusel olevad abstraktsed domeenid ja täpsemalt nende implementatsioonid. Leidmaks nende vigade allikat, testitigi käesoleva töö raames Goblintis implementeeritud domeenide omadusi.
+Goblint on mitmelõimeliste C programmide staatiline analüsaator, mille eesmärk on tõestada, et programmis puuduvad mitmelõimelisusega seotud vead (nt andmejooksud)~\cite{goblint2016}. Seda tehakse andmevooanalüüsi raamistikus, kasutades keerukamaid spetsiifilisi abstraktseid domeene. Goblinti autoritele on teada, et analüsaator ei käitu alati oodatud viisil, vaid võib teha vigu. Üheks võimalikuks probleemide allikaks on kasutusel olevad abstraktsed domeenid ja täpsemalt nende implementatsioonid. Leidmaks nende vigade allikat, testitigi käesoleva töö raames Goblintis implementeeritud domeenide omadusi.
 
 Goblint ise on kirjutatud OCaml-is ja on avatud lähtekoodiga~\cite{goblint_repo}. Selle omaduspõhiseks testimiseks valiti vastav OCaml-i teek QCheck~\cite{qcheck_repo}, mis on sarnaste teekide hulgast enim kasutatud ja uuendatud. Kõigi töö raames tehtud muudatuste ja täienduse lähtekoodi leiab lisast~\ref{app:lahtekood}.
 
