@@ -80,7 +80,7 @@ Kui joonisel~\ref{fig:prog-if} olev programm on tsükliteta ja selle analüüsi 
 	\end{cases}.
 \]
 
-Nende vähim püsipunkt (tabelis~\ref{tab:while-iter}) leitakse naiivse iteratsiooni 204. sammul. Itereerimisel sisuliselt tehakse läbi kõik 100 tsükli iteratsiooni, mistõttu sellise süsteemi püsipunkti leidmise ajaline keerukus on $O(k)$, kus $k$ on tsükli iteratsioonide arv. Selline ebaefektiivsus on vastuvõetamatu, sest toimub justkui programmi kogu töö simuleerimine, mis on vastuolus staatilise analüüsi eesmärgiga. Keerulisemate programmide puhul on isegi võimalik, et analüüs ei termineeru~\cite[60]{seidl_foundations}.
+Nende vähim püsipunkt (tabelis~\ref{tab:while-iter}) leitakse Kleene püsipunktialgoritmi 204. sammul. Itereerimisel sisuliselt tehakse läbi kõik 100 tsükli iteratsiooni, mistõttu sellise süsteemi püsipunkti leidmise ajaline keerukus on $O(k)$, kus $k$ on tsükli iteratsioonide arv. Selline ebaefektiivsus on vastuvõetamatu, sest toimub justkui programmi kogu töö simuleerimine, mis on vastuolus staatilise analüüsi eesmärgiga. Keerulisemate programmide puhul on isegi võimalik, et analüüs ei termineeru~\cite[60]{seidl_foundations}.
 
 \begin{figure}
 	\centering
@@ -143,7 +143,7 @@ Lahendatav võrratus $\bar{x} \sqgeq \bar{f}(\bar{x})$ kirjutatakse samaväärse
 		+\infty, & \text{muidu}.
 	\end{cases}
 \end{gather*}
-Intervallide laiendamise idee seiseb selles, et intervall suurenedes suureneb kohe vastavas suunas lõpmatusse, garanteerides, et intervall saab suureneda ülimalt kaks korda, mis muudab rangelt kasvavad ahelad lõplikeks. Sellise modifikatsiooniga süsteemi vähim püsipunkt (tabelis~\ref{tab:while-widen}) leitakse juba naiivse iteratsiooni 6. sammul, mis ühest küljest on oluline võit, teisest kaotus, sest lahend pole nii täpne kui eelnevalt.
+Intervallide laiendamise idee seiseb selles, et intervall suurenedes suureneb kohe vastavas suunas lõpmatusse, garanteerides, et intervall saab suureneda ülimalt kaks korda, mis muudab rangelt kasvavad ahelad lõplikeks. Sellise modifikatsiooniga süsteemi vähim püsipunkt (tabelis~\ref{tab:while-widen}) leitakse juba Kleene algoritmi 6. sammul, mis ühest küljest on oluline võit, teisest kaotus, sest lahend pole nii täpne kui eelnevalt.
 
 \paragraph{Kitsendamine}
 Kuna $\bar{f}$ on monotoonne, siis selle rakendamine püsipunktile tulemust ebatäpsemaks ei muuda, aga võib ebatäpset laiendatud tulemust siiski parandada. Sellist võtet nimetatakse kitsendamiseks (\ingl{narrowing}) ning eelmisele laiendatud lahendile kitsendamist rakendades stabiliseerub tulemus (tabelis~\ref{tab:while-narrow}) 4. sammul, jõudes sama tulemuseni, mis ilma laiendamist ja kitsendamist. Üldiselt see siiski nii ei pruugi olla, kuid tulemuse täpsust suurendab ikka.
