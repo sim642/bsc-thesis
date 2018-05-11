@@ -191,7 +191,7 @@ Kasutades kogu olekut kirjeldavaid domeeni elemente, on programmi laused ja aval
 \begin{gather*}
 	\tf_{1,2}(d) = d[\texttt{x} \mapsto \{0, 1, 2\}], \\
 \begin{align*} % nasty hack
-	\tf_{2,3}(d) &= d[\texttt{x} \mapsto \{0\}], &
+	\tf_{2,3}(d) &= d[\texttt{x} \mapsto d(\texttt{x}) \cap \{0\}], &
 	\tf_{2,4}(d) &= d[\texttt{x} \mapsto d(\texttt{x}) \setminus \{0\}], \\
 	\tf_{3,5}(d) &= d[\texttt{y} \mapsto \{5\}], &
 	\tf_{4,6}(d) &= d[\texttt{y} \mapsto d(\texttt{x}) + \{1\}],
@@ -270,7 +270,7 @@ Joonise~\ref{fig:prog-if} programmi analüüsimisel oleks võrratuste ja võrran
 	\begin{cases}
 		x_1 = \top \\
 		x_2 = \tf_{1,2}(x_1) = x_1[\texttt{x} \mapsto \{0, 1, 2\}] \\
-		x_3 = \tf_{2,3}(x_2) = x_2[\texttt{x} \mapsto \{0\}] \\
+		x_3 = \tf_{2,3}(x_2) = x_2[\texttt{x} \mapsto d(\texttt{x}) \cap \{0\}] \\
 		x_4 = \tf_{2,4}(x_2) = x_2[\texttt{x} \mapsto d(\texttt{x}) \setminus \{0\}] \\
 		x_5 = \tf_{3,5}(x_3) = x_3[\texttt{y} \mapsto \{5\}] \\
 		x_6 = \tf_{4,6}(x_4) = x_4[\texttt{y} \mapsto d(\texttt{x}) + \{1\}] \\
