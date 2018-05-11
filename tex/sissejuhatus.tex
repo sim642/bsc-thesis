@@ -5,13 +5,15 @@
 \section*{Sissejuhatus}
 \addcontentsline{toc}{section}{Sissejuhatus}
 
-\TODO{Veel rohkem taustast, alustada kaugemalt: \textit{static vs dynamic analysis}?}
+Üks võimalus arvutiprogrammi käitumise uurimiseks on dünaamiline analüüs: programm käivitatakse ja huvitav olukord kutsutakse esile. Teine võimalus on staatiline analüüs: programmi ei käivitata, vaid selle käitumise kohta tehakse järeldusi lähtekoodi põhjal. Staatilist programmianalüüsi teostatakse mitmel põhjusel:
+\begin{enumerate}
+	\item Kompilaatorid analüüsivad kompileeritavaid programme, et neid automaatselt optimeerida. Näiteks asendatakse korduvalt esinevaid avaldisi abimuutujatega, vältides sama avaldise mõttetut taasväärtustamist (\ingl{common subexpression elimination}). Seejuures on oluline, et programmi käitumine optimeerimise käigus ei muutuks. 
 
-Staatiline programmianalüüs on võimalikult automaatne protsess, mis programmi lähtekoodi põhjal järeldab midagi selle programmi käitumise kohta. Staatilist analüüsi teostatakse mitmel põhjusel. Esiteks, programmi optimeerimise eesmärgil teostatakse analüüsi kompilaatorites, leidmaks kohti programmikoodis, mida on automaatse muudatusega võimalik optimeerida, ilma et sellest muutuks programmi käitumine. Teiseks, programmist vigade leidmise eesmärgil, leidmaks vigu, ilma et oleks tarvis programm käivitada ja vigane olukord esile kutsuda. Kolmandaks, programmi korrektsuse näitamiseks, veendumaks, et programm kindlasti käitub oodatud veatul moel.
-\TODO{Kolmas punkt ei erine teisest arusaadavalt}
+	\item Mõned programmide vead esinevad väga spetsiifilistel juhtudel või on raskesti esilekutsutavad (nt mitmelõimelisusega seotud vead), mistõttu dünaamilise analüüsiga on neid keeruline avastada. Näiteks FindBugs™ otsib Java programmidest vigu.
 
-\TODO{Mainida alternatiivseid staatilise analüüsi meetodeid?}
-\TODO{Nimetada ja viidata olemasolevatele analüsaatoritele?}
+	\item Programmi korrektsuse näitamisel, tõestamaks, et selles teatud tüüpi vigu kindlasti ei esine. Näiteks Astrée võimaldab tõestada, et C programmis puuduvad määramata ja implementatsioonispetsiiflisest käitumisest põhjustatud täitmisaegsed vead.
+\end{enumerate}
+
 Andmevooanalüüs (\ingl{data-flow analysis}) on üks intuitiivne meetod staatilise programmianalüüsi teostamiseks. Selle keskseks ideeks on võimalike programmi seisundite, sh sageli muutujate võimalike väärtuste, määramine selle programmi igal täitmise sammul.
 % Andmevooanalüüs kasutab programmi juhtimisvoograafi (\ingl{control-flow graph}), et järgida programmi seisundi muutumist selle võimalike töövoogude jooksul.
 
