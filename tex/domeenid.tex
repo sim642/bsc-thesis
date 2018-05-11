@@ -174,13 +174,13 @@ Sellises kujutuste domeenis saabki kirjeldada tervet seisundit korraga ning sama
 	\hline
 	\text{Punkt} & \texttt{x} & \texttt{y} & \texttt{z} \\
 	\hline
-	1 & \top & \top & \top \\
-	2 & \{0, 1, 2\} & \top & \top \\
-	3 & \{0\} & \top & \top \\
-	4 & \{1, 2\} & \top & \top \\
-	5 & \{0\} & \{5\} & \top \\
-	6 & \{1, 2\} & \{2, 3\} & \top \\
-	7 & \{0, 1, 2\} & \{2, 3, 5\} & \top \\
+	1 & \emptyset & \emptyset & \emptyset \\
+	2 & \{0, 1, 2\} & \mathbb{Z} & \emptyset \\
+	3 & \{0\} & \mathbb{Z} & \emptyset \\
+	4 & \{1, 2\} & \mathbb{Z} & \emptyset \\
+	5 & \{0\} & \{5\} & \emptyset \\
+	6 & \{1, 2\} & \{2, 3\} & \emptyset \\
+	7 & \{0, 1, 2\} & \{2, 3, 5\} & \emptyset \\
 	8 & \{0, 1, 2\} & \{2, 3, 5\} & \{4, 6, 10\} \\
 	\hline
 	\end{tabu}$
@@ -189,7 +189,7 @@ Sellises kujutuste domeenis saabki kirjeldada tervet seisundit korraga ning sama
 
 Kasutades kogu olekut kirjeldavaid domeeni elemente, on programmi laused ja avaldised juhtimisvoograafis kirjeldatavad funktsioonidena lähteseisundist sihtseisundisse. Neid nimetatakse \emph{üleminekufunktsioonideks} (\ingl{transfer function})~\cite{vojdani_magister} ja samas näites võivad need olla järgnevad:
 \begin{gather*}
-	\tf_{1,2}(d) = d[\texttt{x} \mapsto \{0, 1, 2\}], \\
+	\tf_{1,2}(d) = d[\texttt{x} \mapsto \{0, 1, 2\}][\texttt{y} \mapsto \mathbb{Z}], \\
 \begin{align*} % nasty hack
 	\tf_{2,3}(d) &= d[\texttt{x} \mapsto d(\texttt{x}) \cap \{0\}], &
 	\tf_{2,4}(d) &= d[\texttt{x} \mapsto d(\texttt{x}) \setminus \{0\}], \\
@@ -253,7 +253,7 @@ Nende olemasolul saab konkreetse programmi analüüsi teostada järgnevate sammu
 Joonise~\ref{fig:prog-if} programmi analüüsimisel oleks võrratuste ja võrrandite süsteemid järgnevad:
 \[
 	\begin{cases}
-		x_1 \sqgeq \top \\
+		x_1 \sqgeq \imath \\
 		x_2 \sqgeq \tf_{1,2}(x_1) \\
 		x_3 \sqgeq \tf_{2,3}(x_2) \\
 		x_4 \sqgeq \tf_{2,4}(x_2) \\
@@ -267,16 +267,20 @@ Joonise~\ref{fig:prog-if} programmi analüüsimisel oleks võrratuste ja võrran
 	\end{cases}
 	\  \text{ja} \quad
 	\begin{cases}
-		x_1 = \top \\
+		x_1 = \imath \\
 		x_2 = \tf_{1,2}(x_1) = x_1[\texttt{x} \mapsto \{0, 1, 2\}] \\
-		x_3 = \tf_{2,3}(x_2) = x_2[\texttt{x} \mapsto d(\texttt{x}) \cap \{0\}] \\
+		\begin{aligned}
+		x_3 &= \tf_{2,3}(x_2) = \\
+		&= x_2[\texttt{x} \mapsto d(\texttt{x}) \cap \{0\}][\texttt{y} \mapsto \mathbb{Z}]
+		\end{aligned} \\
 		x_4 = \tf_{2,4}(x_2) = x_2[\texttt{x} \mapsto d(\texttt{x}) \setminus \{0\}] \\
 		x_5 = \tf_{3,5}(x_3) = x_3[\texttt{y} \mapsto \{5\}] \\
 		x_6 = \tf_{4,6}(x_4) = x_4[\texttt{y} \mapsto d(\texttt{x}) + \{1\}] \\
 		x_7 = x_5 \sqcup x_6 \\
 		x_8 = \tf_{7,8}(x_7) = x_7[\texttt{z} \mapsto \{2\} \cdot d(\texttt{y})]
-	\end{cases}.
+	\end{cases},
 \]
+kus algseisund $\imath$ on konstantne kujutus väärtustega $\emptyset$.
 %Nende iteratiivne lahendamine on samm-sammult toodud tabelis~\ref{tab:itersolve}.
 Nende iteratiivne lahendamine on samm-sammult toodud lisas~\ref{app:itersolve}.
 On näha, et algoritmiline analüüs jõudis oodatud tulemuseni.
@@ -351,7 +355,7 @@ Analoogiliselt alamhulkade domeeniga, tuuakse siin programmide analüüsimiseks 
 	\TODO{Kas peaks seda ka siin tegema?}
 \end{description}
 
-Valides eelnevas joonisel~\ref{fig:prog-if} tehtud näites seekord $\Val = \mathbb{I}$, saab taaskord kirjeldada üleminekufunktsioonid, kasutades seekord intervallide operatsioone. Tabelis~\ref{tab:itersolve2} on toodud samasuguse algoritmilise analüüsi lõpptulemus, kui seda oleks tehtud intervalldomeeni abil. Nagu näha, siis intervallide kasutamine on ebatäpsem kui alamhulkade kasutamine, sest kaob informatsioon selle kohta, kui mõni väärtus lõigu keskelt tegelikult ei saa esineda. Samas on analüüs ikkagi korrektne, sest ühtegi päriselt võimalikku väärtust pole ekslikult välistatud.
+Valides eelnevas joonisel~\ref{fig:prog-if} tehtud näites seekord $\Val = \mathbb{I}_\bot$, saab taaskord kirjeldada üleminekufunktsioonid, kasutades seekord intervallide operatsioone. Tabelis~\ref{tab:itersolve2} on toodud samasuguse algoritmilise analüüsi lõpptulemus, kui seda oleks tehtud intervalldomeeni abil. Nagu näha, siis intervallide kasutamine on ebatäpsem kui alamhulkade kasutamine, sest kaob informatsioon selle kohta, kui mõni väärtus lõigu keskelt tegelikult ei saa esineda. Samas on analüüs ikkagi korrektne, sest ühtegi päriselt võimalikku väärtust pole ekslikult välistatud.
 
 \begin{table}[h]
 	\caption{Tsüklita näiteprogrammi (joonisel~\ref{fig:prog-if}) analüüsi lahend intervalldomeenis.}
@@ -360,13 +364,13 @@ Valides eelnevas joonisel~\ref{fig:prog-if} tehtud näites seekord $\Val = \math
 	\hline
 	 & \texttt{x} & \texttt{y} & \texttt{z} \\
 	\hline
-	x_1 & \top & \top & \top \\
-	x_2 & [0, 2] & \top & \top \\
-	x_3 & [0, 0] & \top & \top \\
-	x_4 & [1, 2] & \top & \top \\
-	x_5 & [0, 0] & [5, 5] & \top \\
-	x_6 & [1, 2] & [2, 3] & \top \\
-	x_7 & [0, 2] & [2, 5] & \top \\
+	x_1 & \bot & \bot & \bot \\
+	x_2 & [0, 2] & [-\infty, +\infty] & \bot \\
+	x_3 & [0, 0] & [-\infty, +\infty] & \bot \\
+	x_4 & [1, 2] & [-\infty, +\infty] & \bot \\
+	x_5 & [0, 0] & [5, 5] & \bot \\
+	x_6 & [1, 2] & [2, 3] & \bot \\
+	x_7 & [0, 2] & [2, 5] & \bot \\
 	x_8 & [0, 2] & [2, 5] & [4, 10] \\
 	\hline
 	\end{tabu}$
