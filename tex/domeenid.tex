@@ -203,7 +203,7 @@ Kasutades kogu olekut kirjeldavaid domeeni elemente, on programmi laused ja aval
 	\tf_{3,5}(d) &= d[\texttt{y} \mapsto \{5\}], &
 	\tf_{4,6}(d) &= d[\texttt{y} \mapsto d(\texttt{x}) + \{1\}],
 \end{align*} \\
-	\tf_{7,8}(d) = d[\texttt{z} \mapsto \{2\} * d(\texttt{y})],
+	\tf_{7,8}(d) = d[\texttt{z} \mapsto \{2\} \cdot d(\texttt{y})],
 \end{gather*}
 kus kirjutis $d[\texttt{x} \mapsto \{0\}]$ tähendab funktsiooni uuendamist (\ingl{function update}) ehk sama funktsiooni $d$, mis argumendil \texttt{x} omab nüüd uut väärtust $\{0\}$. Aritmeetilised tehted hulkade vahel on sellised nagu nad on sisemises domeenis $\Val$.
 \TODO{Funktsiooni uuendamise def?}
@@ -282,7 +282,7 @@ Joonise~\ref{fig:prog-if} programmi analüüsimisel oleks võrratuste ja võrran
 		x_5 = \tf_{3,5}(x_3) = x_3[\texttt{y} \mapsto \{5\}] \\
 		x_6 = \tf_{4,6}(x_4) = x_4[\texttt{y} \mapsto d(\texttt{x}) + \{1\}] \\
 		x_7 = x_5 \sqcup x_6 \\
-		x_8 = \tf_{7,8}(x_7) = x_7[\texttt{z} \mapsto \{2\} * d(\texttt{y})]
+		x_8 = \tf_{7,8}(x_7) = x_7[\texttt{z} \mapsto \{2\} \cdot d(\texttt{y})]
 	\end{cases}.
 \]
 %Nende iteratiivne lahendamine on samm-sammult toodud tabelis~\ref{tab:itersolve}.
