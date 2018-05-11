@@ -94,7 +94,7 @@ Järgnevalt ongi eesmärk matemaatiliselt formaliseerida sellise võimalikult t�
 
 \subsection{Võred}
 Domeenide kirjeldamiseks kasutatakse matemaatilisi struktuure, mida nimetatakse võredeks. Kuigi võreteooria on arvestatav matemaatika haru, siis sügavamale laskumata on siin toodud vajalikud mõisted võredest aru saamiseks.
-Järgnevad eestikeelsed definitsioonid on refereeritud V. Laane loengukonspektist aines \enquote{Võreteooria}~\cite{laan_voreteooria}, kuid tähistused on kohandatud programmianalüüsi kirjandusele omaseks~\cite[17]{seidl_foundations}:
+Järgnevad eestikeelsed definitsioonid on refereeritud V. Laane loengukonspektist aines \enquote{Võreteooria}~\cite{laan_voreteooria}, kuid tähistused on kohandatud programmianalüüsi kirjandusele omaseks~\cites[17]{seidl_foundations}{vojdani_magister}:
 
 \begin{definition}
 \label{def:järjestatud_hulk}
@@ -124,13 +124,12 @@ Elementi $c$ nimetatakse hulga $X$ \emph{alumiseks tõkkeks}, kui iga $x \in X$ 
 Hulga $X$ ülemist ja alumist raja tähistatakse vastavalt $\bigsqcup X$ ja $\bigsqcap X$. Kui $X = \{a, b\}$, siis tähistatakse ülemine ja alumine raja vastavalt $a \sqcup b$ ja $a \sqcap b$.
 
 Domeenide puhul kasutatakse ülemisi tõkkeid mitme seisundi ühendamiseks, nii nagu seda oli vaja teha joonise~\ref{fig:prog-if} programmi punktis 7. Seejuures tahetakse loomulikult täpseimat ühendatud seisundit, mis ongi ühendatavate seisundite ülemine raja.
-\TODO{Milleks vaja alumist raja?}
 
 \begin{definition}
 \emph{Täielik võre} on osaliselt järjestatud hulk, mille igal alamhulgal leidub ülemine ja alumine raja.
 \end{definition}
 
-Täielikus võres $(A, \sqleq)$ leidub vähim element $\bot = \bigsqcap A$ ja suurim element $\top = \bigsqcup A$, mida nimetatakse vastavalt \textit{bottom}'iks ja \textit{top}'iks.
+Täielikus võres $(A, \sqleq)$ leidub vähim element $\bot = \bigsqcap A$ ja suurim element $\top = \bigsqcup A$, mida nimetatakse vastavalt \textit{bottom}'iks ja \textit{top}'iks. Tegelikult tuleneb täielikes võredes kõik alumise rajaga seonduv automaatselt ülemisest rajast~\cite[18]{seidl_foundations}.
 
 Domeenidelt nõutaksegi, et need oleks täielikud võred, sest sellega kaasnevad ülal kirjeldatud võimalused seisunditega töötamiseks. Domeeni element $\top$ kirjeldab kõige üldisemat seisundit ehk seisundit, kus pole programmi oleku kohta mitte midagi teada. Element $\bot$ kirjeldab võimatut seisundit, milleks tüüpiliselt on saavutamatu (\ingl{unreachable}) programmi punkt ehk punkt, kuhu programmi täitmisel mitte kunagi ei jõutagi.
 
