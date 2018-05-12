@@ -3,18 +3,15 @@
 \begin{document}
 
 \section{Kokkuvõte}
+Töö teoreetilise osana anti ülevaade andmevooanalüüsist ja abstraktsetest domeenidest, mida selleks kasutatakse. Seejärel koostati ülevaatlik abstraktsete domeenide omaduste komplekt, mis ühest küljest on piisavalt üldine, et kehtida mistahes domeenil, ja teisest küljest on piisavalt täielik, et katta võimalikult palju üldisel tasemel kontrollitavast. Sinna kuuluvad täielike võrede, programmianalüüsi spetsiifilised ja abstraktsiooni korrektsuse omadused.
 
-Töö teoreetilise osana koostati ülevaatlik abstraktsete domeenide omaduste komplekt, mis ühest küljest on piisavalt üldine, et kehtida mistahes domeenil, ja teisest küljest on piisavalt täielik, et katta võimalikult palju üldisel tasemel kontrollitavast. Sinna kuuluvad täielike võrede, programmianalüüsi spetsiifilised ja abstraktsiooni korrektsuse omadused. Lisaks loodab autor, et tehtud eestikeelne ülevaade abstraktsetest domeenidest ja andmevooanalüüsist pakub huvi tulevastele staatilise analüüsi huvilistele.
+Töö praktilise osana lisati Goblint analüsaatorile, täpsemalt selle domeenidele, omaduspõhise testimise võimekus, kasutades teeki QCheck. Implementeeriti üldtestitaval viisil kõik omadused ja lisati paljudesse Goblinti domeenidesse vajalikud juhuslike elementide generaatorid. Domeenide täiendamisele ja testimise läbiviimisele läheneti kahest suunast, millel on erinevad eelised ja puudused. Lisaks analüüsiti aspekte, mis teevad domeenide omaduspõhise testimise keerukaks. Goblintisse lisatud domeenide omaduspõhise testimise raamistiku saab kasutusele võtta selle edasises arenduses, et vältida domeenide implementeerimisel võimalikke vigu.
 
-Töö praktilise osana lisati Goblint analüsaatorile, täpsemalt selle domeenidele, omaduspõhise testimise võimekus, kasutades teeki QCheck. Implementeeriti üldrakendataval viisil kõigi omaduste testimine, lähenedes domeenide testimisele kahest suunast. Lõpuks viidi läbimine testimine ise. Töö autor loodab, et lisatud omaduspõhine testimine võetakse kasutusele Goblinti edasises arenduses.
+Goblinti domeenide omaduspõhise testimise tulemusena leiti mitmeid domeene, millel mingid omadused ei kehtinud. Teostati tulemuste analüüs, et leitud vigu klassifitseerida ja võimalikke põhjuseid tuvastada. Esitati omaduspõhisest testimisest leitud kontranäited, millest vigade olemasolu selgub ja mida peaks vigade parandamiseks põhjalikumalt analüüsima.
 
-Goblinti domeenide omaduspõhise testimise tulemusena leiti mitmeid domeene, millel mingid omadused ei kehtinud. Kuna töö eesmärgiks polnud leitud vigade parandamine, siis kõigi põhjused pole täpselt teada, kuid on olemas selged kohad, mis probleemide allikaks võivad olla.
+Selle töö raames siiski ei varustatud absoluutselt kõiki Goblinti domeene generaatoritega, mis neid testida võimaldaks, ja seetõttu on tööd võimalik jätkata, et kontrollitud oleks lõpuks kõik domeenid. Lisaks on muidugi vaja sügavamalt uurida neid domeene, millest vigu leiti, et aru saada vigade täpsest sisust, ja lõpuks vead kõrvaldada. Igal juhul on võimalik tehtut edasi arendada ja ära kasutada Goblinti parandamisel.
 
-Selle töö raames siiski ei täiendatud absoluutselt kõiki Goblinti domeene nii, et neid sisukalt testida saaks, mis tähendab, et tööd on võimalik jätkata, et kontrollitud oleks rohkemad domeenid. Lisaks on muidugi vaja põhjalikult analüüsida neid domeene, millest vigu leiti, et aru saada vigade täpsest sisust, ja lõpuks vead kõrvaldada. Viimane võib osutuda üpris keeruliseks, kui viga pole põhjustatud halvast implementatsioonist, vaid mittekehtivast teooriast selle taga.
-
-Omaduspõhist testimist oleks tõenäoliselt võimalik ka teiste analüsaatori osade (nt üleminekufunktsioonide) korrektse toimimise kontrollimiseks kasutada, kuna abstraktsed domeenid pole kaugeltki ainsad andmevooanalüüsi osad, milles vigu võib esineda.
-
-\TODO{Kokkuvõte pikemaks? Midagi positiivsemat ka juurde}
+Läbiviidud testimine näitas, et omaduspõhist testimist on võimalik hästi rakendada staatilise analüsaatori abstraktsete domeenide omaduste kontrollimiseks ja neist vigade leidmiseks. Tõenäoliselt oleks omaduspõhist testimist võimalik kasutada ka teiste analüsaatori osade (nt üleminekufunktsioonide) korrektse toimimise kontrollimiseks, kuna abstraktsed domeenid pole kaugeltki ainsad andmevooanalüüsi osad, milles vigu võib esineda.
 
 
 \end{document}
