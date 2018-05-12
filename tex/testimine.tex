@@ -147,11 +147,11 @@ Goblintis laiendamise operaatori testimiseks lõpuks kasutatigi viimast kuju. Se
 	\TODO{Uuenda kui muutunud}
 \end{table}
 
-Testide jooksutamise ülevaatlikud tulemused on toodud tabelis~\ref{tab:tulemused}, kus on toodud mõlema lähenemise tulemused. Kuna võrdlusmetoodika puhul on tegemist kompromissiga, siis viidi samad testid läbi omakorda mõlemal moel. Läbikukkunud testide arvud on esitatud ligikaudselt, kuna kogu metoodika põhineb juhuslikkusel, mistõttu esineb väiksemaid variatsioone. Järgneb täpsem ülevaade probleemsetest domeenidest ja omadustest.
+Testide jooksutamise ülevaatlikud tulemused on toodud tabelis~\ref{tab:tulemused}, kus on toodud mõlema lähenemise tulemused. Kuna võrdlusmetoodika puhul on tegemist kompromissiga, siis viidi samad testid läbi omakorda mõlemal moel. Läbikukkunud testide arvud on esitatud ligikaudselt, kuna kogu metoodika põhineb juhuslikkusel, mistõttu esineb väiksemaid variatsioone. Järgneb täpsem ülevaade probleemsetest domeenidest ja omadustest, kus mõningad probleemsete testide arvud võivad samuti varieeruda.
 
 \paragraph{Erindi teke}
 Mõnede omaduste testimisel tekkisid erindid enne kui kehtivust kontrollida oli võimalik. Enamus juhtudel seetõttu, et domeen tegelikult ei moodusta täielikku võre ning elementide $\bot$ või $\top$ asemel antakse erind. Erindite tekkimine domeenide kaupa:
-\begin{itemize}
+\begin{enumerate}
 	\item Domeenis \texttt{IntegerSet}, mis implementeeriti täisarvude abstraktsioonide korrektsuse testimiseks, puudub $\top$, sest pole praktiline luua hulka kõigist täisarvudest ja vastaval testimisel seda pole ka vaja. Erind tekib kolmes suurima elemendi testis (\enquote{top leq}, \enquote{top is\_top}, \enquote{top meet}).
 
 	\item Domeenis \texttt{Integers} puuduvad $\top$ ja $\bot$, mistõttu erind tekib lisaks kolmele suurima elemendi testile ka kolmes vähima elemendi testis (\enquote{bot leq}, \enquote{bot is\_bot}, \enquote{bot join}). Kuna $\bot$ on vajalik ka abstraktsiooni korrektsuse testimisel, siis tekib samal põhjusel erind kõigis 22-s vastavas testis. Erindi teke on oodatud, sest lähtekoodis on selle domeeni juures kommentaar: \enquote{\texttt{no top/bot, order is <=}}.
@@ -162,18 +162,70 @@ Mõnede omaduste testimisel tekkisid erindid enne kui kehtivust kontrollida oli 
 
 		\item Kolmes loogikatehete testis (\enquote{valid lognot}, \enquote{valid logand}, \enquote{valid logor}) erind \texttt{Failure("nativeint\_of\_big\_int")}, kui argumendiks on täisarvu $-1$ abstraktsioon.
 	\end{itemize}
-\end{itemize}
+\end{enumerate}
 
 \paragraph{Mittekehtivad}
-Omaduste mittekehtimise põhjusteks võis olla:
-\begin{enumerate}[nosep]
-	\item Omaduse mittekehtimine teoreetilisel tasandil. Sel põhjusel ei kehti domeeni \texttt{Trier} ülemraja assotsiatiivsus.
-	\item Omaduse dokumenteeritud mittekehtimine. Sel põhjusel tõenäoliselt ei kehti domeeni \texttt{CircInterval} rajade omadused, sest neid on nimetatud \enquote{pseudo-ülemrajaks} ja \enquote{pseudo-alamrajaks}.
-	\item Omaduse sõltumine teistest mittekehtivatest omadustest samal või domeeni osaks oleval teisel domeenil. Sel põhjusel ei kehti domeeni \texttt{IntDomTuple} paljud omadused, kuna need ei kehti domeenidel, millest see koosneb.
-	\item Viga domeeni implementeerimisel.
-\end{enumerate}
-Kuna töö eesmärgiks polnud vigade parandamine, siis põhjustesse oluliselt ei süvenetud, mistõttu ei saa kindlalt kõigi ebaõnnestunud testide kohta midagi väita. See nõuab omaette teadmisi konkreetsete domeenide ettenähtud tööpõhimõtetest ja tööd täpsete kontranäidete analüüsimiseks. Sellele vaatamata annavad läbiviidud testid suuna, kus tõenäoliselt probleemid võivad olla.
+Mitmete domeenide ja omaduste testimisel selgus nende mittekehtivus. Detailsem ülevaade domeenide kaupa:
+\begin{enumerate}
+	\item Domeen \texttt{Lifted} on ülalmainitud domeeni \texttt{Integers} täiendus ehk $\texttt{Integers} \cup \{\bot, \top\}$, siis selle testimisel erindeid ei teki, kuid 16 abstraktsiooni korrektsuse testi ikkagi ei kehti. Ka seda võib pidada ootuspäraseks, sest arvuline järjestus (nagu domeenis \texttt{Integers}) polegi korrektne täisarvude hulkade abstraktsioon, vaid on kasutusel muudel eesmärkidel.
 
+	\item Domeenis \texttt{Interval32}, mis töötab 32-bitiste täisarvude intervallidega, ei kehti arvudevahelise võrdusoperaatori abstraktsiooni korrektsus (testis \enquote{valid eq}), näiteks argumentidel
+	\[
+		A = \{0\},\quad B = \{2\,742\,196\,662\}. % ([0L], [2742196662L])
+	\]
+	Teine argument on juba vähendatud kujul ja on samamoodi suur korduval testide jooksutamisel, mis vihjab, et probleem on põhjustatud abstraheeritava arvu suurusest. Probleemi põhjuseks võib olla see, et arv on väljaspool 32-bitiste märgiga täisarvude piire, ja sellise väärtusega ei peakski testima, kuid ülejäänud selle domeeni testides probleeme ei tekkinud.
+
+	\item Domeenis \texttt{Booleans}, mille elementideks kaks tõeväärtust, ei kehti bitinihke operaatorite abstraktsiooni korrektsus. Vasakule nihe (testis \enquote{valid shift\_left}) näiteks argumentidel
+	\[
+		A = \{-2\},\quad B = \{-1\} % ([-2L], [-1L])
+	\]
+	ja paremale nihe (testis \enquote{valid shift\_right}) näiteks argumentidel
+	\[
+		A = \{1\}, \quad B = \{1\}. % ([1L], [1L])
+	\]
+
+	\item Domeenis \texttt{CircInterval} esineb mitmete omaduste mittekehtivus väljaselgitamata põhjustel:
+	\begin{itemize}[nosep]
+		\item Võrdusseose transitiivsus (testis \enquote{equal trans})\footnote{Võrdusseose omadusi (refleksiivsus, sümmeetrilisus, transitiivsus) domeeni omaduste juures ei esitatud, kuid seoses võrdlemise problemaatikaga neid siiski otsustati lisaks testida.}, näiteks argumentidel
+		\[
+			a = [0, 0],\quad b = [],\quad c = [0, 1]. % ([0;0], [], [0;1])
+		\]
+
+		\item Kitsendamise omadus (testis \enquote{narrow fst}), näiteks argumentidel
+		\[
+			a = [],\quad b = [0, 0]. % ([], [0;0])
+		\]
+
+		\item Ülem- ja alamraja assotsiatiivsus (testides \enquote{join assoc}, \enquote{meet assoc}). Lähtekoodis on kommentaaris neid operaatoreid nimetatud \enquote{pseudo-ülemrajaks} ja \enquote{pseudo-alamrajaks}, mis vihjavad mingisugusele puudusele.
+
+		\item Võrdlemise problemaatika juures mainitud neli omadust.
+
+		\item Ülemraja mitteassotsiatiivsuse tõttu on rikutud ka 20 abstraktsiooni korrektsuse omaduse testimine.
+	\end{itemize}
+
+	\item Domeenis \texttt{Trier}, mille elementideks on üksikud täisarvud ja välistatud täisarvude hulgad (\textit{exclusion set}), on rikutud ülemraja assotsiatiivsus (testis \enquote{join assoc}), näiteks argumentidel
+	\[
+		a = 0,\quad b = 1,\quad c = \texttt{Not \{3\}([-63,63])}. % (0, 1, Not {3}([-63,63]))
+	\]
+	Probleemi tuumaks on asjaolu, et kahe erineva konkreetse väärtuse ülemraja leidmisel unustatakse täielikult algsed väärtused, kuid väärtuse ja välistushulga ülemraja leidmisel mitte. Viga on teoorias, mitte implementatsioonis. Ülemraja mitteassotsiatiivne olemine rikub ka 11 abstraktsiooni korrektsusega seotud omadust.
+
+	Väga sarnase struktuuriga domeen \texttt{Enums}, mille elementideks on konkreetsete täisarvude hulgad ja välistatud täisarvude hulgad, seda omadust ei riku.
+
+	\item Domeen \texttt{IntDomTuple} sisuliselt moodustub nelja lihtsama domeeni valikulisest otsekorrutisest, nagu näidatud lisas~\ref{app:goblint-domeenid}. Kui mingi omadus ei kehti selle mingis komponendis, siis põhjustab see kaudselt ka selle mittekehtimise \texttt{IntDomTuple} domeenil. Kuna komponentdomeenid pole veatud, siis pole kindel, kas \texttt{IntDomTuple} ise sisaldab vigu domeenide kokku panemisel või mitte. Kokku ei kehti sellel 20 omadust, millest 11 on seotud abstraktsiooni korrektsusega, mille testimiseks vajalik ülemraja assotsiatiivsus on samuti rikutud.
+
+	Samas ei kehti järjestusseose transitiivsus (testis \enquote{leq trans}), mis kõigil komponentidel on korras, näiteks argumentidel
+	\[
+		a = \{\texttt{enums:} \top\},\quad b = \{\},\quad c = \{\texttt{enums:} \bot\}. % (enums:top, , enums:bot)
+	\]
+\end{enumerate}
+Tehtud ülevaatest on näha, et omaduste mittekehtimisel võib olla erinevaid põhjuseid:
+\begin{enumerate}[nosep]
+	\item viga domeeni implementeerimisel,
+	\item mittekehtimine teoreetilisel tasandil,
+	\item teadlik ja dokumenteeritud mittekehtimine,
+	\item sõltumine teistest probleemsetest domeenidest.
+\end{enumerate}
+Kuna töö eesmärgiks polnud vigade parandamine, siis kõikidesse probleemidesse oluliselt ei süvenetud, mistõttu paljude läbikukkunud testide kohta ei saa kindlalt midagi väita. See nõuab omaette teadmisi konkreetsete domeenide ettenähtud tööpõhimõtetest, tööd täpsete kontranäidete analüüsimiseks ja probleemi kõrvaldamiseks. Sellele vaatamata annavad läbiviidud testid ja nende analüüs suuna, kust vigu otsida.
 
 
 \end{document}
