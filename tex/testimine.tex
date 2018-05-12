@@ -127,7 +127,7 @@ Goblintis laiendamise operaatori testimiseks lõpuks kasutatigi viimast kuju. Se
 
 \subsection{Tulemused}
 \begin{table}
-	\caption{Domeenide erinevatel meetoditel testimise tulemused.}
+	\caption{Domeenide erinevatel meetoditel testimise ülevaatlikud tulemused.}
 	\centering
 	\begin{tabu}{cc|ccc}
 	\hline
@@ -147,10 +147,24 @@ Goblintis laiendamise operaatori testimiseks lõpuks kasutatigi viimast kuju. Se
 	\TODO{Uuenda kui muutunud}
 \end{table}
 
-Testide jooksutamise tulemused on toodud tabelis~\ref{tab:tulemused}, kus on toodud mõlema lähenemise tulemused. Kuna võrdlusmetoodika puhul on tegemist kompromissiga, siis viidi samad testid läbi mõlemal moel.
+Testide jooksutamise ülevaatlikud tulemused on toodud tabelis~\ref{tab:tulemused}, kus on toodud mõlema lähenemise tulemused. Kuna võrdlusmetoodika puhul on tegemist kompromissiga, siis viidi samad testid läbi omakorda mõlemal moel. Läbikukkunud testide arvud on esitatud ligikaudselt, kuna kogu metoodika põhineb juhuslikkusel, mistõttu esineb väiksemaid variatsioone. Järgneb täpsem ülevaade probleemsetest domeenidest ja omadustest.
 
-Mõnede omaduste testimisel tekkisid erindid enne kui kehtivust kontrollida oli võimalik. Enamus juhtudel seetõttu, et domeen ei moodusta täielikku võre ning elementide $\bot$ ja $\top$ asemel antakse erind. Sel põhjusel lõpevad erindiga domeeni \texttt{Integers} testid, mis kontrollivad vähima ja suurima elemendiga seotud omadusi.
+\paragraph{Erindi teke}
+Mõnede omaduste testimisel tekkisid erindid enne kui kehtivust kontrollida oli võimalik. Enamus juhtudel seetõttu, et domeen tegelikult ei moodusta täielikku võre ning elementide $\bot$ või $\top$ asemel antakse erind. Erindite tekkimine domeenide kaupa:
+\begin{itemize}
+	\item Domeenis \texttt{IntegerSet}, mis implementeeriti täisarvude abstraktsioonide korrektsuse testimiseks, puudub $\top$, sest pole praktiline luua hulka kõigist täisarvudest ja vastaval testimisel seda pole ka vaja. Erind tekib kolmes suurima elemendi testis (\enquote{top leq}, \enquote{top is\_top}, \enquote{top meet}).
 
+	\item Domeenis \texttt{Integers} puuduvad $\top$ ja $\bot$, mistõttu erind tekib lisaks kolmele suurima elemendi testile ka kolmes vähima elemendi testis (\enquote{bot leq}, \enquote{bot is\_bot}, \enquote{bot join}). Kuna $\bot$ on vajalik ka abstraktsiooni korrektsuse testimisel, siis tekib samal põhjusel erind kõigis 22-s vastavas testis. Erindi teke on oodatud, sest lähtekoodis on selle domeeni juures kommentaar: \enquote{\texttt{no top/bot, order is <=}}.
+
+	\item Domeenis \texttt{CircInterval} tekib erind neljas abstraktsiooni korrektsust kontrollivas testis väljaselgitamata põhjusel:
+	\begin{itemize}[nosep]
+		\item Jagamise testis (\enquote{valid div}) erind \texttt{Invalid\_argument("compare: abstract value")}.
+
+		\item Kolmes loogikatehete testis (\enquote{valid lognot}, \enquote{valid logand}, \enquote{valid logor}) erind \texttt{Failure("nativeint\_of\_big\_int")}, kui argumendiks on täisarvu $-1$ abstraktsioon.
+	\end{itemize}
+\end{itemize}
+
+\paragraph{Mittekehtivad}
 Omaduste mittekehtimise põhjusteks võis olla:
 \begin{enumerate}[nosep]
 	\item Omaduse mittekehtimine teoreetilisel tasandil. Sel põhjusel ei kehti domeeni \texttt{Trier} ülemraja assotsiatiivsus.
