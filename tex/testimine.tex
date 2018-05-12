@@ -65,7 +65,7 @@ Esiteks testiti erinevaid täisarvudega töötavaid domeene moodulist \texttt{In
 Täisarve abstraheerivad domeenid omavad Goblintis tavalisetele domeenidele lisaks mitmeid spetsiifilisi funktsioone, nagu näidatud joonisel~\ref{fig:intdomain-s}.
 Olemasolevatele lisaks implementeeriti lihtne täisarvude alamhulkade domeen \texttt{IntegerSet}, mille suhtes testiti ka kõigi täisarvude domeenide korrektsust, kasutades peatükis~\ref{sec:abstraction-props} toodud tingimusi.
 
-Hulga abstraheerimiseks kasutati neis domeenides olevat \texttt{of\_int} funktsiooni, et üksikuid elemente abstraheerida ja seejärel ülemraja leida, mis vastaks kogu vaadeldavale arvuhulgale. See võimaldas testida kõigi tehete, nii ühekohaliste (nt \texttt{neg}) kui ka kahekohaliste (nt \texttt{add}), korrektsust alamhulkade kaudu defineeritute suhtes.
+Hulga abstraheerimiseks kasutati neis domeenides olevat \texttt{of\_int} funktsiooni, et üksikuid elemente abstraheerida ja seejärel ülemraja leida, mis vastaks kogu vaadeldavale arvuhulgale. Lisaks kasutatakse testitava domeeni elementi $\bot$ tühihulga abstraktsioonina. Seejuures on eeldatud, et ülemraja on korrektselt defineeritud. See võimaldas testida kõigi tehete, nii ühekohaliste (nt \texttt{neg}) kui ka kahekohaliste (nt \texttt{add}), korrektsust alamhulkade kaudu defineeritute suhtes.
 
 Kuna abstraktsiooni õigsuse testimiseks on domeenile lisaks vaja teist domeeni, mille abstraheerimist kontrollida, ja vastavaid tehteid mõlemas domeenis, siis sellist testimist üldisel tasandil teostada ei saa. Täisarvude domeenidel tehtu näitas, et selliseid omadusi on siiski võimalik testida, kuigi vajab olulist lisatööd.
 
