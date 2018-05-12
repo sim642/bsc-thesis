@@ -136,9 +136,6 @@ Osutub, et see on ka täielik võre~\cite[6]{laan_voreteooria}, kus
 	\item $\bot = \emptyset$ ja $\top = S$.
 \end{itemize}
 
-Hulk $X$ kirjeldab väärtust $z$ parajasti siis, kui $z \in X$. Sellega on defineeritud, kuidas peaks seostama domeeni elemente konkreetsete võimalike väärtustega.
-\TODO{\textit{Description relation} --- kas üldse mõtet mainida? Vb jätta Galois ühenduste juurde.}
-
 Ülal käsitsi tehtud joonise~\ref{fig:prog-if} programmi analüüsis oligi iga muutuja väärtusi analüüsitud alamhulkade domeeni $\mathbb{D} = \powerset{\mathbb{Z}}$ abil. Programmi punktis 7 toimunud muutuja \texttt{y} seisundite ühendamine on võrede terminites $\{5\} \sqcup \{2, 3\}$. Antud programmi analüüsimiseks on selle domeeniga vaja seostada kahte tüüpi tehted:
 \begin{description}
 	\item[Konstantide abstraheerimine] Lause \texttt{y = 5} abstraktseks teostamiseks, st muutujaga~\texttt{y} domeeni elemendi seostamiseks, on esinev konstant vaja sobivalt abstraheerida. Täisarvude alamhulkade domeenis sobib konstantse väärtuse $a$ jaoks ilmselt element $\{a\}$.
@@ -339,8 +336,6 @@ Sellises domeenis
 Intervallide järjestus on määratud nende omavahelise sisalduvuse kaudu ning ülem- ja alamraja on vastavalt lõikude ühend ja ühisosa.
 Lõigu otspunktides on lubatud vastavad lõpmatust kirjeldavad väärtused, mis võimaldavad rääkida selles domeenis suurimast elemendist $\top = [-\infty, +\infty]$.
 Kuna alumine raja on ainult tinglikult defineeritud, siis intervalldomeen ei moodusta täielikku võre. See pole probleem, kuna pisut täiendatud domeen $\mathbb{I}_\bot = \mathbb{I} \cup \{\bot\}$ osutub täielikuks võreks, kui seda vaja peaks olema.
-
-Lõik $[l, u]$ kirjeldab täisarvu $z$ parajasti siis, kui $l \leq z \leq u$.
 
 Analoogiliselt alamhulkade domeeniga, tuuakse siin programmide analüüsimiseks sisse:
 \begin{description}
