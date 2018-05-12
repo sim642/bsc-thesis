@@ -101,12 +101,21 @@ Selliseks testimiseks lisati Goblinti käsurealippude hulka uus nimega \texttt{d
 	    ./tests/regression/04-mutex/01-simple_rc.c
 \end{minted}
 
-\subsection{Probleemid}
+\subsection{Raskused testimisel}
+\paragraph{Implikatiivsed omadused}
+Mõned peatükis~\ref{sec:lattice-props} toodud omadustest on implikatsiooni kujul, see tähendab, et omadus peab kehtima ainult siis, kui mingid eeldused on täidetud. Nende testimise keerukuseks on see, et juhuslikke domeeni elemente genereerides ei pruugi need eeldust rahuldada. Sel juhul on implikatsioon küll tõene, aga ei väida midagi sisulist.
+
+Kõige enam on see probleemiks osalise järjestuse antisümmeetrilisuse testimisel, milleks peaks juhuslikult genereerima domeeni elemendid $a$ ja $b$ nii, et $a \sqleq b$ ja $b \sqleq a$, enne kui saab kontrollida nõutud tingimust $a = b$. See on äärmiselt ebatõenäoline, kui testitavas domeenis on võrdlemisi palju elemente. Näiteks selle omaduse 100 (või isegi 10000) kordsel testimisel üle 32-bitiste täisarvude eeldust rahuldavaid argumente enamasti ei genereerita, mistõttu antisümmeetrilisus jääb praktiliselt kontrollimata.
+
+Sellele vaatamata on implikatiivsete omaduste testid siiski Goblintis implementeeritud, sest need võivad probleeme avastada, kui järjestusseoses on mõni suurem viga.
+
 \paragraph{Võrdlemine}
 Enamike omaduste testimisel on vaja kontrollida mingite domeeni elementide võrdumist. Esimese loomuliku variandina kasutati selleks domeenide \texttt{equal} funktsiooni (vt joonis~\ref{fig:lattice-s}). Kuna pole kindel, et kõigis Goblinti domeenides \texttt{equal} on defineeritud võre struktuuriga kooskõlaliselt, siis viidi samad testid läbi ka teisiti: testimisel kasutati elementide \texttt{a} ja \texttt{b} võrdumise tingimusena \texttt{leq a b \&\& leq b a}. Eeliseks on see, et selline võrdlus ei eelda, et \texttt{equal} funktsioon oleks kooskõlaliselt defineeritud, aga puuduseks see, et eeldatakse, et järjestus on korrektne.
 
+Võrduse ja osalise järjestuse vahelise ebakõla peaks tuvastama osalise järjestuse antisümmeetrilisuse test, kuid eelmises punktis kirjeldatud põhjustel ei pruugi see välja tulla. Testimise käigus paistis selline ebakõla välja vaid domeeni \texttt{CircInterval} vähima ja suurima elemendi puhul (testides \enquote{bot is\_bot}, \enquote{top is\_top}) ning järjestuse ja rajade vahelise ekvivalentsi juures (testides \enquote{connect join}, \enquote{connect meet}).
+
 \paragraph{Laiendamine}
-Esialgse testimise tulemused näitasid, nagu oleks kõigis testitud domeenides laiendamise operaator vigane, sest ei rahulda selle ainsat omadust peatükist~\ref{sec:widen-narrow}. Osutub, et Goblinti domeenides olevat laiendamise operaatorit \texttt{widen} ei kasutata täpselt nii, nagu ülalkirjeldatud teooria seda ette näeb, vaid alati kujul \texttt{D.widen a (D.join a b)}, kus teiseks argumendiks on juba vastav ülemraja.
+Esialgse testimise tulemused näitasid, nagu oleks kõigis testitud domeenides laiendamise operaator vigane, sest ei rahulda selle ainsat omadust peatükist~\ref{sec:widen-narrow}. Osutub, et Goblinti domeenides olevat laiendamise operaatorit \texttt{widen} ei kasutata täpselt nii, nagu ülalkirjeldatud teooria seda ette näeb, vaid (ajaloolistel põhjustel) alati kujul \texttt{D.widen a (D.join a b)}, kus teiseks argumendiks on juba vastav ülemraja.
 
 Seega nõutud omaduse $a \sqcup b \sqleq a \widen b$ asemel peaks kehtima omadus
 \begin{align*}
