@@ -196,7 +196,6 @@ Kasutades kogu olekut kirjeldavaid domeeni elemente, on programmi laused ja aval
 	\tf_{7,8}(d) = d[\texttt{z} \mapsto \{2\} \cdot d(\texttt{y})],
 \end{gather*}
 kus kirjutis $d[\texttt{x} \mapsto v]$ tähendab funktsiooni uuendamist (\ingl{function update}) ehk funktsiooni, mis argumendil \texttt{x} omab väärtust $v$ ja ülejäänud argumentidel sama väärtust, mis funktsioon $d$. Aritmeetilised tehted hulkade vahel on sellised nagu nad on sisemises domeenis $\Val$.
-\TODO{Abstraktse aritmeetika jaoks eraldi operaatorid: $\oplus, \odot, \otimes$?}
 Seejuures üleminekufunktsioonid saab keele semantika ning lausete ja avaldiste struktuuri mallide järgi mehaaniliselt defineerida ehk konkreetse programmi analüüsil toimub see automatiseeritult.
 
 Kujutusdomeeni kasutamisega saab lihtsama domeeni, mis kirjeldab ühte muutujat korraga, laiendada kõigile muutujatele korraga.
@@ -282,7 +281,6 @@ kus algseisund $\imath$ on konstantne kujutus väärtustega $\emptyset$.
 Nende iteratiivne lahendamine on samm-sammult toodud lisas~\ref{app:itersolve}.
 On näha, et algoritmiline analüüs jõudis oodatud tulemuseni.
 Nagu näha, siis Kleene algoritm on üsna ebaefektiivne viis vähima püsipunkti leidmiseks, kuna väärtuste stabiliseerumine võib võtta palju samme, kusjuures iga kord arvutatakse uuesti ka need väärtused, mis enam niikuinii ei muutu. Loomulikult on olemas mitmeid palju efektiivsemaid meetodeid, näiteks \textit{round-robin} ja \textit{worklist} algoritmid~\cite[24,83]{seidl_foundations}.
-\TODO{Algoritmide nimesid kuidagi tõlkida?}
 
 \begin{comment}
 \begin{sidewaystable}
@@ -347,7 +345,6 @@ Analoogiliselt alamhulkade domeeniga, tuuakse siin programmide analüüsimiseks 
 		[l_1, u_1] \cdot [l_2, u_2] &= [\min\{l_1l_2, l_1u_2, u_1l_2, u_1u_2\}, \max\{l_1l_2, l_1u_2, u_1l_2, u_1u_2\}].
 	\end{align*}
 	Siin on tehete defineerimine keerulisem kui alamhulkade domeenis, nagu korrutamisest paistab, kusjuures lisaks peab defineerima juhud, kus mõned otspunktidest on $-\infty$ või $+\infty$.
-	\TODO{Kas peaks seda ka siin tegema?}
 \end{description}
 
 Valides eelnevas joonisel~\ref{fig:prog-if} tehtud näites seekord $\Val = \mathbb{I}_\bot$, saab taaskord kirjeldada üleminekufunktsioonid, kasutades seekord intervallide operatsioone. Tabelis~\ref{tab:itersolve2} on toodud samasuguse algoritmilise analüüsi lõpptulemus, kui seda oleks tehtud intervalldomeeni abil. Nagu näha, siis intervallide kasutamine on ebatäpsem kui alamhulkade kasutamine, sest kaob informatsioon selle kohta, kui mõni väärtus lõigu keskelt tegelikult ei saa esineda. Samas on analüüs ikkagi korrektne, sest ühtegi päriselt võimalikku väärtust pole ekslikult välistatud.
