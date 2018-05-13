@@ -26,14 +26,6 @@ Programmi seisundiks on ilmselt muutujate väärtused, aga ka mistahes keerulise
 Ligikaudsed seisundid, mis vastavad konkreetsetele seisunditele, moodustavad \emph{abstraktse domeeni}. Näiteks võib arvuhulkade asemel vaadelda intervalle või uurida lineaarseid piire muutujate vahel (polüeedri domeen). Abstraktse interpretatsiooni õigeks toimimiseks on vajalik, et abstraktne domeen rahuldaks hulka omadusi, mis võimaldavad andmevooanalüüsi teostada sobiva võrrandisüsteemi lahendamise teel. Seetõttu on hädavajalik, et staatilist analüüsi teostav programm, analüsaator, ise oleks implementeeritud korrektselt, sest vastasel juhul pole teostatavate analüüside tulemused usaldusväärsed ja korrektsed.
 
 Goblint on mitmelõimeliste C programmide staatiline analüsaator, mille eesmärk on tõestada, et programmis puuduvad mitmelõimelisusega seotud vead, kasutades selleks andmevooanalüüsi. Goblinti autoritele on teada, et analüsaator ei käitu alati oodatud viisil, vaid võib teha vigu, mis võivad rikkuda analüüsi korrektsuse.
-\TODO{Goblinti kirjeldus duplitseeritud viimasest peatükist}
-
-\TODO{Midagi öelda omaduspõhise testimise kohta ikkagi?}
-\begin{comment}
-Omaduspõhine testimine on testimismeetod, mis on sobib hästi programmi loogika matemaatiliste omaduse kontrollimiseks. Selleks kirjeldatakse kontrollitavad omadused predikaatidena ja neile juhuslike argumentide genereerimise metoodika. Nende kombineerimisel genereeritakse soovitud kogus juhuslike argumentide komplekte, millel leitakse predikaatide väärtused, kinnitades omaduse kehtimist või kummutades selle. Lisaks toetab omaduspõhise testimise raamistik leitud vääravate testjuhtude lihtsustamist.
-
-\TODO{Siduda analüsaatori korrektsus omaduspõhise testimise kasutamisega}
-\end{comment}
 
 Töö eesmärgiks on koostada ülevaatlik abstraktsete domeenide omaduste komplekt ja leida Goblintis implementeeritud domeenidest vigu, kontrollides vastavate omaduste kehtimist omaduspõhise testimise abil.
 
