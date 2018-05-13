@@ -20,7 +20,10 @@
 
 \newpage
 \pdfbookmark[section]{\contentsname}{toc}
+% disable microtype protrusion to make page numbers perfectly aligned - http://www.khirevich.com/latex/microtype/
+\microtypesetup{protrusion=false}
 \tableofcontents
+\microtypesetup{protrusion=true}
 
 % Remember to remove this from the final thesis version
 \newpage
