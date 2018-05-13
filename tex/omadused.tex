@@ -54,34 +54,6 @@ Järgnevad on ekvivalentsed~\cite[39]{davey_lattices}:
 
 \subsection{Laiendamine ja kitsendamine}
 \label{sec:widen-narrow}
-Kui joonisel~\ref{fig:prog-if} olev programm on tsükliteta ja selle analüüsi saaks teostada ka ilma võrratuste süsteemi püsipunkti leidmata, siis üldiselt sama lihtsalt ei saa. Huvitavamad programmid sisaldavad tsükleid, mille analüüsimiseks võib püsipunkti leidmisel põhinev algoritm siiski kasulik olla. Olgu nüüd vaatluse all tsükliga programm jooniselt~\ref{fig:prog-while} ja domeen $\mathbb{D} = (\Var \to \mathbb{I}_\bot)_\bot$ nagu viimati, siis võrratuste ja võrrandite süsteemid on järgnevad:
-\[
-	\begin{cases}
-		x_1 \sqgeq \imath \\
-		\begin{comment}
-		\begin{rcases*}
-			x_2 \sqgeq \tf_{1,2}(x_1) \\
-			x_2 \sqgeq \tf_{3,2}(x_3)
-		\end{rcases*} \Rightarrow
-		\end{comment}
-		x_2 \sqgeq \tf_{1,2}(x_1) \sqcup \tf_{3,2}(x_3) \\
-		x_3 \sqgeq \tf_{2,3}(x_2) \\
-		x_4 \sqgeq \tf_{2,4}(x_2)
-	\end{cases}
-	\  \text{ja} \quad
-	\begin{cases}
-		x_1 = \imath \\
-		\begin{aligned}
-			x_2 &= \tf_{1,2}(x_1) \sqcup \tf_{3,2}(x_3) = \\
-			&= x_1[\texttt{x} \mapsto [0, 0]] \sqcup x_3[\texttt{x} \mapsto d(\texttt{x}) + [1, 1]]
-		\end{aligned} \\
-		x_3 = \tf_{2,3}(x_2) = x_2[\texttt{x} \mapsto d(\texttt{x}) \sqcap [-\infty, 99]] \\
-		x_4 = \tf_{2,4}(x_2) = x_2[\texttt{x} \mapsto d(\texttt{x}) \sqcap [100, +\infty]]
-	\end{cases},
-\]
-kus algseisund $\imath$ on konstantne kujutus väärtustega $\bot$.
-Nende vähim püsipunkt (tabelis~\ref{tab:while-iter}) leitakse Kleene püsipunktialgoritmi 204. sammul. Itereerimisel sisuliselt tehakse läbi kõik 100 tsükli iteratsiooni, mistõttu sellise süsteemi püsipunkti leidmise ajaline keerukus on $O(k)$, kus $k$ on tsükli iteratsioonide arv. Selline ebaefektiivsus on vastuvõetamatu, sest toimub justkui programmi kogu töö simuleerimine, mis on vastuolus staatilise analüüsi eesmärgiga. Keerulisemate programmide puhul on isegi võimalik, et analüüs ei termineeru~\cite[60]{seidl_foundations}.
-
 \begin{figure}
 	\centering
 	\begin{subfigure}[b]{0.4\textwidth}
@@ -121,48 +93,6 @@ Nende vähim püsipunkt (tabelis~\ref{tab:while-iter}) leitakse Kleene püsipunk
 	\caption{Tsükliga programmi näidis.}
 	\label{fig:prog-while}
 \end{figure}
-
-\paragraph{Laiendamine}
-Probleemi põhjuseks on asjaolu, et intervalldomeen ei rahulda kasvavate jadade stabiliseerumise tingimust (\ingl{ascending chains condition}), sest selles leiduvad lõpmatud rangelt kasvavad ahelad~\cite[56]{seidl_foundations}, näiteks
-\[
-	[0, 0] \sqlt [0, 1] \sqlt [0, 2] \sqlt \ldots \sqlt [0, +\infty],
-\]
-kus $\sqlt$ on vastav range järjestuse seos ehk kirjutis $a \sqlt b$ tähendab, et $a \sqleq b$ ja $a \neq b$~\cite[3]{laan_voreteooria}.
-
-Püsipunkti leidmise igal iteratsioonil tsüklis muutuja väärtuste lõik suureneb ühe võrra seetõttu stabiliseerumiseks läheb soovitust rohkem iteratsioone. Probleemi lahendamiseks muudetakse analüüsimist nii, et püsipunkti leidmine toimuks kiirendatult, tuues meelega sisse täiendava ebatäpsuse. Sellist võtet nimetatakse laiendamiseks (\ingl{widening}).
-
-Lahendatav võrratus $\bar{x} \sqgeq \bar{f}(\bar{x})$ kirjutatakse samaväärsel akumuleerival kujul $\bar{x} = \bar{x} \sqcup \bar{f}(\bar{x})$, kus ülemraja asemele valitakse sobiv \emph{laiendamise operaator} $\widen$ ja otsitakse vähim püsipunkt võrrandile $\bar{x} = \bar{x} \widen \bar{f}(\bar{x})$. Intervallidel defineeritakse see järgnevalt~\cite[62]{seidl_foundations}:
-\begin{gather*}
-	[l_1, u_1] \widen [l_2, u_2] = [l, u], \text{ kus} \\
-	l = \begin{cases}
-		l_1, & \text{kui } l_1 \leq l_2, \\
-		-\infty, & \text{muidu}
-	\end{cases}
-	\qquad \text{ja} \qquad
-	u = \begin{cases}
-		u_1, & \text{kui } u_2 \leq u_1, \\
-		+\infty, & \text{muidu}.
-	\end{cases}
-\end{gather*}
-Intervallide laiendamise idee seiseb selles, et intervall suurenedes suureneb kohe vastavas suunas lõpmatusse, garanteerides, et intervall saab suureneda ülimalt kaks korda, mis muudab rangelt kasvavad ahelad lõplikeks. Sellise modifikatsiooniga süsteemi vähim püsipunkt (tabelis~\ref{tab:while-widen}) leitakse juba Kleene algoritmi 6. sammul, mis ühest küljest on oluline võit, teisest kaotus, sest lahend pole nii täpne kui eelnevalt.
-
-\paragraph{Kitsendamine}
-Kuna $\bar{f}$ on monotoonne, siis selle rakendamine püsipunktile tulemust ebatäpsemaks ei muuda, aga võib ebatäpset laiendatud tulemust siiski parandada. Sellist võtet nimetatakse kitsendamiseks (\ingl{narrowing}) ning eelmisele laiendatud lahendile kitsendamist rakendades stabiliseerub tulemus (tabelis~\ref{tab:while-narrow}) 4. sammul, jõudes sama tulemuseni, mis ilma laiendamist ja kitsendamist. Üldiselt see siiski nii ei pruugi olla, kuid tulemuse täpsust suurendab ikka.
-
-Kitsendamisel võib tekkida analoogiline probleem kahanevate jadade stabiliseerumise tingimusega (\ingl{descending chains condition}) ja lõpmatute rangelt kahanevate ahelatega~\cite[65]{seidl_foundations}, mistõttu funktsiooni korduv rakendamine mõistliku sammude arvuga ei stabiliseeru. Samas võib kitsendamist lõpetada mistahes hetkel ja analüüs on ikka korrektne. Kitsendamise stabiliseerumiseks kasutatakse analoogilist võtet: lahendatav võrratus kirjutatakse samaväärsel kujul $\bar{x} = \bar{x} \sqcap \bar{f}(\bar{x})$, kus alamraja asemele valitakse sobiv \emph{kitsendamise operaator} $\narrow$ ja otsitakse vähim püsipunkt võrrandile $\bar{x} = \bar{x} \narrow \bar{f}(\bar{x})$. Intervallidel defineeritakse see järgnevalt~\cite[66]{seidl_foundations}:
-\begin{gather*}
-	[l_1, u_1] \narrow [l_2, u_2] = [l, u], \text{ kus} \\
-	l = \begin{cases}
-		l_2, & \text{kui } l_1 = -\infty, \\
-		l_1, & \text{muidu}
-	\end{cases}
-	\qquad \text{ja} \qquad
-	u = \begin{cases}
-		u_2, & \text{kui } u_1 = +\infty, \\
-		u_1, & \text{muidu}.
-	\end{cases}
-\end{gather*}
-Intervallide kitsendamise idee seiseb selles, et intervall vähenedeb ainult lõpmatusest, garanteerides, et intervall saab väheneda ülimalt kaks korda, mis muudab rangelt kahanevad ahelad lõplikeks. Uuritud näitel kiirendatud kitsendamine jõuab sama tulemuseni kui tavaline kitsendamine (tabelis~\ref{tab:while-narrow}). Üldiselt see nii ei pruugi olla, sest kiirendamisel tuuakse sisse meelega täiendav ebatäpsus.
 
 \begin{table}
 	\caption{Tsükliga näiteprogrammi (joonisel~\ref{fig:prog-while}) analüüsi lahendid erinevatel meetoditel.}
@@ -217,6 +147,77 @@ Intervallide kitsendamise idee seiseb selles, et intervall vähenedeb ainult lõ
 	\label{tab:itersolve-while}
 \end{table}
 
+Kui joonisel~\ref{fig:prog-if} olev programm on tsükliteta ja selle analüüsi saaks teostada ka ilma võrratuste süsteemi püsipunkti leidmata, siis üldiselt sama lihtsalt ei saa. Huvitavamad programmid sisaldavad tsükleid, mille analüüsimiseks võib püsipunkti leidmisel põhinev algoritm siiski kasulik olla. Olgu nüüd vaatluse all tsükliga programm jooniselt~\ref{fig:prog-while} ja domeen $\mathbb{D} = (\Var \to \mathbb{I}_\bot)_\bot$ nagu viimati, siis võrratuste ja võrrandite süsteemid on järgnevad:
+\[
+	\begin{cases}
+		x_1 \sqgeq \imath \\
+		\begin{comment}
+		\begin{rcases*}
+			x_2 \sqgeq \tf_{1,2}(x_1) \\
+			x_2 \sqgeq \tf_{3,2}(x_3)
+		\end{rcases*} \Rightarrow
+		\end{comment}
+		x_2 \sqgeq \tf_{1,2}(x_1) \sqcup \tf_{3,2}(x_3) \\
+		x_3 \sqgeq \tf_{2,3}(x_2) \\
+		x_4 \sqgeq \tf_{2,4}(x_2)
+	\end{cases}
+	\  \text{ja} \quad
+	\begin{cases}
+		x_1 = \imath \\
+		\begin{aligned}
+			x_2 &= \tf_{1,2}(x_1) \sqcup \tf_{3,2}(x_3) = \\
+			&= x_1[\texttt{x} \mapsto [0, 0]] \sqcup x_3[\texttt{x} \mapsto d(\texttt{x}) + [1, 1]]
+		\end{aligned} \\
+		x_3 = \tf_{2,3}(x_2) = x_2[\texttt{x} \mapsto d(\texttt{x}) \sqcap [-\infty, 99]] \\
+		x_4 = \tf_{2,4}(x_2) = x_2[\texttt{x} \mapsto d(\texttt{x}) \sqcap [100, +\infty]]
+	\end{cases},
+\]
+kus algseisund $\imath$ on konstantne kujutus väärtustega $\bot$.
+Nende vähim püsipunkt (tabelis~\ref{tab:while-iter}) leitakse Kleene püsipunktialgoritmi 204. sammul. Itereerimisel sisuliselt tehakse läbi kõik 100 tsükli iteratsiooni, mistõttu sellise süsteemi püsipunkti leidmise ajaline keerukus on $O(k)$, kus $k$ on tsükli iteratsioonide arv. Selline ebaefektiivsus on vastuvõetamatu, sest toimub justkui programmi kogu töö simuleerimine, mis on vastuolus staatilise analüüsi eesmärgiga. Keerulisemate programmide puhul on isegi võimalik, et analüüs ei termineeru~\cite[60]{seidl_foundations}.
+
+
+\paragraph{Laiendamine}
+Probleemi põhjuseks on asjaolu, et intervalldomeen ei rahulda kasvavate jadade stabiliseerumise tingimust (\ingl{ascending chains condition}), sest selles leiduvad lõpmatud rangelt kasvavad ahelad~\cite[56]{seidl_foundations}, näiteks
+\[
+	[0, 0] \sqlt [0, 1] \sqlt [0, 2] \sqlt \ldots \sqlt [0, +\infty],
+\]
+kus $\sqlt$ on vastav range järjestuse seos ehk kirjutis $a \sqlt b$ tähendab, et $a \sqleq b$ ja $a \neq b$~\cite[3]{laan_voreteooria}.
+
+Püsipunkti leidmise igal iteratsioonil tsüklis muutuja väärtuste lõik suureneb ühe võrra seetõttu stabiliseerumiseks läheb soovitust rohkem iteratsioone. Probleemi lahendamiseks muudetakse analüüsimist nii, et püsipunkti leidmine toimuks kiirendatult, tuues meelega sisse täiendava ebatäpsuse. Sellist võtet nimetatakse laiendamiseks (\ingl{widening}).
+
+Lahendatav võrratus $\bar{x} \sqgeq \bar{f}(\bar{x})$ kirjutatakse samaväärsel akumuleerival kujul $\bar{x} = \bar{x} \sqcup \bar{f}(\bar{x})$, kus ülemraja asemele valitakse sobiv \emph{laiendamise operaator} $\widen$ ja otsitakse vähim püsipunkt võrrandile $\bar{x} = \bar{x} \widen \bar{f}(\bar{x})$. Intervallidel defineeritakse see järgnevalt~\cite[62]{seidl_foundations}:
+\begin{gather*}
+	[l_1, u_1] \widen [l_2, u_2] = [l, u], \text{ kus} \\
+	l = \begin{cases}
+		l_1, & \text{kui } l_1 \leq l_2, \\
+		-\infty, & \text{muidu}
+	\end{cases}
+	\qquad \text{ja} \qquad
+	u = \begin{cases}
+		u_1, & \text{kui } u_2 \leq u_1, \\
+		+\infty, & \text{muidu}.
+	\end{cases}
+\end{gather*}
+Intervallide laiendamise idee seiseb selles, et intervall suurenedes suureneb kohe vastavas suunas lõpmatusse, garanteerides, et intervall saab suureneda ülimalt kaks korda, mis muudab rangelt kasvavad ahelad lõplikeks. Sellise modifikatsiooniga süsteemi vähim püsipunkt (tabelis~\ref{tab:while-widen}) leitakse juba Kleene algoritmi 6. sammul, mis ühest küljest on oluline võit, teisest kaotus, sest lahend pole nii täpne kui eelnevalt.
+
+\paragraph{Kitsendamine}
+Kuna $\bar{f}$ on monotoonne, siis selle rakendamine püsipunktile tulemust ebatäpsemaks ei muuda, aga võib ebatäpset laiendatud tulemust siiski parandada. Sellist võtet nimetatakse kitsendamiseks (\ingl{narrowing}) ning eelmisele laiendatud lahendile kitsendamist rakendades stabiliseerub tulemus (tabelis~\ref{tab:while-narrow}) 4. sammul, jõudes sama tulemuseni, mis ilma laiendamist ja kitsendamist. Üldiselt see siiski nii ei pruugi olla, kuid tulemuse täpsust suurendab ikka.
+
+Kitsendamisel võib tekkida analoogiline probleem kahanevate jadade stabiliseerumise tingimusega (\ingl{descending chains condition}) ja lõpmatute rangelt kahanevate ahelatega~\cite[65]{seidl_foundations}, mistõttu funktsiooni korduv rakendamine mõistliku sammude arvuga ei stabiliseeru. Samas võib kitsendamist lõpetada mistahes hetkel ja analüüs on ikka korrektne. Kitsendamise stabiliseerumiseks kasutatakse analoogilist võtet: lahendatav võrratus kirjutatakse samaväärsel kujul $\bar{x} = \bar{x} \sqcap \bar{f}(\bar{x})$, kus alamraja asemele valitakse sobiv \emph{kitsendamise operaator} $\narrow$ ja otsitakse vähim püsipunkt võrrandile $\bar{x} = \bar{x} \narrow \bar{f}(\bar{x})$. Intervallidel defineeritakse see järgnevalt~\cite[66]{seidl_foundations}:
+\begin{gather*}
+	[l_1, u_1] \narrow [l_2, u_2] = [l, u], \text{ kus} \\
+	l = \begin{cases}
+		l_2, & \text{kui } l_1 = -\infty, \\
+		l_1, & \text{muidu}
+	\end{cases}
+	\qquad \text{ja} \qquad
+	u = \begin{cases}
+		u_2, & \text{kui } u_1 = +\infty, \\
+		u_1, & \text{muidu}.
+	\end{cases}
+\end{gather*}
+Intervallide kitsendamise idee seiseb selles, et intervall vähenedeb ainult lõpmatusest, garanteerides, et intervall saab väheneda ülimalt kaks korda, mis muudab rangelt kahanevad ahelad lõplikeks. Uuritud näitel kiirendatud kitsendamine jõuab sama tulemuseni kui tavaline kitsendamine (tabelis~\ref{tab:while-narrow}). Üldiselt see nii ei pruugi olla, sest kiirendamisel tuuakse sisse meelega täiendav ebatäpsus.
+
 \paragraph{Omadused}
 Laiendamise ja kitsendamise operaatorid peavad analüüsi korrektsuse tagamiseks rahuldama teatud tingimusi.
 
@@ -243,14 +244,6 @@ Domeeni $\mathbb{D}_2$ nimetatakse domeeni $\mathbb{D}_1$ \emph{korrektseks abst
 	\item iga $x_1 \in \mathbb{D}_1$ korral $\alpha (f_1 (x_1)) \sqleq f_2 (\alpha (x_1))$, kus $f_1$ on monotoonne tehe domeenis $\mathbb{D}_1$ ja $f_2$ sellele vastav monotoonne tehe domeenis $\mathbb{D}_2$. \label{item:abstraction}
 \end{enumerate}
 \end{definition}
-Funktsiooni $\alpha$ nimetatakse abstraktsioonifunktsiooniks (\ingl{abstraction function}) ja funktsiooni $\gamma$ konkretisatsioonifunktsiooniks (\ingl{concretization function}).
-Seega võib rääkida, et $\mathbb{D}_1$ on konkreetne domeen ja $\mathbb{D}_2$ selle abstraktne domeen.
-
-Tingimus~\ref{item:gamma} nõuab, et konkretiseerimine ei kaotaks täpsust.
-Tingimus~\ref{item:alpha} lubab, et abstraheerimine kaotab täpsust (aga ei suurenda seda).
-Tingimust~\ref{item:abstraction} illustreerib joonis~\ref{fig:abstraction} ja see tähendab, et abstraktse tehte teostamine abstraktsel väärtusel pole täpsem, kui konkreetse tehte teostamine konkreetsel väärtusel.
-
-Viimast tingimust saab samaväärselt sõnastada $\gamma$ kaudu. Lisaks kogu definitsioonist järeldub domeenidevahline Galois' vastavus (\ingl{Galois connection}), millel on oluline roll abstraktse interpretatsiooni formaliseerimisel ja laiemalt võreteoorias~\cite{cousot77}.
 
 \begin{figure}
 	\centering
@@ -275,6 +268,15 @@ Viimast tingimust saab samaväärselt sõnastada $\gamma$ kaudu. Lisaks kogu def
 	\caption{Definitsiooni~\ref{def:abstraction} tingimust~\ref{item:abstraction} illustreeriv skeem.}
 	\label{fig:abstraction}
 \end{figure}
+
+Funktsiooni $\alpha$ nimetatakse abstraktsioonifunktsiooniks (\ingl{abstraction function}) ja funktsiooni $\gamma$ konkretisatsioonifunktsiooniks (\ingl{concretization function}).
+Seega võib rääkida, et $\mathbb{D}_1$ on konkreetne domeen ja $\mathbb{D}_2$ selle abstraktne domeen.
+
+Tingimus~\ref{item:gamma} nõuab, et konkretiseerimine ei kaotaks täpsust.
+Tingimus~\ref{item:alpha} lubab, et abstraheerimine kaotab täpsust (aga ei suurenda seda).
+Tingimust~\ref{item:abstraction} illustreerib joonis~\ref{fig:abstraction} ja see tähendab, et abstraktse tehte teostamine abstraktsel väärtusel pole täpsem, kui konkreetse tehte teostamine konkreetsel väärtusel.
+
+Viimast tingimust saab samaväärselt sõnastada $\gamma$ kaudu. Lisaks kogu definitsioonist järeldub domeenidevahline Galois' vastavus (\ingl{Galois connection}), millel on oluline roll abstraktse interpretatsiooni formaliseerimisel ja laiemalt võreteoorias~\cite{cousot77}.
 
 Domeenide $\mathbb{D}_1 = \powerset{\mathbb{Z}}$ ja $\mathbb{D}_2 = \mathbb{I}_\bot$ korral~\cite[243]{cousot77}
 \begin{align*}

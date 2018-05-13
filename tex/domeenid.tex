@@ -7,31 +7,6 @@ Andmevooanalüüsi ja abstraktse interpretatsiooni põhimõtete selgitamiseks pa
 Seejärel samm-sammult formaliseeritakse tehtu matemaatiliselt, kuna sissejuhatuses antud informaalne definitsioon on ebapiisav mingisuguse teooria arendamiseks.
 
 \subsection{Analüüsi näide}
-Selleks olgu edaspidi vaatluse all programm jooniselt~\ref{fig:prog-if}, kus on kõrvuti C-keelse lähtekoodi jupp ja selle juhtimisvoograaf, mille tippudes on programmi punktid, milles seisundeid uuritakse, ja servadel vastavad laused, mida täidetakse. Lihtsuse mõttes vaadeldakse ilma protseduurideta analüüsi (\ingl{intraprocedural}).
-Järgnevalt on käsitsi analüüsitud selle programmi täisarvuliste muutujate võimalike väärtusi igas programmi punktis:
-\begin{itemize}
-	\item Punktis 1 pole muutujaid deklareeritud, seega nende väärtustest ei saa rääkida.
-	\item Punktis 2 muutuja \texttt{x} väärtust üheselt määrata pole võimalik, sest see tuleb juhuarvu funktsioonist \texttt{rand()}, kuid jäägiga jagamise tulemusena kindlasti $\texttt{x} \in \{0, 1, 2\}$\footnote{C keele semantika on siinkohal keerukas, kuid (üldiselt võimalikud) negatiivsed jäägid on antud juhul välistatud, sest \texttt{rand()} funktsioon ei tagasta negatiivseid arve.}.
-	Lisaks on vahepeal deklareeritud väärtustamata muutuja \texttt{y}, millel C keele semantikas vaikeväärtust pole ja seetõttu $\texttt{y} \in \mathbb{Z}$ \cite{C11_draft}.
-	\item Punktis 3, kus tingimus oli tõene, $\texttt{x} = 0$.
-	\item Punktis 4, kus tingimus oli väär, saab eelnevast hulgast välistatud nulli eemaldamisel öelda, et $\texttt{x} \in \{1, 2\}$.
-	\item Punktis 5 on täpselt teada, et $\texttt{y} = 5$. Lisaks on selles harus jätkuvalt $\texttt{x} = 0$.
-	\item Punktis 6, teades võimalikke muutuja \texttt{x} väärtusi, saab öelda, et liitmistehte tulemusena $\texttt{y} \in \{2, 3\}$.
-	\item Punktis 7, kus kaks võimalikku tingimuslause haru uuesti kokku saavad, tuleb arvestada mõlema haru võimalike väärtustega, seega muutuja $\texttt{y} \in \{2, 3, 5\}$.
-	\item Punktis 8, teades võimalikke muutuja \texttt{y} väärtusi, saab öelda, et korrutamistehte tulemusena $\texttt{z} \in \{4, 6, 10\}$.
-\begin{comment}
-	\item Punktides 1, 2 ja 3 on muutuja veel väärtustamata. Kuna C keele semantika sellisel juhul mingit vaikeväärtust ei anna, siis võimalikke väärtusi kirjeldab kõige ebatäpsem domeeni element $\top = \mathbb{Z}$.
-	\item Punktis 4 on muutujale just antud konstantne väärtus, mistõttu seda kirjeldab kõige paremini element $\{5\}$.
-
-		Iseenesest poleks vale seostada selle programmi punktiga mõnda (osalise järjestuse järgi) üldisemat seisundit, nt $\{5, 6, 7\}$ või lausa $\top$, kuid see poleks nii kasulik, sest analüüsi mõte on siiski leida võimalikult täpne kirjeldus. Just selle täpsuse matemaatiliseks kirjeldamiseks nõutaksegi osalist järjestust.
-	\item Punktiga 5 sobib samal põhjusel seostada element $\{3\}$.
-	\item Punktis 6 on olukord huvitavam, sest seda seisundit pole programmis oleva hargnemise (täpsemalt selle ühendumise) tõttu kirjeldada ühe täisarvuga, vaid elemendiga $\{3, 5\}$. Selle tulemuseni jõudmiseks peab intuitiivselt ühendama eelneva kahe punkti seisundid --- leidma seisundi, mis hõlmaks eelnevaid, olles seejuures võimalikult täpne. Just selleks nõutaksegi ülemise raja leidmise tehet, millega seda teha. Antud juhul $\{3\} \sqcup \{5\} = \{3, 5\}$.
-\end{comment}
-\end{itemize}
-
-Tehtud analüüs on võimalikult täpne, mis tähendab, et igas punktis iga muutujaga on seostatud väikseim väärtuste hulk. Iseenesest poleks vale mõnes programmi punktis mõne muutujaga seostada suuremat võimalike väärtuste hulka, kuid sellisest analüüsist oleks vähem kasu, sest see tooks sisse ebavajalikku ebatäpsust.
-Järgnevalt ongi eesmärk matemaatiliselt formaliseerida sellise võimalikult täpse analüüsi teostamine, mis omakorda oleks aluseks analüüsi teoreetiliseks uurimiseks ja automatiseerimiseks.
-
 \begin{figure}
 	\centering
 	\begin{subfigure}[b]{0.4\textwidth}
@@ -83,6 +58,31 @@ Järgnevalt ongi eesmärk matemaatiliselt formaliseerida sellise võimalikult t�
 	\caption{Tsüklita programmi näidis.}
 	\label{fig:prog-if}
 \end{figure}
+
+Selleks olgu edaspidi vaatluse all programm jooniselt~\ref{fig:prog-if}, kus on kõrvuti C-keelse lähtekoodi jupp ja selle juhtimisvoograaf, mille tippudes on programmi punktid, milles seisundeid uuritakse, ja servadel vastavad laused, mida täidetakse. Lihtsuse mõttes vaadeldakse ilma protseduurideta analüüsi (\ingl{intraprocedural}).
+Järgnevalt on käsitsi analüüsitud selle programmi täisarvuliste muutujate võimalike väärtusi igas programmi punktis:
+\begin{itemize}
+	\item Punktis 1 pole muutujaid deklareeritud, seega nende väärtustest ei saa rääkida.
+	\item Punktis 2 muutuja \texttt{x} väärtust üheselt määrata pole võimalik, sest see tuleb juhuarvu funktsioonist \texttt{rand()}, kuid jäägiga jagamise tulemusena kindlasti $\texttt{x} \in \{0, 1, 2\}$\footnote{C keele semantika on siinkohal keerukas, kuid (üldiselt võimalikud) negatiivsed jäägid on antud juhul välistatud, sest \texttt{rand()} funktsioon ei tagasta negatiivseid arve.}.
+	Lisaks on vahepeal deklareeritud väärtustamata muutuja \texttt{y}, millel C keele semantikas vaikeväärtust pole ja seetõttu $\texttt{y} \in \mathbb{Z}$ \cite{C11_draft}.
+	\item Punktis 3, kus tingimus oli tõene, $\texttt{x} = 0$.
+	\item Punktis 4, kus tingimus oli väär, saab eelnevast hulgast välistatud nulli eemaldamisel öelda, et $\texttt{x} \in \{1, 2\}$.
+	\item Punktis 5 on täpselt teada, et $\texttt{y} = 5$. Lisaks on selles harus jätkuvalt $\texttt{x} = 0$.
+	\item Punktis 6, teades võimalikke muutuja \texttt{x} väärtusi, saab öelda, et liitmistehte tulemusena $\texttt{y} \in \{2, 3\}$.
+	\item Punktis 7, kus kaks võimalikku tingimuslause haru uuesti kokku saavad, tuleb arvestada mõlema haru võimalike väärtustega, seega muutuja $\texttt{y} \in \{2, 3, 5\}$.
+	\item Punktis 8, teades võimalikke muutuja \texttt{y} väärtusi, saab öelda, et korrutamistehte tulemusena $\texttt{z} \in \{4, 6, 10\}$.
+\begin{comment}
+	\item Punktides 1, 2 ja 3 on muutuja veel väärtustamata. Kuna C keele semantika sellisel juhul mingit vaikeväärtust ei anna, siis võimalikke väärtusi kirjeldab kõige ebatäpsem domeeni element $\top = \mathbb{Z}$.
+	\item Punktis 4 on muutujale just antud konstantne väärtus, mistõttu seda kirjeldab kõige paremini element $\{5\}$.
+
+		Iseenesest poleks vale seostada selle programmi punktiga mõnda (osalise järjestuse järgi) üldisemat seisundit, nt $\{5, 6, 7\}$ või lausa $\top$, kuid see poleks nii kasulik, sest analüüsi mõte on siiski leida võimalikult täpne kirjeldus. Just selle täpsuse matemaatiliseks kirjeldamiseks nõutaksegi osalist järjestust.
+	\item Punktiga 5 sobib samal põhjusel seostada element $\{3\}$.
+	\item Punktis 6 on olukord huvitavam, sest seda seisundit pole programmis oleva hargnemise (täpsemalt selle ühendumise) tõttu kirjeldada ühe täisarvuga, vaid elemendiga $\{3, 5\}$. Selle tulemuseni jõudmiseks peab intuitiivselt ühendama eelneva kahe punkti seisundid --- leidma seisundi, mis hõlmaks eelnevaid, olles seejuures võimalikult täpne. Just selleks nõutaksegi ülemise raja leidmise tehet, millega seda teha. Antud juhul $\{3\} \sqcup \{5\} = \{3, 5\}$.
+\end{comment}
+\end{itemize}
+
+Tehtud analüüs on võimalikult täpne, mis tähendab, et igas punktis iga muutujaga on seostatud väikseim väärtuste hulk. Iseenesest poleks vale mõnes programmi punktis mõne muutujaga seostada suuremat võimalike väärtuste hulka, kuid sellisest analüüsist oleks vähem kasu, sest see tooks sisse ebavajalikku ebatäpsust.
+Järgnevalt ongi eesmärk matemaatiliselt formaliseerida sellise võimalikult täpse analüüsi teostamine, mis omakorda oleks aluseks analüüsi teoreetiliseks uurimiseks ja automatiseerimiseks.
 
 
 \subsection{Võred}
@@ -350,7 +350,7 @@ Analoogiliselt alamhulkade domeeniga, tuuakse siin programmide analüüsimiseks 
 
 Valides eelnevas joonisel~\ref{fig:prog-if} tehtud näites seekord $\Val = \mathbb{I}_\bot$, saab taaskord kirjeldada üleminekufunktsioonid, kasutades seekord intervallide operatsioone. Tabelis~\ref{tab:itersolve2} on toodud samasuguse algoritmilise analüüsi lõpptulemus, kui seda oleks tehtud intervalldomeeni abil. Nagu näha, siis intervallide kasutamine on ebatäpsem kui alamhulkade kasutamine, sest kaob informatsioon selle kohta, kui mõni väärtus lõigu keskelt tegelikult ei saa esineda. Samas on analüüs ikkagi korrektne, sest ühtegi päriselt võimalikku väärtust pole ekslikult välistatud.
 
-\begin{table}[h]
+\begin{table}
 	\caption{Tsüklita näiteprogrammi (joonisel~\ref{fig:prog-if}) analüüsi lahend intervalldomeenis.}
 	\centering
 	$\begin{tabu}{c*{3}{|c}}
