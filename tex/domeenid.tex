@@ -193,12 +193,12 @@ Sellises kujutuste domeenis saabki kirjeldada tervet seisundit korraga ning sama
 Kasutades kogu olekut kirjeldavaid domeeni elemente, on programmi laused ja avaldised juhtimisvoograafis kirjeldatavad funktsioonidena lähteseisundist sihtseisundisse. Neid nimetatakse \emph{üleminekufunktsioonideks} (\ingl{transfer function})~\cite{vojdani_magister} ja samas näites võivad need olla järgnevad:
 \begin{gather*}
 	\tf_{1,2}(d) = d[\texttt{x} \mapsto \{0, 1, 2\}][\texttt{y} \mapsto \mathbb{Z}], \\
-\begin{align*} % nasty hack
-	\tf_{2,3}(d) &= d[\texttt{x} \mapsto d(\texttt{x}) \cap \{0\}], &
-	\tf_{2,4}(d) &= d[\texttt{x} \mapsto d(\texttt{x}) \setminus \{0\}], \\
-	\tf_{3,5}(d) &= d[\texttt{y} \mapsto \{5\}], &
-	\tf_{4,6}(d) &= d[\texttt{y} \mapsto d(\texttt{x}) + \{1\}],
-\end{align*} \\
+	\begin{aligned}
+		\tf_{2,3}(d) &= d[\texttt{x} \mapsto d(\texttt{x}) \cap \{0\}],\qquad &
+		\tf_{2,4}(d) &= d[\texttt{x} \mapsto d(\texttt{x}) \setminus \{0\}], \\
+		\tf_{3,5}(d) &= d[\texttt{y} \mapsto \{5\}], &
+		\tf_{4,6}(d) &= d[\texttt{y} \mapsto d(\texttt{x}) + \{1\}],
+	\end{aligned} \\
 	\tf_{7,8}(d) = d[\texttt{z} \mapsto \{2\} \cdot d(\texttt{y})],
 \end{gather*}
 kus kirjutis $d[\texttt{x} \mapsto v]$ tähendab funktsiooni uuendamist (\ingl{function update}) ehk funktsiooni, mis argumendil \texttt{x} omab väärtust $v$ ja ülejäänud argumentidel sama väärtust, mis funktsioon $d$. Aritmeetilised tehted hulkade vahel on sellised nagu nad on sisemises domeenis $\Val$.
