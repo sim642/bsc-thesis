@@ -7,7 +7,7 @@ Selles peatükis tuuakse üldised abstraktsete domeenide omadused, mis kataks v�
 
 \subsection{Võre omadused}
 \label{sec:lattice-props}
-Kuna nõutakse, et domeenid oleks täielikud võred, siis peavadki nad kõiksugu võrede tingimusi rahuldama. Järgnev on ülevaade erinevatest omadustest, mis täielikel võredel kehtima peaks:
+Domeenid peavad olema täielikud võred ja seetõttu peavad nad rahuldama võrede tingimusi. Järgnev on ülevaade erinevatest omadustest, mis täielikel võredel kehtima peaks:
 
 \noindent
 Olgu $\mathbb{D}$ täielik võre, siis iga $a, b, c \in \mathbb{D}$ korral peavad kehtima järgnevad tingimused:
@@ -147,7 +147,7 @@ Järgnevad on ekvivalentsed~\cite[39]{davey_lattices}:
 	\label{tab:itersolve-while}
 \end{table}
 
-Kui joonisel~\ref{fig:prog-if} olev programm on tsükliteta ja selle analüüsi saaks teostada ka ilma võrratuste süsteemi püsipunkti leidmata, siis üldiselt sama lihtsalt ei saa. Huvitavamad programmid sisaldavad tsükleid, mille analüüsimiseks võib püsipunkti leidmisel põhinev algoritm siiski kasulik olla. Olgu nüüd vaatluse all tsükliga programm jooniselt~\ref{fig:prog-while} ja domeen $\mathbb{D} = (\Var \to \mathbb{I}_\bot)_\bot$ nagu viimati, siis võrratuste ja võrrandite süsteemid on järgnevad:
+Peatükis~\ref{sec:manual-analysis} õnnestus tsükliteta programmi (jooniselt~\ref{fig:prog-if}) analüüsida ilma vastava võrratuste süsteemi püsipunkti leidmata, kuid üldiselt nii lihtsalt ei saa. Huvitavamad programmid sisaldavad tsükleid, mille analüüsimiseks võib püsipunkti leidmisel põhinev algoritm siiski kasulik olla. Olgu nüüd vaatluse all tsükliga programm jooniselt~\ref{fig:prog-while} ja domeen $\mathbb{D} = (\Var \to \mathbb{I}_\bot)_\bot$ nagu intervalldomeeniga tehtud näites, siis võrratuste ja võrrandite süsteemid on järgnevad:
 \[
 	\begin{cases}
 		x_1 \sqgeq \imath \\
@@ -201,7 +201,7 @@ Lahendatav võrratus $\bar{x} \sqgeq \bar{f}(\bar{x})$ kirjutatakse samaväärse
 Intervallide laiendamise idee seiseb selles, et intervall suurenedes suureneb kohe vastavas suunas lõpmatusse, garanteerides, et intervall saab suureneda ülimalt kaks korda, mis muudab rangelt kasvavad ahelad lõplikeks. Sellise modifikatsiooniga süsteemi vähim püsipunkt (tabelis~\ref{tab:while-widen}) leitakse juba Kleene algoritmi 6. sammul, mis ühest küljest on oluline võit, teisest kaotus, sest lahend pole nii täpne kui eelnevalt.
 
 \paragraph{Kitsendamine}
-Kuna $\bar{f}$ on monotoonne, siis selle rakendamine püsipunktile tulemust ebatäpsemaks ei muuda, aga võib ebatäpset laiendatud tulemust siiski parandada. Sellist võtet nimetatakse kitsendamiseks (\ingl{narrowing}) ning eelmisele laiendatud lahendile kitsendamist rakendades stabiliseerub tulemus (tabelis~\ref{tab:while-narrow}) 4. sammul, jõudes sama tulemuseni, mis ilma laiendamist ja kitsendamist. Üldiselt see siiski nii ei pruugi olla, kuid tulemuse täpsust suurendab ikka.
+Kuna $\bar{f}$ on monotoonne, siis selle rakendamine püsipunktile tulemust ebatäpsemaks ei muuda, aga võib ebatäpset laiendatud tulemust siiski parandada. Sellist võtet nimetatakse kitsendamiseks (\ingl{narrowing}) ning eelmisele laiendatud lahendile kitsendamist rakendades stabiliseerub tulemus (tabelis~\ref{tab:while-narrow}) 4. sammul, jõudes sama tulemuseni, mis ilma laiendamist ja kitsendamist kasutamata. Üldiselt see siiski nii ei pruugi olla, kuid tulemuse täpsust suurendab ikka.
 
 Kitsendamisel võib tekkida analoogiline probleem kahanevate jadade stabiliseerumise tingimusega (\ingl{descending chains condition}) ja lõpmatute rangelt kahanevate ahelatega~\cite[65]{seidl_foundations}, mistõttu funktsiooni korduv rakendamine mõistliku sammude arvuga ei stabiliseeru. Samas võib kitsendamist lõpetada mistahes hetkel ja analüüs on ikka korrektne. Kitsendamise stabiliseerumiseks kasutatakse analoogilist võtet: lahendatav võrratus kirjutatakse samaväärsel kujul $\bar{x} = \bar{x} \sqcap \bar{f}(\bar{x})$, kus alamraja asemele valitakse sobiv \emph{kitsendamise operaator} $\narrow$ ja otsitakse vähim püsipunkt võrrandile $\bar{x} = \bar{x} \narrow \bar{f}(\bar{x})$. Intervallidel defineeritakse see järgnevalt~\cite[66]{seidl_foundations}:
 \begin{gather*}
@@ -216,7 +216,7 @@ Kitsendamisel võib tekkida analoogiline probleem kahanevate jadade stabiliseeru
 		u_1, & \text{muidu}.
 	\end{cases}
 \end{gather*}
-Intervallide kitsendamise idee seiseb selles, et intervall vähenedeb ainult lõpmatusest, garanteerides, et intervall saab väheneda ülimalt kaks korda, mis muudab rangelt kahanevad ahelad lõplikeks. Uuritud näitel kiirendatud kitsendamine jõuab sama tulemuseni kui tavaline kitsendamine (tabelis~\ref{tab:while-narrow}). Üldiselt see nii ei pruugi olla, sest kiirendamisel tuuakse sisse meelega täiendav ebatäpsus.
+Intervallide kitsendamise idee seisneb selles, et intervall väheneb ainult lõpmatusest, garanteerides, et intervall saab väheneda ülimalt kaks korda, mis muudab rangelt kahanevad ahelad lõplikeks. Uuritud näitel kiirendatud kitsendamine jõuab sama tulemuseni kui tavaline kitsendamine (tabelis~\ref{tab:while-narrow}). Üldiselt see nii ei pruugi olla, sest kiirendamisel tuuakse teadlikult sisse täiendav ebatäpsus.
 
 \paragraph{Omadused}
 Laiendamise ja kitsendamise operaatorid peavad analüüsi korrektsuse tagamiseks rahuldama teatud tingimusi.

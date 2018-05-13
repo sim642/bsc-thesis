@@ -7,6 +7,7 @@ Andmevooanalüüsi ja abstraktse interpretatsiooni põhimõtete selgitamiseks pa
 Seejärel samm-sammult formaliseeritakse tehtu matemaatiliselt, kuna sissejuhatuses antud informaalne definitsioon on ebapiisav mingisuguse teooria arendamiseks.
 
 \subsection{Analüüsi näide}
+\label{sec:manual-analysis}
 \begin{figure}
 	\centering
 	\begin{subfigure}[b]{0.4\textwidth}
@@ -168,7 +169,7 @@ Domeeni elementideks on kujutused muutujate hulgast nende abstraktsete väärtus
 
 Kujutusdomeeni kasutamisega saab lihtsama domeeni, mis kirjeldab ühte muutujat korraga, laiendada kõigile muutujatele korraga.
 Joonisel~\ref{fig:prog-if} tehtud näites olid muutujad $\Var = \{\texttt{x}, \texttt{y}, \texttt{z}\}$ ja väärtused domeenis $\Val = \powerset{\mathbb{Z}}$.
-Sellises kujutuste domeenis saabki kirjeldada tervet seisundit korraga ning sama analüüsi lõpptulemus oleks selline, nagu näidatud tabelis~\ref{tab:prog-if-set}.
+Sellises kujutuste domeenis saabki kirjeldada tervet seisundit korraga ning sama analüüsi lõpptulemus on näidatud tabelis~\ref{tab:prog-if-set}.
 
 \begin{table}
 	\caption{Tsüklita näiteprogrammi (joonisel~\ref{fig:prog-if}) analüüsi lõpptulemus kujutuste domeenis.}
@@ -201,13 +202,13 @@ Kasutades kogu olekut kirjeldavaid domeeni elemente, on programmi laused ja aval
 	\end{aligned} \\
 	\tf_{7,8}(d) = d[\texttt{z} \mapsto \{2\} \cdot d(\texttt{y})],
 \end{gather*}
-kus kirjutis $d[\texttt{x} \mapsto v]$ tähendab funktsiooni uuendamist (\ingl{function update}) ehk funktsiooni, mis argumendil \texttt{x} omab väärtust $v$ ja ülejäänud argumentidel sama väärtust, mis funktsioon $d$. Aritmeetilised tehted hulkade vahel on sellised nagu nad on sisemises domeenis $\Val$.
+kus kirjutis $d[\texttt{x} \mapsto v]$ tähendab funktsiooni uuendamist (\ingl{function update}) ehk funktsiooni, mis argumendil \texttt{x} omab väärtust $v$ ja ülejäänud argumentidel sama väärtust, mis funktsioon $d$. Aritmeetilised tehted hulkade vahel on sellised nagu sisemises domeenis $\Val$.
 Seejuures üleminekufunktsioonid saab keele semantika ning lausete ja avaldiste struktuuri mallide järgi mehaaniliselt defineerida ehk konkreetse programmi analüüsil toimub see automatiseeritult.
 
 
 \subsection{Algoritmiline analüüs}
-Võrede, nende abstraktsete tehete ja üleminekufunktsioonide abil on formaliseeritud suur osa esialgses näites intuitiivselt tehtust, kuid täielikult automatiseeritud analüüsini on jäänud veel viimane samm, mis võimaldaks kogu analüüsi algoritmiliselt kirjeldada. Kõigepealt peavad paigas olema kaks asja:
-\begin{enumerate}[nosep]
+Võrede, nende abstraktsete tehete ja üleminekufunktsioonide abil on formaliseeritud suur osa esialgses näites intuitiivselt tehtust, kuid täielikult automatiseeritud analüüsini on jäänud veel viimane samm, mis võimaldaks kogu analüüsi algoritmiliselt kirjeldada. Kõigepealt peavad paigas olema:
+\begin{enumerate}[noitemsep]
 	\item Domeen $\mathbb{D}$, mille abil analüüsi teostatakse ja mis on võimeline kirjeldama uuritavaid programmi omadusi.
 	\item Üleminekufunktsioonide defineerimise protsess programmeerimiskeele lausetest.
 \end{enumerate}
@@ -242,7 +243,7 @@ Nende olemasolul saab konkreetse programmi analüüsi teostada järgnevate sammu
 	\]
 	\end{definition}
 
-	\item Saadud võrratusele (ehk kaudselt algsele võrratuste süsteemile) tuleb leida vähim lahend. Selle iga lahend on üks korrektne analüüs, mis iga programmi punkti kohta sisaldab selle abstraktset seisundit. Vähim sobiv lahend on ühtlasi täpseim võimalik korrektne analüüs, ehk see, millest enim kasu oleks.
+	\item Saadud võrratusele (ehk kaudselt algsele võrratuste süsteemile) tuleb leida vähim lahend. Selle iga lahend on üks korrektne analüüs, mis iga programmi punkti kohta sisaldab selle abstraktset seisundit. Vähim sobiv lahend on ühtlasi täpseim võimalik korrektne analüüs ehk see, millest enim kasu oleks.
 
 	Saab näidata, et see on samaväärne võrrandi $\bar{x} = \bar{f}(\bar{x})$ vähima lahendi leidmisega, mida nimetatakse ka vähima püsipunkti leidmiseks. Seda on lõige lihtsam leida Kleene püsipunktialgoritmi abil, mis alustab väärtusest $\bar{x}_0 = \overline{\bot} = (\bot, \ldots, \bot)$ ja järjest iga $\bar{x}_i$ korral arvutab $\bar{x}_{i+1} = \bar{f}(\bar{x}_i)$ kuni lõpuks jõutakse nii kaugele, et mingi $i$ korral $\bar{x}_i = \bar{x}_{i+1}$, st funktsiooni väärtused stabiliseeruvad ja funktsiooni edasi rakendamine tulemust ei muuda. Leitud lahendist ongi võimalik välja lugeda analüüsi tulemused iga programmi punkti jaoks~\cite[21]{seidl_foundations}.
 \end{enumerate}
@@ -280,8 +281,7 @@ Joonise~\ref{fig:prog-if} programmi analüüsimisel oleks võrratuste ja võrran
 kus algseisund $\imath$ on konstantne kujutus väärtustega $\emptyset$.
 %Nende iteratiivne lahendamine on samm-sammult toodud tabelis~\ref{tab:itersolve}.
 Nende iteratiivne lahendamine on samm-sammult toodud lisas~\ref{app:itersolve}.
-On näha, et algoritmiline analüüs jõudis oodatud tulemuseni.
-Nagu näha, siis Kleene algoritm on üsna ebaefektiivne viis vähima püsipunkti leidmiseks, kuna väärtuste stabiliseerumine võib võtta palju samme, kusjuures iga kord arvutatakse uuesti ka need väärtused, mis enam niikuinii ei muutu. Loomulikult on olemas mitmeid palju efektiivsemaid meetodeid, näiteks \textit{round-robin} ja \textit{worklist} algoritmid~\cite[24,83]{seidl_foundations}.
+On näha, et algoritmiline analüüs jõudis oodatud tulemuseni. Samast paistab, et Kleene algoritm on üsna ebaefektiivne viis vähima püsipunkti leidmiseks, kuna väärtuste stabiliseerumine võib võtta palju samme, sest iga kord arvutatakse uuesti ka need väärtused, mis enam ei muutu. On olemas ka mitmeid palju efektiivsemaid meetodeid, näiteks \textit{round-robin} ja \textit{worklist} algoritmid~\cite[24,83]{seidl_foundations}.
 
 \begin{comment}
 \begin{sidewaystable}
@@ -345,7 +345,7 @@ Analoogiliselt alamhulkade domeeniga, tuuakse siin programmide analüüsimiseks 
 		[l_1, u_1] + [l_2, u_2] &= [l_1 + l_2, u_1 + u_2], \\
 		[l_1, u_1] \cdot [l_2, u_2] &= [\min\{l_1l_2, l_1u_2, u_1l_2, u_1u_2\}, \max\{l_1l_2, l_1u_2, u_1l_2, u_1u_2\}].
 	\end{align*}
-	Siin on tehete defineerimine keerulisem kui alamhulkade domeenis, nagu korrutamisest paistab, kusjuures lisaks peab defineerima juhud, kus mõned otspunktidest on $-\infty$ või $+\infty$.
+	Korrutamise tehtest ilmneb, et siin on tehete defineerimine keerulisem kui alamhulkade domeenis, kusjuures lisaks peab defineerima juhud, kus mõned otspunktidest on $-\infty$ või $+\infty$.
 \end{description}
 
 Valides eelnevas joonisel~\ref{fig:prog-if} tehtud näites seekord $\Val = \mathbb{I}_\bot$, saab taaskord kirjeldada üleminekufunktsioonid, kasutades seekord intervallide operatsioone. Tabelis~\ref{tab:itersolve2} on toodud samasuguse algoritmilise analüüsi lõpptulemus, kui seda oleks tehtud intervalldomeeni abil. Nagu näha, siis intervallide kasutamine on ebatäpsem kui alamhulkade kasutamine, sest kaob informatsioon selle kohta, kui mõni väärtus lõigu keskelt tegelikult ei saa esineda. Samas on analüüs ikkagi korrektne, sest ühtegi päriselt võimalikku väärtust pole ekslikult välistatud.

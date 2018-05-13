@@ -5,21 +5,21 @@
 \section{Omaduspõhine testimine}
 Omaduspõhine testimine (\ingl{property-based testing}) on programmide testimise metoodika, mis põhineb soovitud omaduste verifitseerimisel juhuslikult genereeritud testandmetel. Selle lähenemise populariseeris Haskelli teek nimega QuickCheck~\cite{claessen_quickcheck}, mis on nüüdseks implementeeritud ka paljude teiste programmeerimiskeelte jaoks ja mille kasutamine on funktsionaalprogrammeerimises laialdane.
 
-Omaduspõhine testimine sobib hästi matemaatilist laadi omaduste, nagu eelmises peatükis toodud domeenide omaduste, kontrollimiseks, sest seda saab teha lihtsa tingimusega, vajamata sobivate testandmete väljamõtlemist. See võimaldab samu omadusi kontrollida kõigil domeenidel, sõltumata isegi nende elementide tüübist.
+Omaduspõhine testimine sobib hästi matemaatiliste tingimuste kontrollimiseks, nagu seda on eelmises peatükis toodud domeenide omadused. See ei vaja sobivate testandmete väljamõtlemist ja võimaldab samu omadusi kontrollida kõigil domeenidel, sõltumata isegi nende elementide tüübist.
 
 \subsection{Põhimõtted}
 Testitavad omadused kirjeldatakse predikaatidena, millele omaduspõhise testimise raamistik genereerib hulga juhuslikke argumente, millel arvutab välja predikaadi väärtuse. Kui see on kõigil genereeritud argumentidel tõene, siis loetakse test läbituks ja omadus kehtivaks. Kui mõnel argumendil on predikaat väär, loetakse test läbikukkunuks ja omadus mittekehtivaks. Viimasel juhul kuvatakse probleemne argument ka testijale.
 
 Omaduspõhise testimise raamistikes on tüüpiliselt juba defineeritud, kuidas vastava keele põhiliste andmetüüpide, sh paaride, järjendite jne, väärtusi juhuslikult genereerida. Puuduvate ja enda defineeritud andmetüüpide jaoks tuleb see ise juurde lisada. Seejuures \enquote{juhuslik} ei pea tähendama täielikult juhuslikku protsessi, vaid võib alati genereerida ka hulka huvitavaid ja sageli probleeme tekitavaid erijuhte (nt arv null, tühi järjend jne).
 
-Juhuslikult genereeritud argumendid võivad olla \enquote{suured}: suured arvud, pikad sõned või järjendid, sügavad puud jne. Võib kergesti juhtuda, et mõne omaduse kontranäide on seetõttu inimese jaoks raskesti hoomatav ja jääb ebaselgeks, mis on selle argumendi juures erilist, et omadus ei kehti. Vigade analüüsimise lihtsustamiseks kasutatakse omaduspõhises testimises vääravate argumentide lihtsustamist ehk vähendamist (\ingl{shrinking}). Kirjeldatakse, kuidas leitud väärtusest saada lihtsamaid, mis oleks algsega piisavalt sarnased, et nende korral võiks omadus samuti mitte kehtida. Näiteks järjendist mingite elementide eemaldamine, et pikkus sellest väheneks. Vähendatud argumentidel väärtustatakse predikaat uuesti, leidmaks neid, mille korral omadus ikka ei kehti, ja rakendatakse vähendamist taas nii palju kordi kui võimalik, et lihtsustada probleemset argumenti maksimaalselt, muutes selle paremini hoomatavaks.
+Juhuslikult genereeritud argumendid võivad olla \enquote{suured}: suured arvud, pikad sõned või järjendid, sügavad puud jne. Võib kergesti juhtuda, et mõne omaduse kontranäide on seetõttu inimese jaoks raskesti hoomatav ja jääb ebaselgeks, mis on selle argumendi juures erilist, et omadus ei kehti. Vigade analüüsimise lihtsustamiseks kasutatakse omaduspõhises testimises vääravate argumentide lihtsustamist ehk vähendamist (\ingl{shrinking}). Kirjeldatakse, kuidas leitud väärtusest saada lihtsamaid, mis oleks algsega piisavalt sarnased, et nende korral võiks omadus samuti mitte kehtida. Näiteks järjendist mingite elementide eemaldamine, et selle pikkus väheneks. Vähendatud argumentidel väärtustatakse predikaat uuesti, leidmaks neid, mille korral omadus ikka ei kehti, ja rakendatakse vähendamist taas nii palju kordi kui võimalik, et lihtsustada probleemset argumenti maksimaalselt, muutes selle paremini hoomatavaks.
 
 Tüüpiliselt on ka põhiliste andmetüüpide vähendaminie testimisraamistikesse juba sisse ehitatud, aga sedagi on võimalik ise laiendada oma andmetüüpidele.
 
 \subsection{Goblint}
 Goblint on mitmelõimeliste C programmide staatiline analüsaator, mille eesmärk on tõestada, et programmis puuduvad mitmelõimelisusega seotud vead (nt andmejooksud)~\cite{goblint2016}. Seda tehakse andmevooanalüüsi raamistikus, kasutades keerukamaid spetsiifilisi abstraktseid domeene. Goblinti autoritele on teada, et analüsaator ei käitu alati oodatud viisil, vaid võib teha vigu. Üheks võimalikuks probleemide allikaks on kasutusel olevad abstraktsed domeenid ja täpsemalt nende implementatsioonid. Leidmaks nende vigade allikat, testitigi käesoleva töö raames Goblintis implementeeritud domeenide omadusi.
 
-Goblint ise on kirjutatud OCaml-is ja on avatud lähtekoodiga~\cite{goblint_repo}. Selle omaduspõhiseks testimiseks valiti vastav OCaml-i teek QCheck~\cite{qcheck_repo}, mis on sarnaste teekide hulgast enim kasutatud ja uuendatud. Kõigi töö raames tehtud muudatuste ja täienduse lähtekoodi leiab lisast~\ref{app:lahtekood}.
+Goblint on kirjutatud OCaml-is ja on avatud lähtekoodiga~\cite{goblint_repo}. Selle omaduspõhiseks testimiseks valiti vastav OCaml-i teek QCheck~\cite{qcheck_repo}, mis on sarnaste teekide hulgast enim kasutatud ja uuendatud. Kõigi töö raames tehtud muudatuste ja täienduse lähtekoodi leiab lisast~\ref{app:lahtekood}.
 
 \begin{figure}
 	\centering
@@ -43,13 +43,13 @@ Goblint ise on kirjutatud OCaml-is ja on avatud lähtekoodiga~\cite{goblint_repo
 	\label{fig:lattice-s}
 \end{figure}
 
-Goblintis on domeenid implementeeritud OCaml-i moodulitena, mis muu hulgas sisaldavad domeeni elemendi tüüpi ning neil defineeritud seoseid ja tehteid, nagu näidatud joonisel~\ref{fig:lattice-s}. Domeenide omaduste testimiseks on esmalt vaja defineerida selle elementide generaator. Selleks lisati domeeni signatuuri funktsioon \texttt{arbitrary} signatuuriga:
+Goblintis on domeenid implementeeritud OCaml-i moodulitena, mis muu hulgas sisaldavad domeeni elemendi tüüpi ning neil defineeritud seoseid ja tehteid, nagu on näidatud joonisel~\ref{fig:lattice-s}. Domeenide omaduste testimiseks on esmalt vaja defineerida selle elementide generaator. Selleks lisati domeeni signatuuri funktsioon \texttt{arbitrary} signatuuriga:
 \begin{minted}{ocaml}
 	val arbitrary: unit -> t QCheck.arbitrary
 \end{minted}
 mille ainsaks argumendiks on ühiktüübi väärtus \texttt{()} ja mis tagastab \texttt{t QCheck.arbitrary} tüüpi väärtuse. Viimane hõlmab endas tüüpi \texttt{t} domeeni elementide generaatorit (\texttt{t QCheck.Gen}) ja vähendajat (\texttt{t QCheck.Shrink}) nii, nagu QCheck teek seda ette näeb.
 
-Kõik omadused peatükkidest~\ref{sec:lattice-props} ja~\ref{sec:widen-narrow} implementeeriti omaduspõhiste testidena moodulis \texttt{DomainProperties}. Näiteks ülemraja kommutatiivsuse test näeb välja järgmiselt:
+Kõik omadused peatükkidest~\ref{sec:lattice-props} ja~\ref{sec:widen-narrow} implementeeriti omaduspõhiste testidena moodulis \texttt{DomainProperties}. Näiteks ülemraja kommutatiivsuse test on selline:
 \begin{minted}{ocaml}
 let join_comm = make ~name:"join comm" (pair arb arb)
                   (fun (a, b) -> D.equal (D.join a b) (D.join b a))
@@ -58,7 +58,7 @@ kus \texttt{D} on testitava domeeni moodul ja \texttt{arb} on mugavuse mõttes \
 
 Testid implementeeriti polümorfselt OCaml-i funktorite abil, mis võimaldab samu omadusi kontrollida mistahes domeenil. See oligi eesmärk, sest kõik need omadused peavad universaalselt kehtima. Domeeni testimiseks peab sellel siiski olema defineeritud \texttt{arbitrary}, mida saab teha üksnes manuaalselt ja mis seega on kõige ajamahukam osa Goblinti arvukate domeenide testimise juures. Sellele läheneti kahelt poolt ning lõpuks sobivate generaatoritega varustatud domeenid on toodud lisas~\ref{app:goblint-domeenid}.
 
-\subsection{Alt-üles lähenemine}
+\subsection{Alt üles lähenemine}
 Esiteks testiti erinevaid täisarvudega töötavaid domeene moodulist \texttt{IntDomain}, mis on üsna sõltumatud ja seetõttu saab neid eraldiseisvalt testida. Täpse loetelu leiab lisa~\ref{app:goblint-domeenid} allosast. Paljud teised domeenid kasutavad oma elementidena konkreetsest analüüsitavast programmist leitud muutujaid, funktsioone vms, mis teeb nende testimise raskeks, sest pole selge, kuidas korrektselt genereerida neid juhuslikke elemente. Täisarvude abstraktsioonide puhul seda probleemi ei esine.
 
 \paragraph{Täisarvudomeenide korrektsus}
@@ -89,7 +89,7 @@ Kuna abstraktsiooni õigsuse testimiseks on domeenile lisaks vaja teist domeeni,
 \paragraph{Käivitamine}
 Nende domeenide testimiseks loodi moodul \texttt{Maindomaintest}, mida saab Goblintist endast eraldi kompileerida (käsuga \texttt{make domaintest}) ja käivitada (käsuga \texttt{./goblint.domaintest -v}). Selles moodulis on järjend domeenidest, mida käivitamisel eraldiseisvalt testitakse.
 
-\subsection{Ülalt-alla lähenemine}
+\subsection{Ülalt alla lähenemine}
 Teiseks testiti tervet domeeni, mida Goblint päriselt etteantud programmi analüüsimisel standardseadistuses kasutama hakkaks. See domeen pannakse sõltuvalt seadistusest kokku mitme eri analüüsi (Base, Escape, Mutex) domeenidest, mis on omakorda moodustatud paljudest domeenidest. Sellised sõltuvusi arvestades saab analüüsiks kasutatavat domeeni ette kujutada kui puud või sõltuvusgraafi (\ingl{dependency graph}). Seda ongi tehtud lisas~\ref{app:goblint-domeenid}, mille ülaosas on kujutatud neid tervikliku domeeni komponente, mida testiti.
 Näiteks, domeen \texttt{EscapedVars} delegeerib oma töö domeenile \texttt{ToppedSet}, mis on implementeeritud domeeni \texttt{SetDomain} abil.
 
@@ -107,7 +107,7 @@ Selliseks testimiseks lisati Goblinti käsurealippude hulka uus nimega \texttt{d
 \paragraph{Implikatiivsed omadused}
 Mõned peatükis~\ref{sec:lattice-props} toodud omadustest on implikatsiooni kujul, see tähendab, et omadus peab kehtima ainult siis, kui mingid eeldused on täidetud. Nende testimise keerukuseks on see, et juhuslikke domeeni elemente genereerides ei pruugi need eeldust rahuldada. Sel juhul on implikatsioon küll tõene, aga ei väida midagi sisulist.
 
-Kõige enam on see probleemiks osalise järjestuse antisümmeetrilisuse testimisel, milleks peaks juhuslikult genereerima domeeni elemendid $a$ ja $b$ nii, et $a \sqleq b$ ja $b \sqleq a$, enne kui saab kontrollida nõutud tingimust $a = b$. See on äärmiselt ebatõenäoline, kui testitavas domeenis on võrdlemisi palju elemente. Näiteks selle omaduse 100 (või isegi 10000) kordsel testimisel üle 32-bitiste täisarvude eeldust rahuldavaid argumente enamasti ei genereerita, mistõttu antisümmeetrilisus jääb praktiliselt kontrollimata.
+Kõige enam on see probleemiks osalise järjestuse antisümmeetrilisuse testimisel, milleks peaks juhuslikult genereerima domeeni elemendid $a$ ja $b$ nii, et $a \sqleq b$ ja $b \sqleq a$, enne kui saab kontrollida nõutud tingimust $a = b$. See on äärmiselt ebatõenäoline, kui testitavas domeenis on võrdlemisi palju elemente. Näiteks selle omaduse 100-kordsel (või isegi 10000-kordsel) testimisel üle 32-bitiste täisarvude eeldust rahuldavaid argumente enamasti ei genereerita, mistõttu antisümmeetrilisus jääb praktiliselt kontrollimata.
 
 Sellele vaatamata on implikatiivsete omaduste testid siiski Goblintis implementeeritud, sest need võivad probleeme avastada, kui järjestusseoses on mõni suurem viga.
 
@@ -117,7 +117,7 @@ Enamike omaduste testimisel on vaja kontrollida mingite domeeni elementide võrd
 Võrduse ja osalise järjestuse vahelise ebakõla peaks tuvastama osalise järjestuse antisümmeetrilisuse test, kuid eelmises punktis kirjeldatud põhjustel ei pruugi see välja tulla. Testimise käigus paistis selline ebakõla välja vaid domeeni \texttt{CircInterval} vähima ja suurima elemendi puhul (testides \enquote{bot is\_bot}, \enquote{top is\_top}) ning järjestuse ja rajade vahelise ekvivalentsi juures (testides \enquote{connect join}, \enquote{connect meet}).
 
 \paragraph{Laiendamine}
-Esialgse testimise tulemused näitasid, nagu oleks kõigis testitud domeenides laiendamise operaator vigane, sest ei rahulda selle ainsat omadust peatükist~\ref{sec:widen-narrow}. Osutub, et Goblinti domeenides olevat laiendamise operaatorit \texttt{widen} ei kasutata täpselt nii, nagu ülalkirjeldatud teooria seda ette näeb, vaid (ajaloolistel põhjustel) alati kujul \texttt{D.widen a (D.join a b)}, kus teiseks argumendiks on juba vastav ülemraja.
+Esialgse testimise tulemused näitasid nagu oleks kõigis testitud domeenides laiendamise operaator vigane, sest ei rahulda selle ainsat omadust peatükist~\ref{sec:widen-narrow}. Osutub, et Goblinti domeenides olevat laiendamise operaatorit \texttt{widen} ei kasutata täpselt nii, nagu ülalkirjeldatud teooria seda ette näeb, vaid (ajaloolistel põhjustel) alati kujul \texttt{D.widen a (D.join a b)}, kus teiseks argumendiks on juba vastav ülemraja.
 
 Seega nõutud omaduse $a \sqcup b \sqleq a \widen b$ asemel peaks kehtima omadus
 \begin{align*}
@@ -136,11 +136,11 @@ Goblintis laiendamise operaatori testimiseks lõpuks kasutatigi viimast kuju. Se
 	 & & \multicolumn{3}{c}{Testide arv} \\
 	Lähenemine & Võrdlemine & Kokku & Erindi teke & Mittekehtivad \\
 	\hline
-	\multirow{2}{*}{Alt-üles} & \texttt{equal} & 468 & \presim 35 & \presim 75 \\
+	\multirow{2}{*}{Alt üles} & \texttt{equal} & 468 & \presim 35 & \presim 75 \\
 	%\cline{2-5}
 	 & \texttt{leq} & 468 & \presim 35 & \presim 69 \\
 	\hline
-	\multirow{2}{*}{Ülalt-alla} & \texttt{equal} & 27 & 0 & \presim 12 \\
+	\multirow{2}{*}{Ülalt alla} & \texttt{equal} & 27 & 0 & \presim 12 \\
 	%\cline{2-5}
 	 & \texttt{leq} & 27 & 0 & \presim 12 \\
 	\hline
@@ -151,7 +151,7 @@ Goblintis laiendamise operaatori testimiseks lõpuks kasutatigi viimast kuju. Se
 Testide jooksutamise ülevaatlikud tulemused on toodud tabelis~\ref{tab:tulemused}, kus on toodud mõlema lähenemise tulemused. Kuna võrdlusmetoodika puhul on tegemist kompromissiga, siis viidi samad testid läbi omakorda mõlemal moel. Läbikukkunud testide arvud on esitatud ligikaudselt, kuna kogu metoodika põhineb juhuslikkusel, mistõttu esineb väiksemaid variatsioone. Järgneb täpsem ülevaade probleemsetest domeenidest ja omadustest, kus mõningad probleemsete testide arvud võivad samuti varieeruda.
 
 \paragraph{Erindi teke}
-Mõnede omaduste testimisel tekkisid erindid enne kui kehtivust kontrollida oli võimalik. Enamus juhtudel seetõttu, et domeen tegelikult ei moodusta täielikku võre ning elementide $\bot$ või $\top$ asemel antakse erind. Erindite tekkimine domeenide kaupa:
+Mõnede omaduste testimisel tekkisid erindid enne kui kehtivust kontrollida oli võimalik. Enamikel juhtudel seetõttu, et domeen tegelikult ei moodusta täielikku võre ning elementide $\bot$ või $\top$ asemel antakse erind. Erindite tekkimine domeenide kaupa:
 \begin{enumerate}
 	\item Domeenis \texttt{IntegerSet}, mis implementeeriti täisarvude abstraktsioonide korrektsuse testimiseks, puudub $\top$, sest pole praktiline luua hulka kõigist täisarvudest ja vastaval testimisel seda pole ka vaja. Erind tekib kolmes suurima elemendi testis (\enquote{top leq}, \enquote{top is\_top}, \enquote{top meet}).
 
@@ -229,12 +229,13 @@ Mitmete domeenide ja omaduste testimisel selgus nende mittekehtivus. Detailsem �
 	\end{enumerate}
 \end{enumerate}
 Tehtud ülevaatest on näha, et omaduste mittekehtimisel võib olla erinevaid põhjuseid:
-\begin{enumerate}[nosep]
+\begin{enumerate}[noitemsep]
 	\item viga domeeni implementeerimisel,
 	\item mittekehtimine teoreetilisel tasandil,
 	\item teadlik ja dokumenteeritud mittekehtimine,
 	\item sõltumine teistest probleemsetest domeenidest.
 \end{enumerate}
+
 Kuna töö eesmärgiks polnud vigade parandamine, siis kõikidesse probleemidesse oluliselt ei süvenetud, mistõttu paljude läbikukkunud testide kohta ei saa kindlalt midagi väita. See nõuab omaette teadmisi konkreetsete domeenide ettenähtud tööpõhimõtetest, tööd täpsete kontranäidete analüüsimiseks ja probleemi kõrvaldamiseks. Sellele vaatamata annavad läbiviidud testid ja nende analüüs suuna, kust vigu otsida.
 
 

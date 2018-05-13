@@ -8,9 +8,9 @@
 \begin{enumerate}
 	\item Kompilaatorid analüüsivad kompileeritavaid programme, et neid automaatselt optimeerida. Näiteks asendatakse korduvalt esinevaid avaldisi abimuutujatega, vältides sama avaldise mõttetut taasväärtustamist (\ingl{common subexpression elimination}). Seejuures on oluline, et programmi käitumine optimeerimise käigus ei muutuks. 
 
-	\item Mõned programmide vead esinevad väga spetsiifilistel juhtudel või on raskesti esilekutsutavad (nt mitmelõimelisusega seotud vead), mistõttu dünaamilise analüüsiga on neid keeruline avastada. Näiteks FindBugs™\footnote{\url{http://findbugs.sourceforge.net/}} otsib Java programmidest vigu.
+	\item Mõned programmide vead esinevad väga spetsiifilistel juhtudel või on raskesti esilekutsutavad (nt mitmelõimelisusega seotud vead), mistõttu dünaamilise analüüsiga on neid keeruline avastada. Näiteks FindBugs™\footnote{\url{http://findbugs.sourceforge.net/} (13.05.2018)} otsib Java programmidest vigu.
 
-	\item Programmi korrektsuse näitamisel, tõestamaks, et selles teatud tüüpi vigu kindlasti ei esine. Näiteks Astrée\footnote{\url{http://www.astree.ens.fr/}} võimaldab tõestada, et C programmis puuduvad määramata ja implementatsioonispetsiiflisest käitumisest põhjustatud täitmisaegsed vead.
+	\item Programmi korrektsuse näitamisel, tõestamaks, et selles teatud tüüpi vigu kindlasti ei esine. Näiteks Astrée\footnote{\url{http://www.astree.ens.fr/} (13.05.2018)} võimaldab tõestada, et C programmis puuduvad määramata ja implementatsioonispetsiiflisest käitumisest põhjustatud täitmisaegsed vead.
 \end{enumerate}
 
 \emph{Andmevooanalüüs} (\ingl{data-flow analysis}) on üks intuitiivne meetod staatilise programmianalüüsi teostamiseks. Selle keskseks ideeks on võimalike programmi seisundite määramine selle programmi igal täitmise sammul. Andmevooanalüüs kasutab programmi juhtimisvoograafi (\ingl{control-flow graph}), et järgida programmi seisundi muutumist selle võimalike töövoogude jooksul.
@@ -19,11 +19,11 @@
 \emph{Domeeniks} nimetatakse programmi kõikvõimalike seisundite hulka~\cite{vojdani_magister}.
 \end{definition}
 
-Programmi seisundiks on ilmselt muutujate väärtused, aga ka mistahes keerulisemad uuritavad omadused, näiteks lõime hetkel hoitavate lukkude hulk~\cite{vojdani_magister} või kättesaadavate omistamiste hulk (\ingl{available assignments})~\cite[12]{seidl_foundations}.
+Programmi seisundiks on muutujate väärtused, aga ka mistahes keerulisemad uuritavad omadused, näiteks lõime hetkel hoitavate lukkude hulk~\cite{vojdani_magister} või kättesaadavate omistamiste hulk (\ingl{available assignments})~\cite[12]{seidl_foundations}.
 
 Üldiselt pole võimalik staatilise analüüsiga alati täpselt määrata programmi seisundit, sest see oleks samaväärne programmi käivitamisega. Seetõttu vaadeldakse ligikaudseid seisundeid, mille uurimist nimetatakse abstraktseks interpretatsiooniks (\ingl{abstract interpretation}) ja see põhineb rangel teoreetilisel alusel, millel on ligikaudsusele vaatamata head omadused. Nimelt, abstraktse interpretatsiooni teooria lubab, et analüüs on korrektne (\ingl{sound}), st kui uuritavast programmist otsitavat tüüpi viga ei leita, siis võib olla kindel, et seda seal päriselt ka ei ole.
 
-Ligikaudsed seisundid, mis vastavad konkreetsetele seisunditele, moodustavad \emph{abstraktse domeeni}. Näiteks võib arvuhulkade asemel vaadelda intervalle või uurida lineaarseid piire muutujate vahel (polüeedri domeen). Abstraktse interpretatsiooni õigeks toimimiseks on vajalik, et abstraktne domeen rahuldaks hulka omadusi, mis võimaldavad andmevooanalüüsi teostada sobiva võrrandisüsteemi lahendamise teel. Seetõttu on hädavajalik, et staatilist analüüsi teostav programm, analüsaator, ise oleks implementeeritud korrektselt, sest vastasel juhul pole teostatavate analüüside tulemused usaldusväärsed ja korrektsed.
+Ligikaudsed seisundid, mis vastavad konkreetsetele seisunditele, moodustavad \emph{abstraktse domeeni}. Näiteks võib arvuhulkade asemel vaadelda intervalle või uurida lineaarseid piire muutujate vahel (polüeedri domeen). Abstraktse interpretatsiooni õigeks toimimiseks on vajalik, et abstraktne domeen rahuldaks hulka omadusi, mis võimaldavad andmevooanalüüsi teostada sobiva võrrandisüsteemi lahendamise teel. Seetõttu on hädavajalik, et staatilist analüüsi teostav programm (analüsaator) ise oleks implementeeritud korrektselt, sest vastasel juhul pole teostatavate analüüside tulemused usaldusväärsed ja korrektsed.
 
 Goblint on mitmelõimeliste C programmide staatiline analüsaator, mille eesmärk on tõestada, et programmis puuduvad mitmelõimelisusega seotud vead, kasutades selleks andmevooanalüüsi. Goblinti autoritele on teada, et analüsaator ei käitu alati oodatud viisil, vaid võib teha vigu, mis võivad rikkuda analüüsi korrektsuse.
 
