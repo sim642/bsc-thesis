@@ -8,9 +8,9 @@
 \begin{enumerate}
 	\item Kompilaatorid analüüsivad kompileeritavaid programme, et neid automaatselt optimeerida. Näiteks asendatakse korduvalt esinevaid avaldisi abimuutujatega, vältides sama avaldise mõttetut taasväärtustamist (\ingl{common subexpression elimination}). Seejuures on oluline, et programmi käitumine optimeerimise käigus ei muutuks. 
 
-	\item Mõned programmide vead esinevad väga spetsiifilistel juhtudel või on raskesti esilekutsutavad (nt mitmelõimelisusega seotud vead), mistõttu dünaamilise analüüsiga on neid keeruline avastada. Näiteks FindBugs™ otsib Java programmidest vigu.
+	\item Mõned programmide vead esinevad väga spetsiifilistel juhtudel või on raskesti esilekutsutavad (nt mitmelõimelisusega seotud vead), mistõttu dünaamilise analüüsiga on neid keeruline avastada. Näiteks FindBugs™\footnote{\url{http://findbugs.sourceforge.net/}} otsib Java programmidest vigu.
 
-	\item Programmi korrektsuse näitamisel, tõestamaks, et selles teatud tüüpi vigu kindlasti ei esine. Näiteks Astrée võimaldab tõestada, et C programmis puuduvad määramata ja implementatsioonispetsiiflisest käitumisest põhjustatud täitmisaegsed vead.
+	\item Programmi korrektsuse näitamisel, tõestamaks, et selles teatud tüüpi vigu kindlasti ei esine. Näiteks Astrée\footnote{\url{http://www.astree.ens.fr/}} võimaldab tõestada, et C programmis puuduvad määramata ja implementatsioonispetsiiflisest käitumisest põhjustatud täitmisaegsed vead.
 \end{enumerate}
 
 \emph{Andmevooanalüüs} (\ingl{data-flow analysis}) on üks intuitiivne meetod staatilise programmianalüüsi teostamiseks. Selle keskseks ideeks on võimalike programmi seisundite määramine selle programmi igal täitmise sammul. Andmevooanalüüs kasutab programmi juhtimisvoograafi (\ingl{control-flow graph}), et järgida programmi seisundi muutumist selle võimalike töövoogude jooksul.
