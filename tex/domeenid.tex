@@ -128,15 +128,21 @@ Domeenidelt nõutaksegi, et need oleks täielikud võred, sest sellega kaasnevad
 
 
 \subsection{Alamhulkade domeen}
-Iga hulga $S$ korral saab vaadelda selle kõigi alamhulkade hulka $\powerset{S}$, millel on loomulik osaline järjestus $\subseteq$.
-Osutub, et see on ka täielik võre~\cite[6]{laan_voreteooria}, kus
-\begin{itemize}[nosep]
-	\item $a \sqleq b \Leftrightarrow a \subseteq b$,
-	\item $a \sqcup b = a \cup b$ ja $a \sqcap b = a \cap b$,
-	\item $\bot = \emptyset$ ja $\top = S$.
-\end{itemize}
-
-Ülal käsitsi tehtud joonise~\ref{fig:prog-if} programmi analüüsis oligi iga muutuja väärtusi analüüsitud alamhulkade domeeni $\mathbb{D} = \powerset{\mathbb{Z}}$ abil. Programmi punktis 7 toimunud muutuja \texttt{y} seisundite ühendamine on võrede terminites $\{5\} \sqcup \{2, 3\}$. Antud programmi analüüsimiseks on selle domeeniga vaja seostada kahte tüüpi tehted:
+Võimalikke väärtusi saab uurida hulkade abil:
+\begin{definition}
+Olgu $S$ hulk. \emph{Alamhulkade domeeniks} üle hulga $S$ nimetatakse hulka $\powerset{S}$, mille osaline järjestus on defineeritud iga $a, b \in \powerset{S}$ korral kui
+\[
+	a \sqleq b \quad\Longleftrightarrow\quad a \subseteq b.
+\]
+\end{definition}
+Osutub, et see on ka täielik võre~\cite[6]{laan_voreteooria}, kus üsna loomulikul viisil
+\begin{align*}
+	a \sqcup b &= a \cup b, &
+	a \sqcap b &= a \cap b, \\
+	\bot &= \emptyset, &
+	\top &= S.
+\end{align*}
+Hulkade järjestus on määratud nende omavahelise sisalduvuse kaudu, mis tähendab, et väiksem hulk on täpsem. Ülal käsitsi tehtud joonise~\ref{fig:prog-if} programmi analüüsis oligi iga muutuja väärtusi analüüsitud täisarvude alamhulkade domeeni $\mathbb{D} = \powerset{\mathbb{Z}}$ abil. Programmi punktis 7 toimunud muutuja \texttt{y} seisundite ühendamine on võrede terminites $\{5\} \sqcup \{2, 3\}$. Antud programmi analüüsimiseks on selle domeeniga vaja seostada kahte tüüpi tehted:
 \begin{description}
 	\item[Konstantide abstraheerimine] Lause \texttt{y = 5} abstraktseks teostamiseks, st muutujaga~\texttt{y} domeeni elemendi seostamiseks, on esinev konstant vaja sobivalt abstraheerida. Täisarvude alamhulkade domeenis sobib konstantse väärtuse $a$ jaoks ilmselt element $\{a\}$.
 
@@ -151,16 +157,16 @@ Nende matemaatiliste vahenditega ongi võimalik näites tehtu süstematiseerida.
 
 
 \subsection{Kujutusdomeen}
-Olgu $\Var$ programmi muutujate hulk ja $\Val$ domeen, milles vaadeldakse üksiku muutuja seisundit. Sel juhul saab vaadelda abstraktsete muutujate väärtustuste domeeni~\cite[45]{seidl_foundations}
+Olgu $\Var$ programmi muutujate hulk ja $\Val$ domeen, milles vaadeldakse üksiku muutuja seisundit. Sel juhul saab kasutusele võtta abstraktsete muutujate väärtustuste domeeni~\cite[45]{seidl_foundations}
 \[
 	\mathbb{D} = (\Var \to \Val)_\bot = (\Var \to \Val) \cup \{\bot\}.
 \]
-Domeeni elementideks on kujutused muutujate hulgast nende abstraktsete väärtuste hulka, mis on väga analoogilised konkreetsete muutujate väärtustustega funktsionaalselt kirjeldatuna. Element $\bot$ on tehislikult lisatud, et domeen moodustaks täieliku võre, ja tähendab saavutamatut programmi punkti. Osaline järjestus domeenis $\mathbb{D}$ on iga $D_1, D_2 \in \mathbb{D}$ korral defineeritud kui
+Domeeni elementideks on kujutused muutujate hulgast nende abstraktsete väärtuste hulka, mis on väga analoogilised konkreetsete muutujate väärtustustega funktsionaalselt kirjeldatuna. Seetõttu nimetatakse seda ka \emph{kujutusdomeeniks}. Element $\bot$ on tehislikult lisatud, et domeen moodustaks täieliku võre, ja tähendab saavutamatut programmi punkti. Osaline järjestus domeenis $\mathbb{D}$ on iga $D_1, D_2 \in \mathbb{D}$ korral defineeritud kui
 \[
 	D_1 \sqleq D_2 \quad\Longleftrightarrow\quad D_1 = \bot \quad\lor\quad \forall x \in \Var.\; D_1(x) \sqleq D_2(x).
 \]
-\TODO{$\sqcup, \sqcap, \top$?}
 
+Kujutusdomeeni kasutamisega saab lihtsama domeeni, mis kirjeldab ühte muutujat korraga, laiendada kõigile muutujatele korraga.
 Joonisel~\ref{fig:prog-if} tehtud näites olid muutujad $\Var = \{\texttt{x}, \texttt{y}, \texttt{z}\}$ ja väärtused domeenis $\Val = \powerset{\mathbb{Z}}$.
 Sellises kujutuste domeenis saabki kirjeldada tervet seisundit korraga ning sama analüüsi lõpptulemus oleks selline, nagu näidatud tabelis~\ref{tab:prog-if-set}.
 
@@ -197,9 +203,6 @@ Kasutades kogu olekut kirjeldavaid domeeni elemente, on programmi laused ja aval
 \end{gather*}
 kus kirjutis $d[\texttt{x} \mapsto v]$ tähendab funktsiooni uuendamist (\ingl{function update}) ehk funktsiooni, mis argumendil \texttt{x} omab väärtust $v$ ja ülejäänud argumentidel sama väärtust, mis funktsioon $d$. Aritmeetilised tehted hulkade vahel on sellised nagu nad on sisemises domeenis $\Val$.
 Seejuures üleminekufunktsioonid saab keele semantika ning lausete ja avaldiste struktuuri mallide järgi mehaaniliselt defineerida ehk konkreetse programmi analüüsil toimub see automatiseeritult.
-
-Kujutusdomeeni kasutamisega saab lihtsama domeeni, mis kirjeldab ühte muutujat korraga, laiendada kõigile muutujatele korraga.
-\TODO{Üksik lause kuhugi mujale}
 
 
 \subsection{Algoritmiline analüüs}
@@ -319,20 +322,20 @@ Intervalldomeen on domeen, milles täisarvude väärtuste abstraheerimiseks kasu
 \[
 	\mathbb{I} = \{ [l, u] \mid l \in \mathbb{Z} \cup \{-\infty\}, u \in \mathbb{Z} \cup \{+\infty\}, l \leq u \},
 \]
-millel on osaline järjestus
+mille osaline järjestus on defineeritud iga $[l_1, u_1], [l_2, u_2] \in \mathbb{I}$ korral kui
 \[
 	[l_1, u_1] \sqleq [l_2, u_2] \quad\Longleftrightarrow\quad l_2 \leq l_1 \land u_1 \leq u_2.
 \]
 \end{definition}
-\TODO{Ülejäänud domeenid ka definitsiooni kujul?}
 
-Sellises domeenis
+Selles domeenis
 \begin{align*}
 	[l_1, u_1] \sqcup [l_2, u_2] &= [\min\{l_1, l_2\}, \max\{u_1, u_2\}], \\
 	[l_1, u_1] \sqcap [l_2, u_2] &= [\max\{l_1, l_2\}, \min\{u_1, u_2\}],\quad \text{kui } \max\{l_1, l_2\} \leq \min\{u_1, u_2\}.
 \end{align*}
-Intervallide järjestus on määratud nende omavahelise sisalduvuse kaudu ning ülem- ja alamraja on vastavalt lõikude ühend ja ühisosa.
-Lõigu otspunktides on lubatud vastavad lõpmatust kirjeldavad väärtused, mis võimaldavad rääkida selles domeenis suurimast elemendist $\top = [-\infty, +\infty]$.
+Intervallide järjestus on määratud nende omavahelise sisalduvuse kaudu ning ülem- ja alamraja on vastavalt lõikude ühend ja ühisosa, analoogiliselt alamhulkade domeeniga.
+Lõigu otspunktides on lubatud vastavad lõpmatust kirjeldavad väärtused, mis võimaldavad rääkida selles domeenis suurimast elemendist $\top = [-\infty, +\infty]$, mis hõlmab kõiki täisarve.
+
 Kuna alumine raja on ainult tinglikult defineeritud, siis intervalldomeen ei moodusta täielikku võre. See pole probleem, kuna pisut täiendatud domeen $\mathbb{I}_\bot = \mathbb{I} \cup \{\bot\}$ osutub täielikuks võreks, kui seda vaja peaks olema.
 
 Analoogiliselt alamhulkade domeeniga, tuuakse siin programmide analüüsimiseks sisse:
