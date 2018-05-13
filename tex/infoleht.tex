@@ -15,13 +15,13 @@
 % \TODO{One or two sentences providing a basic introduction to the field, comprehensible to a scientist in any discipline.}
 Staatilise programmianalüüsiga uuritakse programme lähtekoodi põhjal, ilma neid käivitamata.
 % \TODO{Two to three sentences of more detailed background, comprehensible to scientists in related disciplines.}
-Andmevooanalüüsiga määratakse programmi võimalikud seisundid, mida vaadeldakse ligikaudselt ja mis moodustavad abstraktse domeeni. Teostatav analüüs on abstraktse interpretatsiooni teooria kohaselt korrektne (\ingl{sound}), kui kasutatav domeen rahuldab teatud matemaatilisi omadusi.
+Selleks määratakse andmevooanalüüsiga programmi võimalikud seisundid, mida vaadeldakse ligikaudselt ja mis moodustavad abstraktse domeeni. Teostatav analüüs on abstraktse interpretatsiooni teooria kohaselt korrektne (\ingl{sound}), kui kasutatav domeen rahuldab teatud matemaatilisi omadusi.
 % \TODO{One sentence clearly stating the general problem being addressed by this particular study.}
 Staatilise analüsaatori implementeerimisel võib juhtuda, et domeenides esineb vigu, mis rikuvad analüüsi ja selle korrektsuse.
 % \TODO{One sentence summarising the main result (with the words ``here we show´´ or their equivalent).}
 Töös koostatakse omaduste komplekt, mida kasutatakse Goblint analüsaatorist omaduspõhise testimise abil vigade leidmiseks.
 % \TODO{Two or three sentences explaining what the main result reveals in direct comparison to what was thought to be the case previously, or how the main result adds to previous knowledge.}
-Selleks implementeeritakse Goblintis vajalik domeenide testimise raamistik ja elementide generaatorid. Lõpuks viiakse läbi testimine ja esitatakse leitud vead.
+Selleks implementeeritakse Goblintis vajalik domeenide testimise raamistik ja elementide generaatorid. Lõpuks viiakse läbi testimine, tuvastatakse vead ja kirjeldatakse neid.
 % \TODO{One or two sentences to put the results into a more general context.}
 Sellega näidatakse, et omaduspõhist testimist on võimalik efektiivselt rakendada abstraktsetest domeenidest vigade leidmiseks.
 % \TODO{Two or three sentences to provide a broader perspective, readily comprehensible to a scientist in any discipline, may be included in the first paragraph if the editor considers that the accessibility of the paper is significantly enhanced by their inclusion.}
@@ -50,10 +50,10 @@ P170 Arvutiteadus, arvutusmeetodid, süsteemid, juhtimine (automaatjuhtimisteoor
 
 \noindent
 Static program analysis studies programs based on their source code, without executing them.
-Data-flow analysis determines a program's possible states, which are approximated and which make up an abstract domain. The analysis is sound according to the theory of abstract interpretation, if the domain satisfies certain mathematical properties.
+To achieve this, data-flow analysis determines a program's possible states, which are approximated and which make up an abstract domain. The analysis is sound according to the theory of abstract interpretation, if the domain satisfies certain mathematical properties.
 When implementing a static analyzer it may happen that the domains contain bugs, which ruin the analysis and its soundness.
 Here a set of properties is compiled, which are used to find bugs from the Goblint analyzer via property-based testing.
-For this the necessary domain testing framework and element generators are implemented in Goblint. Finally the testing is conducted and found issues presented.
+For this the necessary domain testing framework and element generators are implemented in Goblint. Finally the testing is conducted, issues identified and described.
 This shows that property-based testing can effectively be used to find bugs from abstract domains.
 
 \vspace*{1ex}
