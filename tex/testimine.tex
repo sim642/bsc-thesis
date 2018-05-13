@@ -97,7 +97,7 @@ Tervikliku domeeni elementide genereerimiseks oleks kaudselt vaja genereerida el
 See lähenemine võimaldab kasutada analüüsitavast programmist leitud muutujaid, funktsioone vms nende domeenide generaatorites, mis vastavate konkreetsete ja keerukamate elementidega opereerivad.
 
 \paragraph{Käivitamine}
-Selliseks testimiseks lisati Goblinti käsurealippude hulka uus nimega \texttt{dbg.test.domain}. Kui see on sisse lülitatud, siis enne etteantud programmi analüüsimist jooksutatakse analüüsiks kasutataval domeenil\footnote{Täpsemalt \enquote{domeenidel}: Goblint kasutab analüüsis kahte erinevat domeeni, n-ö lokaalset ja globaalset.} samad testid. Goblinti näidiskäivitus koos selle lipuga toimub järgneva käsuga:
+Selliseks testimiseks lisati Goblinti käsurealippude hulka uus nimega \texttt{dbg.test.domain}. Kui see on sisse lülitatud, siis enne etteantud programmi analüüsimist jooksutatakse analüüsiks kasutataval domeenil\footnote{Täpsemalt \enquote{domeenidel}: Goblint kasutab analüüsis kahte erinevat domeeni, n-ö lokaalset ja globaalset.} samad testid. Goblinti näidiskäivitus pärast tavapärast kompileerimist (käsuga \texttt{make}) koos selle lipuga toimub järgneva käsuga:
 \begin{minted}{bash}
 	./goblint --enable dbg.test.domain \
 	    ./tests/regression/04-mutex/01-simple_rc.c
@@ -218,6 +218,15 @@ Mitmete domeenide ja omaduste testimisel selgus nende mittekehtivus. Detailsem �
 	\[
 		a = \{\texttt{enums:} \top\},\quad b = \{\},\quad c = \{\texttt{enums:} \bot\}. % (enums:top, , enums:bot)
 	\]
+
+	\item Terve analüüsi domeeni testimisel leiti, et sellel ei kehti teadmata põhjustel 12 omadust, mille kontranäited on liiga mahukad ja arvukad, et siin eraldi välja tuua:
+	\begin{enumerate}[nosep]
+		\item osalise järjestuse antisümmeetrilisus (testis \enquote{leq antisym}),
+		\item kolm ülemraja omadust (testides \enquote{join assoc}, \enquote{join idem}, \enquote{join abs}),
+		\item neli alamraja omadust (testides \enquote{meet leq}, \enquote{meet assoc}, \enquote{meet idem}, \enquote{meet abs}),
+		\item mõlemad järjestuse ja rajade vahelised ekvivalentsused (testides \enquote{connect join}, \enquote{connect meet}),
+		\item mõlemad kitsendamise operaatori omadused (testides \enquote{narrow meet}, \enquote{narrow fst}).
+	\end{enumerate}
 \end{enumerate}
 Tehtud ülevaatest on näha, et omaduste mittekehtimisel võib olla erinevaid põhjuseid:
 \begin{enumerate}[nosep]
