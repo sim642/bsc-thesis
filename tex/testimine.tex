@@ -208,8 +208,10 @@ Mitmete domeenide ja omaduste testimisel selgus nende mittekehtivus. Detailsem �
 	\[
 		a = 0,\quad b = 1,\quad c = \texttt{Not \{3\}([-63,63])}. % (0, 1, Not {3}([-63,63]))
 	\]
-	Probleemi tuumaks on asjaolu, et kahe erineva konkreetse väärtuse ülemraja leidmisel unustatakse täielikult algsed väärtused, kuid väärtuse ja välistushulga ülemraja leidmisel mitte. Viga on teoorias, mitte implementatsioonis. Ülemraja mitteassotsiatiivne olemine rikub ka 11 abstraktsiooni korrektsusega seotud omadust.
+	Probleemi tuumaks on asjaolu, et kahe erineva konkreetse väärtuse ülemraja leidmisel unustatakse täielikult algsed väärtused, kuid väärtuse ja välistushulga ülemraja leidmisel mitte.
+	See viga ei ole implementatsioonis, vaid juba domeeni enda disainis. Kuna tegemist on ühe Goblintis vaikimisi kasutatava domeeniga, siis suhtuvad Goblinti arendajad leitud fundamentaalsesse probleemi väga tõsiselt. Mitteassotsiatiivsete tehetega domeenide mõju analüüsile on uuritud~\cite{nonlattice_domains}, kuid Goblinti autorid peavad nüüd lisaks välja selgitama, kuidas konkreetsed Goblintis kasutusel olevad püsipunktialgoritmid~\cite{goblint_algo} mitteassotsiatiivsuse korral käituvad.
 
+	Ülemraja mitteassotsiatiivne olemine rikub ka 11 abstraktsiooni korrektsusega seotud omadust.
 	Väga sarnase struktuuriga domeen \texttt{Enums}, mille elementideks on konkreetsete täisarvude hulgad ja välistatud täisarvude hulgad, seda omadust ei riku.
 
 	\item Domeen \texttt{IntDomTuple} sisuliselt moodustub nelja lihtsama domeeni valikulisest otsekorrutisest, nagu näidatud lisas~\ref{app:goblint-domeenid}. Kui mingi omadus ei kehti selle mingis komponendis, siis põhjustab see kaudselt ka selle mittekehtimise \texttt{IntDomTuple} domeenil. Kuna komponentdomeenid pole veatud, siis pole kindel, kas \texttt{IntDomTuple} ise sisaldab vigu domeenide kokku panemisel või mitte. Kokku ei kehti sellel 20 omadust, millest 11 on seotud abstraktsiooni korrektsusega, mille testimiseks vajalik ülemraja assotsiatiivsus on samuti rikutud.
