@@ -31,10 +31,12 @@ addons:
 script:
   - latexmk -pdf -halt-on-error thesis.tex
   # - latexmk -output-directory=build -aux-directory=build -pdf -halt-on-error thesis.tex
+  - latexmk -pdf -halt-on-error defence.tex
 
 before_deploy:
   - mkdir pages
   - cp build/thesis.pdf pages/
+  - cp build/defence.pdf pages/
 
 deploy:
   provider: pages
