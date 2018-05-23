@@ -7,6 +7,16 @@
 
 \usepackage[english, estonian]{babel} %the thesis is in Estonian
 
+% widen, narrow - https://tex.stackexchange.com/a/203931, https://tex.stackexchange.com/q/50057
+% this looks weird with partially thicker overlapping lines...
+\usepackage{scalerel}
+\def\widen{\mathrel{\ThisStyle{\stretchrel*{\ooalign{%
+  \raise0.2\LMex\hbox{$\SavedStyle\sqcup$}\cr%
+  \raise-0.2\LMex\hbox{$\SavedStyle\sqcup$}}}{\sqcup}}}}
+\def\narrow{\mathrel{\ThisStyle{\stretchrel*{\ooalign{%
+  \raise0.2\LMex\hbox{$\SavedStyle\sqcap$}\cr%
+  \raise-0.2\LMex\hbox{$\SavedStyle\sqcap$}}}{\sqcap}}}}
+
 \usepackage[outputdir=build]{minted}
 \setminted{
 	autogobble=true,
@@ -235,7 +245,70 @@ Olgu $\mathbb{D}$ täielik võre, siis iga $a, b, c \in \mathbb{D}$ korral:
 \end{frame}
 
 \section{Goblint analüsaator}
-\frame{}
+\begin{frame}{Omaduspõhine testimine ja Goblint analüsaator}
+\begin{columns}[t]
+	\begin{column}<+->{0.5\textwidth}
+		Omaduspõhine testimine:
+		\begin{itemize}
+			\item QuickCheck
+			\item Hea matemaatiliste tingimuste kontrollimiseks
+			\item Omadused --- predikaadid
+			\item Generaatorid --- juhuslikud
+		\end{itemize}
+	\end{column}
+
+	\begin{column}<+->{0.5\textwidth}
+		Goblint analüsaator:
+		\begin{itemize}
+			\item Mitmelõimelised C programmid
+			\item Kirjutatud OCaml-is
+		\end{itemize}
+	\end{column}
+\end{columns}
+
+\end{frame}
+
+\begin{frame}[fragile]{Goblinti domeeni signatuur}
+	\centering
+	\begin{bminted}[mathescape]{ocaml}
+		module type S =
+		sig
+		  type t (* domeeni elementide tüüp *)
+		  val equal: t -> t -> bool (* seos $=$ *)
+		  val leq: t -> t -> bool (* seos $\sqleq$ *)
+		  val join: t -> t -> t (* tehe $\sqcup$ *)
+		  val meet: t -> t -> t (* tehe $\sqcap$ *)
+		  val bot: unit -> t (* element $\bot$ *)
+		  val is_bot: t -> bool
+		  val top: unit -> t (* element $\top$ *)
+		  val is_top: t -> bool
+		  val widen: t -> t -> t (* tehe $\widen$ *)
+		  val narrow: t -> t -> t (* tehe $\narrow$ *)
+		end
+	\end{bminted}
+
+\end{frame}
+
+\begin{frame}[fragile]{Goblinti täiendamine}
+\begin{itemize}
+	\item Domeenidesse generaatorid:
+	\begin{minted}{ocaml}
+		val arbitrary: unit -> t QCheck.arbitrary
+	\end{minted}
+
+	\item Kõik omadused omaduspõhiste testidena
+	\begin{itemize}
+		\item Näiteks ülemraja kommutatiivsus:
+		\begin{minted}{ocaml}
+		let join_comm = make ~name:"join comm" (pair arb arb)
+		      (fun (a, b) -> D.equal (D.join a b) (D.join b a))
+		\end{minted}
+
+		\item \texttt{D} testitav domeen
+		\item \texttt{arb} selle generaator
+	\end{itemize}
+\end{itemize}
+\end{frame}
 
 \section{Testimise tulemused}
 \frame{}
