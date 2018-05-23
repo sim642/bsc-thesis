@@ -29,6 +29,7 @@
 
 
 \input{mymacros}
+\newcommand{\emptycolumn}[1]{\begin{column}{#1}\end{column}} % beamer columns must be manually padded to center...
 
 
 \title[Domeenide testimine]{\mytitle}
@@ -84,6 +85,7 @@
 
 \begin{frame}[fragile]{Näidisanalüüs}
 \begin{columns}
+	\emptycolumn{0.05\textwidth}
 	\begin{column}{0.4\textwidth}
 		\centering
 		\begin{bminted}{c}
@@ -92,7 +94,9 @@
 				x++;
 		\end{bminted}
 	\end{column}
-	\begin{column}{0.6\textwidth}
+	\begin{column}{0.5\textwidth}
+		\visible<2->{\alert{Muutuja \texttt{x} väärtus}}
+
 		\centering
 		\begin{tikzpicture}[
 			->,>=stealth,
@@ -114,6 +118,7 @@
 				(3) edge[bend right] node[stmt,below right,very near start] {x++} (2);
 		\end{tikzpicture}
 	\end{column}
+	\emptycolumn{0.05\textwidth}
 \end{columns}
 \end{frame}
 
