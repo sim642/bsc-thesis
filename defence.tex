@@ -342,6 +342,29 @@ Erindi tekkimise ja mittekehtimisel põhjuseid:
 \end{enumerate}
 \end{frame}
 
+\begin{frame}{Trieri domeen}
+\begin{itemize}
+	\item Goblintis vaikimisi kasutusel
+	\item Elemendid:
+	\begin{itemize}
+		\item Üksikud täisarvud
+		\item Välistatud täisarvude hulgad (\textit{exclusion set})
+	\end{itemize}
+
+	\pause
+	\item Mittekehtiv ülemraja assotsiatiivsus
+	\[
+		(a \sqcup b) \sqcup c = a \sqcup (b \sqcup c)
+	\]
+	näiteks argumentidel
+	\[
+		a = 0,\quad b = 1,\quad c = \texttt{Not \{3\}([-63,63])} % (0, 1, Not {3}([-63,63]))
+	\]
+
+	\item \alert{Viga domeeni disainis}
+\end{itemize}
+\end{frame}
+
 \section{Kokkuvõte}
 \frame{}
 
