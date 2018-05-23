@@ -17,6 +17,9 @@
   \raise0.2\LMex\hbox{$\SavedStyle\sqcap$}\cr%
   \raise-0.2\LMex\hbox{$\SavedStyle\sqcap$}}}{\sqcap}}}}
 
+\usepackage{tabu}   % Wide lines in tables
+\usepackage{multirow}
+
 \usepackage[outputdir=build]{minted}
 \setminted{
 	autogobble=true,
@@ -311,7 +314,33 @@ Olgu $\mathbb{D}$ täielik võre, siis iga $a, b, c \in \mathbb{D}$ korral:
 \end{frame}
 
 \section{Testimise tulemused}
-\frame{}
+\begin{frame}{Ülevaatlikud tulemused}
+\begin{center}
+	\begin{tabu}{cc|ccc}
+	\hline
+	& & \multicolumn{3}{c}{Testide arv} \\
+	Lähenemine & Võrdlemine & Kokku & Erindi teke & Mittekehtivad \\
+	\hline
+	\multirow{2}{*}{Alt üles} & \texttt{equal} & 468 & \presim 35 & \presim 75 \\
+	%\cline{2-5}
+	& \texttt{leq} & 468 & \presim 35 & \presim 69 \\
+	\hline
+	\multirow{2}{*}{Ülalt alla} & \texttt{equal} & 27 & 0 & \presim 12 \\
+	%\cline{2-5}
+	& \texttt{leq} & 27 & 0 & \presim 12 \\
+	\hline
+	\end{tabu}
+\end{center}
+
+\pause
+Erindi tekkimise ja mittekehtimisel põhjuseid:
+\begin{enumerate}
+	\item Viga domeeni implementeerimisel
+	\item Mittekehtimine teoreetilisel tasandil
+	\item Teadlik ja dokumenteeritud mittekehtimine
+	\item Sõltumine teistest probleemsetest omadustest/domeenidest
+\end{enumerate}
+\end{frame}
 
 \section{Kokkuvõte}
 \frame{}
