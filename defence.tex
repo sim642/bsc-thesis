@@ -27,6 +27,8 @@
 \renewcommand<>{\emph}[1]{{\only#2{\em}#1}} % https://tex.stackexchange.com/a/274385
 \renewcommand{\em}{\bfseries} % always bold emphasis
 
+\usepackage{comment}
+
 
 \input{mymacros}
 \newcommand{\emptycolumn}[1]{\begin{column}{#1}\end{column}} % beamer columns must be manually padded to center...
@@ -136,6 +138,75 @@
 		\item Vähim element $\bot$
 	\end{itemize}
 %\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Domeenide omadused}
+Olgu $\mathbb{D}$ täielik võre, siis iga $a, b, c \in \mathbb{D}$ korral:
+
+\begin{columns}[onlytextwidth]
+	\begin{column}{0.6\textwidth}
+		%\paragraph{Osalise järjestuse omadused}
+		\begin{itemize}[<2->]
+			\item $a \sqleq a$
+			\item kui $a \sqleq b$ ja $b \sqleq c$, siis $a \sqleq c$
+			\item kui $a \sqleq b$ ja $b \sqleq a$, siis $a = b$
+		\end{itemize}
+
+		%\paragraph{Rajade omadused}
+		\begin{itemize}[<3->]
+			\item $a \sqleq a \sqcup b$ ja $b \sqleq a \sqcup b$
+			\item $a \sqcap b \sqleq a$ ja $a \sqcap b \sqleq b$
+			\item kui $a \sqleq c$ ja $b \sqleq c$, siis $a \sqcup b \sqleq c$
+			\item kui $c \sqleq a$ ja $c \sqleq b$, siis $c \sqleq a \sqcap b$
+		\end{itemize}
+	\end{column}
+
+	\begin{column}{0.4\textwidth}
+		%\paragraph{Vähima ja suurima elemendi omadused}
+		\begin{itemize}[<5->]
+			\item $\bot \sqleq a$
+			\item $a \sqleq \top$
+			\item $a \sqcup \bot = a$
+			\item $a \sqcap \top = a$
+		\end{itemize}
+
+		%\paragraph{Järjestuse ja rajade tehete seosed}
+		\visible<6->{Samaväärsed:}
+		\begin{enumerate}[<6->]
+			\item $a \sqleq b$
+			\item $a \sqcup b = b$
+			\item $a \sqcap b = a$
+		\end{enumerate}
+	\end{column}
+\end{columns}
+
+%\paragraph{Rajade tehete omadused}
+\begin{comment}
+\begin{itemize}
+	\item $(a \sqcup b) \sqcup c = a \sqcup (b \sqcup c)$ ja $(a \sqcap b) \sqcap c = a \sqcap (b \sqcap c)$
+	\item $a \sqcup b = b \sqcup a$ ja $a \sqcap b = b \sqcap a$
+	\item $a \sqcup a = a$ ja $a \sqcap a = a$
+	\item $a \sqcup (a \sqcap b) = a$ ja $a \sqcap (a \sqcup b) = a$
+\end{itemize}
+\end{comment}
+\begin{columns}[onlytextwidth]
+	\begin{column}{0.5\textwidth}
+		\begin{itemize}[<4->]
+			\item $(a \sqcup b) \sqcup c = a \sqcup (b \sqcup c)$
+			\item $a \sqcup b = b \sqcup a$
+			\item $a \sqcup a = a$
+			\item $a \sqcup (a \sqcap b) = a$
+		\end{itemize}
+	\end{column}
+	\begin{column}{0.5\textwidth}
+		\begin{itemize}[<4->]
+			\item $(a \sqcap b) \sqcap c = a \sqcap (b \sqcap c)$
+			\item $a \sqcap b = b \sqcap a$
+			\item $a \sqcap a = a$
+			\item $a \sqcap (a \sqcup b) = a$
+		\end{itemize}
+	\end{column}
+\end{columns}
 \end{frame}
 
 \section{Goblint analüsaator}
