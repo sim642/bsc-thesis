@@ -3,7 +3,26 @@
 % copy-paste from mystyle...
 \usepackage[utf8]{inputenc}
 
+\usepackage{inconsolata} %nicer font for code listings. (Use \ttfamily for lstinline bastype)
+
 \usepackage[english, estonian]{babel} %the thesis is in Estonian
+
+\usepackage[outputdir=build]{minted}
+\setminted{
+	autogobble=true,
+	tabsize=4
+}
+% \RecustomVerbatimEnvironment{Verbatim}{BVerbatim}{} % center all minted - https://tex.stackexchange.com/a/161128
+\usepackage{xpatch,letltxmacro}
+\LetLtxMacro{\bminted}{\minted}
+\let\endbminted\endminted
+\xpretocmd{\bminted}{\RecustomVerbatimEnvironment{Verbatim}{BVerbatim}{}}{}{}
+% BVerbatim removes margins (https://tex.stackexchange.com/q/142444) and doesn't support frame
+
+% If you really want to draw figures in LaTeX use packages tikz or pstricks
+% However, getting a corresponding illustrations is really painful
+\usepackage{tikz}
+\usetikzlibrary{positioning,automata,arrows,fit,calc}
 
 \renewcommand<>{\emph}[1]{{\only#2{\em}#1}} % https://tex.stackexchange.com/a/274385
 \renewcommand{\em}{\bfseries} % always bold emphasis
@@ -61,6 +80,41 @@
 		\item $\top = [-\infty, +\infty]$
 	\end{itemize}
 \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Näidisanalüüs}
+\begin{columns}
+	\begin{column}{0.4\textwidth}
+		\centering
+		\begin{bminted}{c}
+			int x = 0;
+			while (x < 100)
+				x++;
+		\end{bminted}
+	\end{column}
+	\begin{column}{0.6\textwidth}
+		\centering
+		\begin{tikzpicture}[
+			->,>=stealth,
+			node distance=0.75cm,
+			every state/.style={inner sep=3pt, minimum size=0pt},
+			stmt/.style={font=\ttfamily},
+			initial text={},
+			initial where=above
+		]
+			\node[initial,state,label=right:{{\visible<2->{\alert{$\bot$}}}}] (1) {1};
+			\node[state,label={[yshift=0.2cm]right:{{\visible<2->{\alert{$[0, 100]$}}}}}] (2) [below=of 1] {2};
+			\node[state,label=left:{{\visible<2->{\alert{$[0, 99]$}}}}] (3) [below left=of 2] {3};
+			\node[accepting,state,label=right:{{\visible<2->{\alert{$[100, 100]$}}}}] (4) [below right=of 2] {4};
+
+			\path
+				(1) edge node[stmt,right] {x = 0} (2)
+				(2) edge[bend right] node[stmt,above left,near start] {x < 100} (3)
+				    edge node[stmt,above right] {x >= 100} (4)
+				(3) edge[bend right] node[stmt,below right,very near start] {x++} (2);
+		\end{tikzpicture}
+	\end{column}
+\end{columns}
 \end{frame}
 
 \section{Teoreetiline taust}
