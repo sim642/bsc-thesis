@@ -44,6 +44,12 @@
 
 \usepackage{appendixnumberbeamer}
 
+\usepackage{pifont}
+\DeclareUnicodeCharacter{2713}{\ding{51}}
+\DeclareUnicodeCharacter{2717}{\hspace{1pt}\ding{55}\hspace{1pt}} % TODO: fucking hack
+
+\usepackage{xcolor}
+
 
 \input{mymacros}
 \newcommand{\emptycolumn}[1]{\begin{column}{#1}\end{column}} % beamer columns must be manually padded to center...
@@ -314,6 +320,29 @@ Olgu $\mathbb{D}$ täielik võre, siis iga $a, b, c \in \mathbb{D}$ korral:
 		\item \texttt{arb} selle generaator
 	\end{itemize}
 \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{QCheck'i väljund}
+%\centering
+\begin{Verbatim}[commandchars=\\\{\}]
+...
+[\textcolor{green}{✓}]  300    0    0   10 /  100     0.0s trier: leq trans
+[\textcolor{green}{✓}]  300    0    0    1 /  100     0.0s trier: leq antisym
+[\textcolor{green}{✓}]  100    0    0  100 /  100     0.0s trier: join leq
+[\textcolor{red}{✗}]    2    0    1    1 /  100     0.0s trier: join assoc
+[\textcolor{green}{✓}]  100    0    0  100 /  100     0.0s trier: join comm
+[\textcolor{green}{✓}]  100    0    0  100 /  100     0.0s trier: join idem
+[\textcolor{green}{✓}]  100    0    0  100 /  100     0.0s trier: join abs
+...
+\end{Verbatim}
+\vspace{1ex}
+\begin{Verbatim}[commandchars=\\\{\}]
+--- \textcolor{red}{Failure} --------------------------------------------------
+
+Test trier: join assoc failed (91 shrink steps):
+
+(0, 1, Not \{3\}([-63,63]))
+\end{Verbatim}
 \end{frame}
 
 \section{Testimise tulemused}
