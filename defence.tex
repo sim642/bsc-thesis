@@ -311,7 +311,7 @@ Olgu $\mathbb{D}$ täielik võre, siis iga $a, b, c \in \mathbb{D}$ korral:
 
 	\item Kõik omadused omaduspõhiste testidena
 	\begin{itemize}
-		\item Näiteks ülemraja kommutatiivsus:
+		\item Näiteks ülemraja kommutatiivsus ($a \sqcup b = b \sqcup a$):
 		\begin{minted}{ocaml}
 		let join_comm = make ~name:"join comm" (pair arb arb)
 		      (fun (a, b) -> D.equal (D.join a b) (D.join b a))
