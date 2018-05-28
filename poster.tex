@@ -1,0 +1,281 @@
+\documentclass{beamer}
+
+
+% copy-paste from mystyle...
+\usepackage[utf8]{inputenc}
+
+\usepackage{inconsolata} %nicer font for code listings. (Use \ttfamily for lstinline bastype)
+
+\usepackage[english, estonian]{babel} %the thesis is in Estonian
+
+% widen, narrow - https://tex.stackexchange.com/a/203931, https://tex.stackexchange.com/q/50057
+% this looks weird with partially thicker overlapping lines...
+\usepackage{scalerel}
+\def\widen{\mathrel{\ThisStyle{\stretchrel*{\ooalign{%
+  \raise0.2\LMex\hbox{$\SavedStyle\sqcup$}\cr%
+  \raise-0.2\LMex\hbox{$\SavedStyle\sqcup$}}}{\sqcup}}}}
+\def\narrow{\mathrel{\ThisStyle{\stretchrel*{\ooalign{%
+  \raise0.2\LMex\hbox{$\SavedStyle\sqcap$}\cr%
+  \raise-0.2\LMex\hbox{$\SavedStyle\sqcap$}}}{\sqcap}}}}
+
+\usepackage{tabu}   % Wide lines in tables
+\usepackage{multirow}
+
+\usepackage[outputdir=build]{minted}
+\setminted{
+	autogobble=true,
+	tabsize=4
+}
+% \RecustomVerbatimEnvironment{Verbatim}{BVerbatim}{} % center all minted - https://tex.stackexchange.com/a/161128
+\usepackage{xpatch,letltxmacro}
+\LetLtxMacro{\bminted}{\minted}
+\let\endbminted\endminted
+\xpretocmd{\bminted}{\RecustomVerbatimEnvironment{Verbatim}{BVerbatim}{}}{}{}
+% BVerbatim removes margins (https://tex.stackexchange.com/q/142444) and doesn't support frame
+
+% If you really want to draw figures in LaTeX use packages tikz or pstricks
+% However, getting a corresponding illustrations is really painful
+\usepackage{tikz}
+\usetikzlibrary{positioning,automata,arrows,fit,calc}
+
+\renewcommand<>{\emph}[1]{{\only#2{\em}#1}} % https://tex.stackexchange.com/a/274385
+\renewcommand{\em}{\bfseries} % always bold emphasis
+
+\usepackage{comment}
+
+\usepackage{appendixnumberbeamer}
+
+\usepackage{pifont}
+\DeclareUnicodeCharacter{2713}{\ding{51}}
+\DeclareUnicodeCharacter{2717}{\hspace{1pt}\ding{55}\hspace{1pt}} % TODO: fucking hack
+
+\usepackage{xcolor}
+
+
+\input{mymacros}
+\newcommand{\emptycolumn}[1]{\begin{column}{#1}\end{column}} % beamer columns must be manually padded to center...
+
+
+\title[Domeenide testimine]{\mytitle}
+\subtitle[]{Bakalaureusetöö}
+\author{\myauthor}
+\institute[]{Tartu Ülikool, arvutiteaduse instituut}
+\date{Juuni, 2018} % TODO täpne kuupäev
+
+\usetheme{Madrid}
+
+\usepackage[orientation=portrait,size=a3,scale=1.75,debug]{beamerposter}
+
+\begin{document}
+
+\begin{frame}[fragile]
+\maketitle
+
+\vspace{-5ex}
+
+\begin{columns}[t]
+	\begin{column}{0.5\textwidth}
+		\begin{block}{Staatiline programmianalüüs}
+			\begin{itemize}
+				\item Staatilise analüüsiga uuritakse programme ilma neid käivitamata. See võimaldab otsida vigu või tõestada teatud vigade puudumist.
+				
+				\item Üks võimalus on abstraktse interpretatsiooniga ligikaudsete programmi seisundite määramine. Vastav teooria garanteerib analüüsi korrektsuse (\ingl{sound}).
+				
+				\item Analüsaatorites endis esineb vigu, mistõttu tehtavad analüüsid ja nende korrektsus on rikutud.
+			\end{itemize}
+		\end{block}
+		
+		\begin{alertblock}{Eesmärk}
+			Goblint analüsaatori
+			\begin{itemize}
+				\item Domeenide omaduspõhine testimine
+				\item Vigade tuvastamine
+			\end{itemize}
+		\end{alertblock}
+	\end{column}
+	
+	\begin{column}{0.4\textwidth}
+		\begin{block}{Intervallid}
+			\begin{itemize}
+				\item Täisarvude staatiliseks analüüsiks saab kasutada \emph{intervalle}
+				\begin{itemize}
+					\item Näiteks $[0, 3],\; [-1, 5],\; [2, 2],\; [1, +\infty],\; [-\infty, +\infty]$
+				\end{itemize}
+			
+				\item Aritmeetilised tehted intervallidel
+				\begin{itemize}
+					\item Näiteks liitmine $[0, 3] + [-1, 5] = [-1, 8]$
+				\end{itemize}
+			
+				\item Osalise järjestuse seos sisalduvuse kaudu
+				\begin{itemize}
+					\item Näiteks $[2, 2] \sqleq [0, 3] \sqleq [-1, 5] \sqleq [-\infty, +\infty]$
+					\item Kokkuleppeliselt väiksem tähendab täpsemat
+				\end{itemize}
+			
+				\item Ühendamise tehe ühendi kaudu
+				\begin{itemize}
+					\item Näiteks $[0, 3] \sqcup [5, 7] = [0, 7]$
+				\end{itemize}
+			
+				\item Suurim intervall
+				\begin{itemize}
+					\item $\top = [-\infty, +\infty]$
+				\end{itemize}
+			\end{itemize}
+		\end{block}
+	\end{column}
+\end{columns}
+
+\begin{columns}[t]
+	\begin{column}{0.5\textwidth}
+		\begin{block}{Näidisanalüüs intervallidega}
+			\begin{columns}
+				\emptycolumn{0.05\textwidth}
+				\begin{column}{0.4\textwidth}
+					\centering
+					\begin{bminted}{c}
+						int x = 0;
+						while (x < 100)
+							x++;
+					\end{bminted}
+				\end{column}
+				\begin{column}{0.5\textwidth}
+					\alert{Muutuja \texttt{x} väärtus}
+			
+					\centering
+					\begin{tikzpicture}[
+						->,>=stealth,
+						node distance=0.75cm,
+						every state/.style={inner sep=3pt, minimum size=0pt},
+						stmt/.style={font=\ttfamily},
+						initial text={},
+						initial where=above
+					]
+						\node[initial,state,label=right:{{{\alert{$\bot$}}}}] (1) {1};
+						\node[state,label={[yshift=0.3cm]right:{{{\alert{$[0, 100]$}}}}}] (2) [below=of 1] {2};
+						\node[state,label=left:{{{\alert{$[0, 99]$}}}}] (3) [below left=of 2] {3};
+						\node[accepting,state,label=right:{{{\alert{$[100, 100]$}}}}] (4) [below right=of 2] {4};
+			
+						\path
+							(1) edge node[stmt,right] {x = 0} (2)
+							(2) edge[bend right] node[stmt,above left,near start] {x < 100} (3)
+							    edge node[stmt,above right] {x >= 100} (4)
+							(3) edge[bend right] node[stmt,below right,very near start] {x++} (2);
+					\end{tikzpicture}
+				\end{column}
+				\emptycolumn{0.05\textwidth}
+			\end{columns}
+		\end{block}
+	\end{column}
+	
+	\begin{column}{0.4\textwidth}
+		\begin{block}{Täielikud võred}
+			Domeen (võimalike väärtuste hulk) peab moodustama \emph{täieliku võre}:
+			\begin{itemize}
+				\item Elementide hulk $\mathbb{D}$
+				\item Osalise järjestuse seos $\sqleq$
+				\item Ülemise raja tehe $\sqcup$
+				\item Alumise raja tehe $\sqcap$
+				\item Suurim element $\top$
+				\item Vähim element $\bot$
+			\end{itemize}
+		\end{block}
+	\end{column}
+\end{columns}
+
+\begin{columns}[t]
+	\begin{column}{0.25\textwidth}
+		\begin{block}{Omaduspõhine testimine}
+			\begin{itemize}
+				\item Haskellis QuickCheck
+				\item Hea matemaatiliste tingimuste kontrollimiseks
+				\item Omadused --- predikaadid
+				\item Generaatorid --- juhuslikud elemendid
+			\end{itemize}
+		\end{block}
+	\end{column}
+	
+	
+	\begin{column}{0.2\textwidth}
+		\begin{block}{Goblint analüsaator}
+			\begin{itemize}
+				\item TÜ, TUM
+				\item Mitmelõimelised C programmid
+				\item Andmejooksud
+				\item Kirjutatud OCaml-is
+			\end{itemize}
+		\end{block}
+	\end{column}
+	
+	\begin{column}{0.45\textwidth}
+		\begin{block}{Goblinti täiendused}
+		\begin{itemize}
+			\item Domeenidesse generaatorid
+		
+			\item Kõik omadused omaduspõhiste testidena
+			\item Näiteks ülemraja kommutatiivsus ($a \sqcup b = b \sqcup a$):
+			
+			\begin{minted}{ocaml}
+make ~name:"join comm" (pair arb arb)
+  (fun (a, b) ->
+    D.equal (D.join a b) (D.join b a))
+			\end{minted}
+	
+			kus \texttt{D} testitav domeen, \texttt{arb} selle generaator
+		\end{itemize}
+		\end{block}
+	\end{column}
+\end{columns}
+
+\begin{columns}[t]
+	\begin{column}{0.51\textwidth}
+		\begin{block}{Ülevaatlikud tulemused}
+			\begin{center}
+				\begin{tabu}{cc|ccc}
+				& & \multicolumn{3}{c}{Testide arv} \\
+				Lähenemine & Võrdlemine & Kokku & Erindi teke & Mittekehtivad \\
+				\hline
+				\multirow{2}{*}{Alt üles} & \texttt{equal} & 468 & \presim 35 & \presim 75 \\
+				%\cline{2-5}
+				& \texttt{leq} & 468 & \presim 35 & \presim 69 \\
+				\hline
+				\multirow{2}{*}{Ülalt alla} & \texttt{equal} & 27 & 0 & \presim 12 \\
+				%\cline{2-5}
+				& \texttt{leq} & 27 & 0 & \presim 12
+				\end{tabu}
+			\end{center}
+		\end{block}
+	\end{column}
+	
+	\begin{column}{0.4\textwidth}
+		\begin{block}{Erindi tekkimise ja mittekehtimisel põhjuseid}
+			\begin{enumerate}
+				\item Viga domeeni implementeerimisel
+				\item Mittekehtimine teoreetilisel tasandil
+				\item Teadlik ja dokumenteeritud mittekehtimine
+				\item Sõltumine teistest probleemsetest omadustest/domeenidest
+			\end{enumerate}
+		\end{block}
+	\end{column}
+\end{columns}
+
+\begin{columns}[t]
+	\begin{column}{0.51\textwidth}
+		\begin{block}{Trieri domeen}
+			Trieri domeen on Goblintis vaikimisi kasutusel, kuid testimisel leiti selle disainist funamentaalne viga: ülemraja tehe pole assotsiatiivne.
+			
+			Goblinti arendajad võtavad leitut väga tõsiselt.
+		\end{block}
+	\end{column}
+	
+	\begin{column}{0.4\textwidth}
+		\begin{alertblock}{Järeldus}
+			Omaduspõhist testimist on võimalik efektiivselt rakendada abstraktsetest domeenidest vigade leidmiseks.
+		\end{alertblock}
+	\end{column}
+\end{columns}
+
+\end{frame}
+
+\end{document}
