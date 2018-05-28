@@ -421,8 +421,56 @@ Tehtud:
 \end{frame}
 
 \appendix
-\begin{frame}{Lisa}
-Lisa
+\begin{frame}{Domeenide omadused (2)}
+\begin{columns}[t]
+	\begin{column}{0.4\textwidth}
+		Programmianalüüsis:
+		\begin{itemize}
+			\item Laiendamise tehe $\widen$
+			\begin{itemize}
+				\item $a \sqcup b \sqleq a \widen b$
+			\end{itemize}
+
+			\item Kitsendamise tehe $\narrow$
+			\begin{itemize}
+				\item $a \sqcap b \sqleq a \narrow b \sqleq a$
+			\end{itemize}
+		\end{itemize}
+	\end{column}
+
+	\begin{column}{0.6\textwidth}
+		Abstraktsiooni korrektsus:
+		\begin{itemize}
+			\item Abstraktsioonifunktsioon $\alpha: \mathbb{D}_1 \to \mathbb{D}_2$
+			\item kui $a \sqleq b$, siis $\alpha(a) \sqleq \alpha(b)$
+			\item $\alpha (f_1 (x_1)) \sqleq f_2 (\alpha (x_1))$
+			\begin{itemize}
+				\item $f_1$, $f_2$ vastavad monotoonsed tehted
+			\end{itemize}
+		\end{itemize}
+	\end{column}
+\end{columns}
+
+\vspace{3ex}
+\centering
+\begin{tikzpicture}[
+	on grid
+]
+	\node (x1) {$x_1$};
+	\node [right=4cm of x1] (f1x1) {$f_1(x_1)$};
+	\node [below=2.5cm of x1] (ax1) {$\alpha(x_1)$};
+	\node [right=4cm of ax1] (f2ax1) {$f_2(\alpha(x_1))$};
+	\node [above=1cm of f2ax1] (af1x1) {$\alpha(f_1(x_1))$};
+
+	\path[->]
+		(x1) edge node [above] {$f_1$} (f1x1)
+    edge node [left,pos=0.2] {$\alpha$} (ax1)
+		(f1x1) edge node [right,pos=0.4] {$\alpha$} (af1x1)
+		(ax1) edge node [below] {$f_2$} (f2ax1);
+	\path (af1x1) -- (f2ax1) node [midway,sloped] {$\sqleq$};
+
+	\path[draw=gray,dashed] ($(x1)+(-3cm,-0.9cm)$) to node [above,pos=0.05] {$\mathbb{D}_1$} node [below,pos=0.05] {$\mathbb{D}_2$} ($(f1x1)+(2cm,-0.9cm)$); % TODO better positioning
+\end{tikzpicture}
 \end{frame}
 
 \end{document}
