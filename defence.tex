@@ -473,4 +473,36 @@ Tehtud:
 \end{tikzpicture}
 \end{frame}
 
+\begin{frame}{Testitud täisarvude domeenid Goblintis}
+\centering
+\begin{tikzpicture}[
+	level distance=1.5cm,
+	sibling distance=1.75cm,
+	edge from parent/.style={draw,-latex},
+	on grid=true
+	%style={font=\ttfamily}
+]
+\node (IntDomTuple) {IntDomTuple}
+	child { node {Trier}
+		child { node {SetDomain}
+			child { node (Integers) {Integers} }
+		}
+		child { node (Interval32) {Interval32} }
+	}
+	child { node {} edge from parent [draw=none] }
+	child { node {CircInterval} }
+	child { node (Enums) {Enums} };
+\path[-latex] (IntDomTuple) edge (Interval32)
+	(Enums) edge (Integers)
+			edge (Interval32);
+\node[above=3cm of Integers,xshift=-1.75cm] (Flattened) {Flattened}
+	child { node (Flat) {Flat} };
+\node[left=1.75cm of Flattened] (Lifted) {Lifted}
+	child { node (Lift) {Lift} };
+\path[-latex] (Flat) edge (Integers)
+	(Lift) edge (Integers);
+\node[below=3cm of Enums] (Booleans) {Booleans};
+\end{tikzpicture}
+\end{frame}
+
 \end{document}
