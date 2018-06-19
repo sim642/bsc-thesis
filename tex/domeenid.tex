@@ -266,11 +266,11 @@ Joonise~\ref{fig:prog-if} programmi analüüsimisel oleks võrratuste ja võrran
 	\  \text{ja} \quad
 	\begin{cases}
 		x_1 = \imath \\
-		x_2 = \tf_{1,2}(x_1) = x_1[\texttt{x} \mapsto \{0, 1, 2\}] \\
 		\begin{aligned}
-		x_3 &= \tf_{2,3}(x_2) = \\
-		&= x_2[\texttt{x} \mapsto d(\texttt{x}) \cap \{0\}][\texttt{y} \mapsto \mathbb{Z}]
+		x_2 &= \tf_{1,2}(x_1) = \\
+		&= x_1[\texttt{x} \mapsto \{0, 1, 2\}][\texttt{y} \mapsto \mathbb{Z}]
 		\end{aligned} \\
+		x_3 = \tf_{2,3}(x_2) = x_2[\texttt{x} \mapsto d(\texttt{x}) \cap \{0\}] \\
 		x_4 = \tf_{2,4}(x_2) = x_2[\texttt{x} \mapsto d(\texttt{x}) \setminus \{0\}] \\
 		x_5 = \tf_{3,5}(x_3) = x_3[\texttt{y} \mapsto \{5\}] \\
 		x_6 = \tf_{4,6}(x_4) = x_4[\texttt{y} \mapsto d(\texttt{x}) + \{1\}] \\
